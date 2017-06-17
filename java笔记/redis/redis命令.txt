@@ -1,0 +1,23 @@
+redis 客户端的基本语法：
+	redis-cli
+在远程服务上执行命令:
+		redis-cli - h host -p port -a pssword
+
+redis keys 命令：
+	del key:该命令用于key存在时删除key
+	dump key:序列化给定key，并返回被序列化的值
+	exists key：检查给定key是否存在
+	expire key :为指定key设置过期时间
+redis 字符串命令：
+	set key value:设置指定key的值
+	get key：获取指定key的值
+	getrange key start end：返回key中字符串的子字符 索引(从0开始，首尾都包含)
+	geteset key value :将给定的值设为value,并返回key的旧值(old value).
+
+redis hash 命令：
+	hmset runoobkey name "redis tutorial" description "redis basic command for caching" likes 20 visitors 23000
+	
+	hset myhash field1 "foo1"; //设置 
+	hdel myhash field1; //删除
+	hexists myhash field1; //查看hash表中指定字段是否存在
+	

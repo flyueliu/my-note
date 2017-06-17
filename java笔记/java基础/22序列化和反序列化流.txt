@@ -1,0 +1,10 @@
+序列化流：把对象按照流一样的方式存入文本文件或在网络中传输。
+	ObjectOutputStream的构造方法：
+		1.ObjectOutputStream(OutputStream out):创建写入指定 OutputStream 的 ObjectOutputStream。
+	
+	ObjectInputStream的构造方法:
+		1.ObjectInputStream(InputStream in):创建从指定 InputStream 读取的 ObjectInputStream。
+
+注意：对于需要序列化和反序列化的类都必须实现Serializable接口(该接口属于标记接口，没有方法)。
+
+

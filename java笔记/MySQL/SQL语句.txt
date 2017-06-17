@@ -1,0 +1,35 @@
+mysql中的默认数据库：
+	information_schema --mysql云数据，基础数据
+
+
+5.1 查看所有表
+mysql> show tables;
++-----------------+
+| Tables_in_day15 |
++-----------------+
+| student         |
++-----------------+
+1 row in set (0.00 sec)
+
+5.2 创建表
+mysql> create table student (
+    -> sid  int ,
+    -> sname varchar(20) ,
+    -> sage int
+-> );
+Query OK, 0 rows affected (0.01 sec)
+
+5.3 查看表结构		
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int(11)     | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| sage  | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+5.4 删除表				
+mysql> drop table student;
+Query OK, 0 rows affected (0.01 sec)

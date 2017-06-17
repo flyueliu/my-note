@@ -1,0 +1,54 @@
+要点：
+	1.js中，函数也只是一个变量，通过这个变量加()来执行函数。
+	2.var a=show()，这个变量a只是接受了show()函数的返回值。而如果
+		var a=function show(){
+				alert("执行js");
+			};
+	这样时，变量a是成为了function类型的变量。a()才会执行函数。
+	3.如果变量如要点2中那样接受函数类型，那么声明函数时，函数名可以不用写。
+	如下：var a=function(){
+				alert("执行js");
+			};
+		a()也会执行函数。
+
+		
+
+以window.onload这个对象为例：
+	window.onload是一个在html页面加载完后会由浏览器自动执行的。
+	
+例1：如下js代码，这时候会在浏览器未加载页面时弹框显示"执行js"。
+
+<html>
+	<head>
+		<script>
+			function show(){
+				alert("执行js");
+			}
+			window.onload=show();
+		</script>
+	</head>
+	<body>
+		<p>页面内容</p>
+	</body>
+</html>
+
+例2：这时候会在浏览器加载完页面后弹框显示"执行js"
+<html>
+	<head>
+		<script>
+			function show(){
+				alert("执行js");
+			}
+			window.onload=function(){
+				show();
+			}
+		</script>
+	</head>
+	<body>
+		<p>页面内容</p>
+	</body>
+</html>
+
+这是因为在例1中，window.onload=show()只是接受show()方法的返回值，show方法由于加()而被执行，这时是优先于加载html内容。
+而在例2中。window.onload一开始只是被声明为一个函数类型，并没有被执行。
+而因为onload在加载完页面后会被浏览器自动执行的特性，因此在显示完html内容后，onload被执行，调用了内部show()方法。

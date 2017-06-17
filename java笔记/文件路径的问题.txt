@@ -1,0 +1,14 @@
+File中文件路径的问题：
+	项目名称:Demo1   类所在包：demo1
+	1.	File file=new File("1.png"); 	---当前工作目录下的：D:\Java_workspace\Demo1\1.png
+	2.	File file=new File("\\1.png");	---当前根目录下的：D:\1.png
+	3.	File file=new File("/1.png");	---同上
+	
+	
+classpath路径的问题：
+	使用Class.this.getResource("")来获取路径时，如果""中没用到"/",那么会在该.class文件所在包下去查找该资源文件
+	如果用到了"/"，那么会在这个项目的所有.class文件的根目录中查找。
+	举例：
+		如果该需要使用资源文件的class所在包是dao包，那么如果不用"/"，那么会在dao文件下查找该资源文件(注意是装*.class文件的dao文件夹)
+		用"/"时，会在dao的上一级文件夹中查找该资源文件。（一般都是bin文件夹）。
+	

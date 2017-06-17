@@ -1,0 +1,54 @@
+函数的四种形态：
+	函数形态：不绑定任何一个对象中，这时候属于Window对象。函数形态中this指的是Window对象
+	方法形态：绑定在一个对象中，这时候方法形态中的this指的是绑定到的对象。
+	
+	什么是绑定在对象中：
+		例1：
+			<script>
+				//这时候noBind没有绑定到任何对象中
+				var noBind=function(){
+					alert(this);//输出的是Window
+				}
+			</script>
+			
+		例2：
+			<script>
+
+				var noBind=function(){
+					alert(this);//
+				}
+				
+				var map={
+					key:noBind
+				}
+				//这时候由于noBind绑定在了map对象上，那么this就是值map对象。
+				map.key();
+				
+			</script>
+			
+		也可以:
+			<script>
+
+			var noBind=function(){
+				alert(this);//
+			}
+			
+			var map={
+				key:noBind
+			}
+			//将函数绑定到对象放在外面执行
+			map.key1=noBind;
+			map.key1();
+			
+		</script>
+
+		
+
+	
+	构造器形态：通过 new 函数名(参数1,参数2)，这种方式调用函数，这时候为构造器形态。
+		1.通过new创建了对象，并将对象在内存中的引用地址返回给函数，用this表示。并将this返回给函数。
+		2.如果函数的返回值不是一个对象类型(即键值对{})，那么忽略该返回值，并返回this。如果是对象类型，那么返回该对象、
+	
+	
+	
+	上下文形态:

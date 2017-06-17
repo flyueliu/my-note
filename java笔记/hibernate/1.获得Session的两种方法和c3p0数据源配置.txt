@@ -1,0 +1,24 @@
+1.OpenSession:
+	打开Session连接，但是需要手动关闭
+2.getCurrentSession:通过
+	获取当前连接：
+		1.需要在Hibernate.cfg.xml核心配置文件中配置当前session上下文：
+		<!-- 当前session上下文 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+	特性：
+		1.会将Session绑定到线程中，线程消亡时，该session会自动关闭。
+		2.session开启事务后，调用commit方法也会使得session关闭。
+		3.如果session未关闭，再次获取session时会直接从线程中获取之前的session。
+		
+2.Hibernate配置c3p0数据源：
+	<!-- 配置c3p0数据源 -->
+	<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+
+	<property name="hibernate.c3p0.max_size">10</property>
+	<property name="hibernate.c3p0.min_size ">4</property>
+	<!-- 连接耗尽时，同一时刻获取的数据连接数 -->
+	<property name="hibernate.c3p0.acquire_increment">2</property>
+	<!-- 连接在多长时间未使用后，就应该销毁 -->
+	<property name="hibernate.c3p0.timeout">5000</property>
+	<!-- 多长时间检测该连接是否有效 -->
+	<property name="hibernate.c3p0.idle_test_period ">4000</property>

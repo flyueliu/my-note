@@ -1,0 +1,42 @@
+1.applicationContext.xml文件的约束：
+	<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd" />
+
+2.<bean id="user" class="com.jky.entity.User" >
+	(1).对象默认都是单例的
+	(2).用scope属性指定对象是否为单例：
+		singleton为单例，在IOC容器初始化之前就创建了实例
+		prototype为多实例的，在new对象时就会创建一个对象。
+	(3)延迟创建
+		lazy-init属性：true，在用到对象时才会创建实例，默认为false(单例时设置才用效)
+		
+		
+		
+3.获得IOC容器中的bean对象
+	ApplicationContext ac=new ClassPathXmlApplicationContext("com/jky/entity/applicationContext.xml");
+	User user=(User)ac.getBean("user");
+
+4.创建对象的4种方式：
+	(1)构造方法创建实例：
+		<bean id="user" class="com.jky.entity.Uesr">
+			<constructor-arg index="0" value="name"></constructor-arg>
+		</bean>
+	index属性:构造方法的参数下标
+	value属性：属性值  也可用ref引用其余bean的值
+	(2)set方法注入
+		<bean id="user" class="com.jky.entity.User">
+			<property name="name" value="name">
+		</bean>
+	name属性:该类的字段的名称
+	value属性：属性值 也可用ref引用其余bean的值
+	(3)p名称空间：
+		<bean id="user" class="com.jky.entity.User" p:name="name"/>
+		简化代码，作用和set方法注入一样
+
+		
+	

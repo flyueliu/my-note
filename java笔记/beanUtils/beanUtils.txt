@@ -1,0 +1,85 @@
+1.beanUtils的主要作用：
+	读取字符串信息，然后将该信息方便的封装到一个对象中去。(减少了类型转换问题)
+	但是封装到的对象必须拥有set方法。
+
+2.所需要的jar包：
+	commons-beanutils-1.8.0.jar
+	commons-logging.jar
+	
+	
+	
+3.使用方法：
+	主要有两个方法：
+	方法一：
+		BeanUtils.setProperty(Object bean,String name,Object value);
+		//bean:需要设置属性的对象
+		//String name:属性名称
+		//Object value:属性值
+	
+	方法二：
+		ConvertUtils.register(Converter converter,Class clazz);
+		//对于自定义数据类型无法自动转换，需要注册一个类型转换器(如需要将"2016-08-22"转换为Date类型)
+		//Class clazz：被转换类数据的Class文件对象(Date的class文件对象,即Date.class)
+		//converter 转换器，是一个接口。
+		需要重写它的 public Object convert(Class type, Object value)方法。
+		该方法有两个参数：
+			Class type：目前遇到的数据类型（String）
+			Object value：目前参数的值。("2016-08-22")
+			返回值：需要的数据类型和值。(Date date)
+		public Object convert(Class type, Object value) {
+			SimpleDateFormat dateFormat=new SimpleDateFormat();
+			Date date=dateFormat.parse((String)value);
+			return date;
+		    }
+
+	
+	例一：
+	Person类：
+	
+	public class Person {
+	private int age;
+	private String name;
+	private double salary;
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	
+	public String toString() {
+		return "Person [age=" + age + ", name=" + name + ", salary=" + salary + "]";
+	}
+}
+
+测试类Demo1：通过如下代码能够将Person类的对象p设置属性值，而不需要考虑基本数据类型转换的问题。
+public class Demo1 {
+
+    public static void main(String[] args) throws Exception {
+	String age = "110";
+	String name = "chenqi";
+	String salary = "1000";
+	Person p = new Person();
+	BeanUtils.setProperty(p, "name", name);
+	BeanUtils.setProperty(p, "age", age);
+	BeanUtils.setProperty(p, "salary", salary);
+
+    }
+}
+
+	
+
+

@@ -1,0 +1,39 @@
+1.内置对象
+	9个内置对象
+类名	HttpServletRequest	内置对象名：request
+		HttpServletResponse				response
+		Session							session
+		ServletContext					application
+		ServletConfig					config
+		
+		
+		
+		Throwable						exception
+		JspWriter						out								
+		Object(当前这个jsp翻译成的类)	page
+		PageContext						pageContext
+
+2.out对象
+	带缓冲的PrinterWriter，
+	out.writer()	--可以向jsp缓冲区写出一些内容
+	PrintWriter对象的writer()	--直接向浏览器写出内容
+	
+3.exception对象：必须在page指令中开启isErrorPage="true",然后可以打印错误信息
+
+4.pageContext对象：叫做jsp的上下文对象
+	1.可以方便的获取其他八个内置对象(其他八个内置对象都封装到这个pageContext中)
+		pageContext.getOut();
+		pageContext.getRequest();
+		pageContext.getResponse();----等等
+	2.本身也是一个域对象
+		四个域对象：
+			ServletContext  
+			HttpServletRequst
+			HttpSession
+			PageContext  page域:这个域对象的保存内容只能在这个页面中获取，是jsp特有的域对象
+			pageContext.setAttribute(String name,Object value,int scope)：最后一个是设定放到哪个域对象中
+			pageContext.getAttribute(String name,Object value,int scope):最后一个是从哪个域中拿对象
+		
+		找Attribute的终极方法：
+			pageContext.findAttribute(String name):先从pageContext找，=>request域=>session域，一直找到ServletContext。
+			

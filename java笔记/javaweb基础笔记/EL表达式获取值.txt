@@ -1,0 +1,14 @@
+1.如果该对象是Map集合，并且key中的名称带特殊字符，如下：
+	Map<Stirng,Object> map=new HashMap<String,Object>();
+	map.put("goods.gname","asdasd");
+	request.setAttributes("simple",map);
+那么EL获取该map集合应该使用：
+	${simple['goods.gname']}
+	
+2.遍历map集合
+	<c:foreach  items="${simple}" var="pro" >
+		<!-- 通过迭代标签，会把该map变成entrySet集合  -->
+		获取key:${pro.key}:此时已经获得了key中的String对象，如果是自己定义的类，可以继续通过.号获取下面的属性
+		获取value：${pro.value}:此时已经获得了value中的Object对象，如果是自己定义的类，可以继续通过.号获取下面的属性
+	</c:foreach>
+	

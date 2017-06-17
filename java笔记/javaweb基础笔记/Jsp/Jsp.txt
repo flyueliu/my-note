@@ -1,0 +1,125 @@
+1.什么是内置对象？
+	在jsp开发中，会频繁使用到一些对象。例如HttpSession，ServletContext，HttpServletRequest。
+如果我们每次要使用这些对象都去创建这些对象就会十分麻烦。所以sun在设计Jsp时，在jsp页面加载完毕后，
+就会帮开发者创建这些对象，开发者只要直接使用这些对象调用方法即可，这些对象就是内置对象。
+	servlet：
+		HttpSession session =request.getSession();	
+	jsp：
+		服务器：HttpSession session =request.getSession();	
+		开发者只要:session.getId();//直接可以使用，内置对象
+		
+2.九大内置对象
+	内置对象名		类型
+	request			HttpServletRequst
+	response		HttpServletResponse
+	config			ServletConfig
+	application		ServletContext
+					-----这些对象的使用方法和Servlet中一模一样
+	
+	session			HttpSession
+	exception		Throwable
+		
+	page			Object(this):当前类	
+	out				JspWriter
+	pageContext		PageContext
+	
+3.out对象
+	out对象的类型：JspWriter类，相当于带缓冲PrintWriter
+	PrintWriter的作用：
+		writer(内容)：直接向浏览器输出内容
+	
+	JspWriter
+		writer(内容)：向jsp缓冲区写出内容
+
+4.pageContext对象
+	pageContext对象的类型是PageConext，叫jsp的上下文对象
+	4.1可以获取其他八个内置对象
+	
+	public class 01_hello_jsp{
+		public void _jspService(request,response)
+		{
+			//创建内置对象
+			 
+		}
+	
+	}
+	
+	
+Jsp的4个域对象
+	request
+	session
+	application
+	pageContext
+	作用范围：
+		pageContext：处于当前jsp页面中有效
+		request：处于同一个请求中有效
+		session：处于同一个会话中有效
+		application：处于同一个web应用中有效
+
+EL表达式：
+	代替jsp表达式，用于向浏览器输出域对象中的变量和表达式
+	
+	语法：
+	${变量}
+	3.1输出普通字符串：${name}
+	3.2输出对象属性：${student.name}	注意：相当于getname方法
+	3.3输出list集合：${list[0].name}	注意：中括号相当于get方法
+	3.4输出map集合：${map[key].name}	注意：相当于get(key)方法
+	
+jsp标签
+	代替jsp脚本，用于jsp页面中执行java代码
+	
+	4.1内置标签：
+		<jsp:forward/>  ---request.getRequestDispacher("路径").forward(request,response)
+		<jsp:param/>	--参数标签	?name=eric
+		<jsp:include/>	--包含其他页面，动态包含
+			静态包含：先合并再翻译，不能传递参数
+			动态包含：先翻译再合并，可以传递参数
+
+4.2jstl标签库
+	使用步骤：
+		1.确保jstl支持的jar包存在于项目中
+		2.在jsp页面中导入标签库
+			<%taglib uri="标签库声明文件tld的标记"  prefix="前缀"%>
+		3.使用标签库中的标签
+
+	核心标签库
+	<c:set/> 把偶耐数据到域对象
+	<c:out/> 从域对象中取出数据
+	<c:if/>  但条件判断
+	<c:choose/>+<c:when/>+<c:otherwise/>
+	<c:forEach/>遍历数据
+	<c:forTokes>遍历特殊字符串
+	<c:redirect/>重定向
+	
+自定义标签：
+
+	引入：
+		需求:向浏览器输出当前客户的ip地址(只能使用jsp标签)
+	
+	步骤
+		1.写一个标签处理器类，继承SimpleTagSupport
+		2.声明标签：在web项目的WEB-INF目录下建立标签库的声明itcast.tld文件。(参考tld核心标签库的写法)
+			<uri>:找到标签库的标记
+		
+		3.在jsp页面的头部导入自定义标签库
+		<%@taglib uri="" prefix=""/>
+		
+		4.在jsp中使用自定义标签
+			<itcast:showIp></itcast:showIp>
+			
+自定义标签的执行过程：
+	问题：输入http：地址如何访问到自定义标签
+	
+前提：tomcat服务器启动时，加载每个web应用，加载每个web应用下的web-inf目录下的所有文件.
+	web.xml,tld文件。
+	1）访问.jsp资源
+	2）tomcat服务器将jsp文件翻译成java源文件，再编译成class字节码文件->构造类对象->调用_jspSerice()方法
+	3）检查jsp文件的tablib指令，是否存在一个名为http://gz.itcast.cn的tld文件
+	
+
+	
+			
+			
+	
+	

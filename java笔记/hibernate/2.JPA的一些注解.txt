@@ -1,0 +1,28 @@
+1.@IdClass注解
+	可以通过切合实际的方式使用一个以上的@Id注解(复合主键)
+例如：
+	@IdClass(CategoryPK.class):使用CategoryPK这个类作为复合主键，CategoryPK类中可以有多个属性(这些属性上都必须标注为@Id注解)，必须重写equal()方法。
+	例：
+	@Entity
+	@IdClass(CategoryPK.class)   ---IdClass指定
+	public class Category{
+		
+		@Id
+		protected String name;
+		@Id
+		protected Date createDate;
+				
+	}
+	`
+	public class CategoryPK implements Serializable{
+		String name;
+		Date createDate;
+		public boolean equals(Object other){
+			if(other instanceof CategoryPK){
+				return other.getName().equals(name)&&other.getCreateDate().equals(createDate);
+			}
+			return false;
+		}
+	}
+
+	

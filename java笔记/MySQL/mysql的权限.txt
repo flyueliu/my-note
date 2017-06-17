@@ -1,0 +1,9 @@
+root:拥有所有权限（可以干任何事情）
+
+修改mysql的密码：所有账户的密码保存mysql数据库，user表中，
+	update user set authentication_string=password('需要输入的密码') where Host="%" and User="root";
+	-- Host：表示登录的类型，localhost：本机登录，"%"匹配所有，可以远程也可以本机
+	--User:表示用户名。
+权限管理：
+	grant 权限  on 数据库.表 TO '账户名'@‘账户类型’ IDENTIFIED by '密码';
+权限：select insert delete update drop create 或all

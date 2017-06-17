@@ -1,0 +1,42 @@
+接口 Set<E>
+特点：	不包含重复元素(唯一)
+		无序，存储顺序和取出顺序不一致
+
+HashSet:它不保证set的迭代顺序，特别是他不保证该顺序恒久不变。
+	1.通过hashCode()方法保证元素唯一性。
+	2.
+
+TreeSet：能够对元素按照某种规则进行排序(并且元素唯一)
+	底层是二叉树结构.(红黑树是一种自平衡的二叉树)
+
+排序两种方式:
+	A:自然排序
+		让元素所属的类实现自然排序接口Comparable，重写int compareTo(T o)方法。
+	B:比较器排序
+		让集合的构造方法接收一个比较器接口的子类对象Comparator，重写int compare(T t1,T t2)方法。
+例：	public int compareTo(Student o)
+		{
+			int num=this.name.length()-o.name.length();
+			int num2=num==0?this.age-o.age:num;
+			int num3=num2==0?this.name.compareTo(o.name):num2;
+			return num3;
+		}
+		
+3.Collection集合总结
+	Collection
+		|--List(有序(存入和取出顺序一致，)，可重复)
+			|--ArrayList
+			|--Vector
+			|--LinkedList
+		|--Set
+			|--HashSet
+				底层数据是哈希表
+				通过hashCode()和equals()方法保证元素唯一性。
+				|--LinkedHashSet
+			|--TreeSet
+				底层数据是红黑树
+				通过元素的排序的返回值保证唯一性
+				排序方法有两种：
+					1.自然排序
+					2.比较器器排序
+

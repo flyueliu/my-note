@@ -1,0 +1,12 @@
+andriod体系结构：
+	1.应用层：application层：java开发
+	2.应用框架层application framework：应用框架层：java+JNI
+	3.libraries和dalvik：函数库和虚拟机层，c/c++
+	4.linux kernel:linux内核驱动层 c
+	
+两种虚拟机的不同：
+	jvm：java虚拟机 sun：执行的.class文件：基于栈的架构（内存）
+	dvm：dalvik虚拟机 google ：执行的.dex文件：基于寄存器的架构（cpu的组成部分）
+	
+art模式
+	art：程序在安装时需要

@@ -1,0 +1,10 @@
+webapps目录：tomcat共享目录。需要共享的本地资源放到此目录中
+bin:存放tomcat的命令
+		
+URL：统一资源定位符，用于定位互联网的资源
+
+问题：http://localhost:8080/myweb/08.html
+
+
+http://   协议。http协议。
+	

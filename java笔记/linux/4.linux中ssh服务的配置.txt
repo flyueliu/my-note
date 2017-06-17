@@ -1,0 +1,34 @@
+1.查询/安装ssh服务
+	登录linux，打开终端命令，输入 rpm -qa|grep ssh查找当前系统是否已经安装
+2.如果没有安装ssh软件包，可以通过rpm -ivh 进行安装
+
+3.启动ssh服务
+	service sshd start可以启动
+
+4.查看ssh端口号
+		vim /etc/ssh/sshd_config
+	如果需要修改端口，把port后面的22端口改成别的端口即可
+
+注意:
+	如果需要远程连接ssh,需要把端口22在防火墙上开放，或者关闭防火墙
+
+SSH远程登录
+	//user：用户名，host：主机ip
+	$ ssh user@host
+	$ ssh -p 22 user@host   -p参数：端口号
+	
+scp 跨机远程拷贝
+	scp用于在Linux下进行远程拷贝文件的命令，和它类似的有cp，但是cp只能在本机拷贝。
+	1.本地复制远程文件：
+		scp root@192.168.9.131:~/activeMQ.tar.gz /c/work/net/test.tar.gz
+	2.远程复制本地文件:
+		scp /c/work/net/test.tar.gz root@192.168.9.131:~/test.tar.gz
+	3.本地复制远程目录：(会把apache文件夹复制到net文件夹下，形成/c/work/net/apache文件夹)
+		scp -r root@192.168.9.131:/root/apache /c/work/net/
+	4.把本地文件夹复制到远程目录下:
+		scp /c/work/net/apache root@192.168.9.131:/root/test
+	5.把远程文件 复制到本地（仅仅在所在文件夹路径后接"/"就可以了）
+		scp root@192.168.9.131:root/apache/a.jar /c/work/net/
+	6.远程复制本地文件到指定目录：（把本地的文件复制到远程主机上）
+		scp /val/test.tar.gz root@www.test.com:/val/
+		

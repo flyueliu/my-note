@@ -1,0 +1,2 @@
+mvn install:install-file -DgroupId=org.hibernate -DartifactId=c3p0 -Dversion=4.2.4.Final-Dpackaging=jar -Dfile=hibernate-c3p0-4.2.4.Final.jar
+									groupId			artifactId        version                                 本地jar包

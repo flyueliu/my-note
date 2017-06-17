@@ -1,0 +1,35 @@
+ServletConfig对象：
+1.作用：
+	主要是用于加载servlet的初始化参数。
+	在一个web应用中可以有多个ServletConfig，一个Servlet对应一个ServletConfig。
+
+2.创建+获取	
+	2.1.创建时间：
+		在创建servlet对象之后，在调用init方法之前。
+	
+	2.2获取：
+		直接从有参数的init方法中获取。
+		
+3.初始化参数配置：
+	3.1一般都是在web.xml中的servlet标签下添加初始化参数。
+	<init-param>
+		<param-name>参数名</param-name>
+		<param-value>参数值</param-value>
+	</init-param>
+	
+(tomcat服务器做)配置的参数会封装到ServletConfig对象中，然后通过有参的init方法传入Servlet中.
+我们可以通过ServletConfig对象获取初始化参数。ServletConfig对象可以通过this.getServletConfig()获取。
+ServletConfig对象中的四个方法：
+	java.lang.String getInitParameter(java.lang.String name) ：获取初始化参数值
+	java.util.Enumeration getInitParameterNames():获取所有参数名
+	java.lang.String getServletName()：获取Servlet名称
+	ServletContext getServletContext()：获取ServletContext上下文对象
+	
+	
+	
+	
+ 
+ 			 
+	
+	
+		

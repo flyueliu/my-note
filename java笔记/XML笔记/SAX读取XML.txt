@@ -1,0 +1,21 @@
+SAX:占用内存少，只能读取XML文件
+
+步骤：
+	1.创建SAXParser对象
+		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+		
+	2.调用parse方法
+		parser.parse(new File("personList.html"), new MyDefaultHandler());
+						XML文件的路径			需要写一个类继承DefaultHandler，并重写其中的相关方法
+	需要重写的方法有：
+	 public void startDocument()：在读取文档开始调用
+	 public void endDocument()：在读取到文档结束时调用
+	 //在读到开始标签时调用
+	 public void startElement(String uri, String localName, String qName, Attributes attributes)
+	 
+	 //在读到结束标签时调用
+	public void endElement(String uri, String localName, String qName)
+	
+	//在读到文本时调用
+	public void characters(char[] ch, int start, int length) 
+	

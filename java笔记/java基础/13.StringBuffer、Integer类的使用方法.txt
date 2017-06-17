@@ -1,0 +1,145 @@
+1.StringBuffer
+	(1)用字符串做拼接，比较耗时且耗内存，而拼接操作又比较常见，
+	为解决这个问题，java提供StringBuffer供我们使用。
+	(2)StringBuffer的构造方法
+		A:StringBuffer()
+		B:StringBuffer(int size)//size表示容量
+		C:StringBuffer(String str)//构造一个字符串缓冲区，并将其内容初始化为指定的字符串内容。
+	(3)StringBuffer的常见功能(补全方法的声明和方法的解释)
+		A：添加功能:
+			1. StringBuffer append(char[] str)//形参可以是任意基本类型，都会转换为字符串类型然后追加到此序列中
+			2.StringBuffer insert(int offset, String str) //将字符串插入此字符序列中。 
+			
+		B:删除功能：
+			StringBuffer delete(int start, int end) //移除此序列的子字符串中的字符。
+			
+		C:替换功能
+			 StringBuffer replace(int start, int end, String str) //使用给定 String 中的字符替换此序列的子字符串中的字符。 
+			 
+		D:反转功能
+			StringBuffer reverse() //将此字符序列用其反转形式取代。 
+			
+		E：截取功能（注意这个返回值）
+			 String substring(int start) //返回一个新的 String，它包含此字符序列当前所包含的字符子序列。 
+			 String substring(int start, int end) //返回一个新的 String，它包含此序列当前所包含的字符子序列。 
+			 
+	(4)StringBuffer的练习（做一遍）
+	String和StringBuffer相互转换
+		String---StringBuffer
+			构造方法
+		StringBuffer--String
+			toString()方法
+		A:字符串的拼接
+		
+		B:把字符串反转
+		C:判断一个字符串是否对称
+	(5)面试题
+		A:String,StringBuffer（线程同步）,StringBuilder（线程不同步）的区别
+		B:StringBuffer和数组的区别
+	(6)注意的问题
+		String作为形参：特殊的引用类型，它作为参数传递，参数改变，它不改变（和基本类型一样）
+		StringBuffer作为形参：
+2.数组高级以及Arrays
+	(1)排序
+		A：冒泡排序
+			相邻元素两两比较，第一次完毕最大值就出现在做后面了
+		B:选择排序
+		
+	(2)选择排序
+		从0索引的元素，和索引1以后的元素都进行比较，第一次完毕，最小值出现在0索引处
+		for(int i=0;i<arr.length-1;i++)
+		{
+			for(int j=i+1;j<arr.length;j++)
+			{
+				if(arr[i]>arr[j])
+				{
+					int tmp=a[i];
+					a[i]=a[j];
+					a[j]=tmp;
+				}
+			}
+		}
+		
+	(3)Arrays工具类
+		A:是针对数组操作的工具类，包括排序和查找功能
+		B:要掌握的方法
+			把数组转换为字符串（补全方法）：static String toString(double[] a) ：任意基本类型数组都可以，
+			排序(快速排序)：static void sort(long[] a) //升序排序：任意基本类型数组都可以，
+			
+			比较器排序：对任意引用类型
+			//根据指定比较器产生的顺序对指定对象数组的指定范围进行排序。 
+			static <T> void sort  (T[] a, int fromIndex, int toIndex, Comparator<? super T> c) 
+			
+			二分查找:
+			//使用二分搜索法来搜索指定的 int 型数组的范围，以获得指定的值。 ke表示要找的值
+			static int binarySearch(int[] a, int fromIndex, int toIndex, int key)
+				
+	(4)Arrays工具类的源码解析
+	(5)把字符串中的字符进行排序
+		“举例”
+			"edacbgf"
+			"abcdefg"
+
+3.Integer类(包装了int类型的字段)	
+	构造方法：
+		public Integer(int value)//
+		public Integer(String s)//字符串转换为Integer类型
+		注意：这个字符串必须是由数字字符串组成
+	Integer类中重写了ToString方法
+	
+	成员方法：
+	int和String类型相互转换
+	int----String
+	//方式1
+	int number=100;
+	String s=""+number
+	
+	//方式2:推荐这种
+	int number=100;
+	String s=String.valueOf(number);
+	
+	//方式3
+	int---Integer---String
+	Integer ii=new Integer(number);
+	String s3=ii.toString();
+	
+	//方式4
+	String s=Integer.toString(number);
+
+	String---int
+	
+	String s="100";
+
+	//方式1
+	//String---Integer--int
+	Integer ii=new Integer(s);
+	int i=ii.intValue();
+
+	//方式2
+	//就记住这一个方法
+	int i=Integer.parseInt(s);
+	
+	
+JDK5的新特性
+	1.自动装箱：把基本类型转换为包装类型
+	2.自动拆箱：把包装类型转换为基本类型
+
+	注意一个小问题：
+	在使用时，Integer x=null;代码就会出现空指针异常
+	
+	Integer i=new Integer(400);		
+	Integer ii=100;		
+	ii+=200;
+		
+	//通过反编译后
+	Integer ii=Integer.valueOf(100);//自动装箱
+	ii=Integer.valueOf(ii.intValue()+200);//自动拆箱，再自动装箱
+	//System.out.println(new StringBuilder("ii:").append(ii).toString());
+
+	面试题：
+	Integer的数据直接赋值，如果在-123到127之间，就会之间在缓冲池中获取数据
+	
+	
+	Character类在对象中包装一个基本char的值
+	此外，该类提供了几种方法，以确定字符的类别（小写字母，数字，等等），并将字符从大写转换成小写，反之亦然。
+	

@@ -1,0 +1,5 @@
+1.三种签收模式
+	AUTO_ACKNOWLEDGE:自动签收
+	CLIENT_ACKNOWLEDGE：需要手动调用acknowledge才能签收
+
+2.MessageConsumer

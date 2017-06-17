@@ -1,0 +1,22 @@
+1.先进入tomcat的目录
+2.cd logs
+3.tail -f catalina.out这样运行时就可以实时查看运行日志了
+
+linux tail 命令详解
+	tail--用于查看文件内容
+
+最基本的是cat、more和less
+1.如果你只想看文件的前5行，可以使用head命令，如:
+	head -5 /etc/passwd
+2.如果你想看文件的后10行，可以使用tail命令，如：
+	tail -10 /etc/passwd 或tail -n /etc/passwd
+	tail -f /var/log/messages
+	参数-f使tail不停读取最新的内容，这样有实时监控的效果，用ctrl+c终止
+3.查看文件中间一段，你可以使用sed命令,如：
+	sed -n '5,10p' /etc/passwd
+	这样你 就可以只查看文件的第5行到10行。
+
+	
+
+	
+	

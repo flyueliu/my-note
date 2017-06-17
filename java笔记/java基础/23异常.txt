@@ -1,0 +1,22 @@
+1.java异常机制：
+	java把异常当作对象来处理，并定义一个基类java.lang.Throwable当作所有异常的超类。
+	java中异常分为两大类：错误Error和异常Exception。
+	Exception又可以分为运行时异常(RuntimeException)和非运行时异常，也称之为检查异常和不检查异常
+
+2.运行时异常RuntimeException的子类有NullPointerException、IndexOutOfBoundsException等。
+	对于运行时异常，程序中可以选择捕获或者不处理。
+	当出现这样的异常时，总是有java虚拟机接管。
+	如果是多线程中抛出的RuntimeException，那么这个线程就退出，
+	如果是单线程抛出的RuntimeException，那么整个程序就退出了。
+	
+	
+	运行时异常有：
+		ArrayStoreException：错误类型的对象存储到一个对象数组时抛出的异常
+		IllgalArgumentException：向方法传递了不合法的参数。
+		IndexOutOfBoundsException：索引超出范围
+		ClassCastException：对象强制转换为不是实例的子类
+		NosuchElementException：表明枚举中没有更多的元素
+		NullPointerException：空指针异常
+
+3.非运行时异常
+	对于这种异常，java编译器强制要求我们对这些异常进行处理，否则程序就不能编译成功。

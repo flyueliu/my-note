@@ -1,0 +1,5 @@
+1.在javaEE中可以使用Eclipse直接连接数据库
+	在Data Source Explore视图下，有Database Connections文件夹。
+在该文件夹下创建一个新的连接，选择MySql数据库，修改mysql驱动和Url、用户名和密码等就可以在eclipse中连接数据库了。
+也可以在eclipse中直接写入sql语句并执行
+	

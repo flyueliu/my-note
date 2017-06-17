@@ -1,0 +1,33 @@
+一.Servlet生命周期：（只有一个servlet实例对象）
+	加载：(第一次访问程序时加载)
+		构造函数：创建servlet对象时调用，默认是在第一次访问servlet的时候创建对象
+		init方法：创建sevelet对象时调用，也只调用一次。
+
+	访问service方法：(第二次或者更多次访问时只调用该方法)
+		service方法:每次请求时调用，
+
+	tomcat退出：
+		调用destroy方法
+
+tomcat运行步骤：
+	1.通过web.xml中的映射找到servlet-class中的内容。
+	2.通过反射构造servlet的对象
+		2.1得到字节码文件Class clazz=Class.forName("包名+类名");
+		2.2调用无参构造
+		2.3创建ServletConfig对象，通过调用init方法
+		2.3创建response、request对象，调用service方法
+		2.5调用destroy方法
+
+二、Servlet自动加载
+	在配置信息web.xml文件中，<servlet>标签下添加<load-on-start-up>1</load-on-start-up>标签。
+	标签内数字越低，表示创建的优先级越低。
+
+
+		
+
+	
+	
+	
+	
+	
+	

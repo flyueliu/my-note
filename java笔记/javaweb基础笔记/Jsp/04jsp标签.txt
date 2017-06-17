@@ -1,0 +1,19 @@
+1.内置标签
+	<jsp:forward page=""></jsp:forward>
+		这个就是resquest.getResquestDispatcher("")
+			双引号中都是写转发地址
+		注意：request.getResquestDispatcher("")中的地址可以传递参数，即在地址中写"/01.jsp?name=xiaoming"
+		但是内置标签中的page不能传递参数，参数传递需要使用forward的子标签<jsp:param value=""  name=""/>
+		传递的参数并不是域对象中的内容，获取这个参数是使用request.getParameter(String name)来获取，
+	
+	<jsp:include page=""></jsp:include>
+		page中写被包含的页面，这个是动态包含，运行时
+		
+		
+2.核心标签：
+保存数据：保存到域中,默认数保存到page域
+	<c:set var="name"  value="rose" scope="request"  ></c:set>
+		var是保存数据的名字，value是值
+获取数据： 也是从域中获取
+	<c:out value="${name}"></c:out>
+	

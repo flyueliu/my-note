@@ -1,0 +1,6 @@
+1.使用EL表达式获取值时，调用的是request.getAttribute(Stirng key)这个方法。
+2.因为Struts2实现了HttpServletRequest接口，所以getAttribute(String key)方法进行了重写。
+3.Struts2中的request获取值时，首先会从原生的HttpServletRequest中获取值，如果找到就返回。如果没有就从值栈对象中获取值。
+4.值栈中获取值是调用的findValue方法。该方法的访问顺序是:
+	(1)先从对象栈中查找指定名称的属性，从栈顶开始往下找。
+	(2)如果从对象栈中没有找到属性，则从map栈中查找对应的key值，找到就返回。

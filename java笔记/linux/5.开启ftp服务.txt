@@ -1,0 +1,11 @@
+1.首先服务器要安装ftp软件，查看是否已经安装ftp软件下:
+		which vsftpd
+	如果看到有vsftpd的目录说明服务器已经安装了ftp软件
+2.查看ftp服务器状态
+	service vsftpd status
+3.启动ftp服务器
+	service vsftpd start
+4.重启ftp服务器
+	service vsftpd restart
+5.查看服务有没有启动
+	netstat -an|grep 21

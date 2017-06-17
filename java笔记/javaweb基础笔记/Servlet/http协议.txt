@@ -1,0 +1,26 @@
+1.请求request、响应response
+
+
+请求行：
+		GET URL HTTP1.1
+	#GET/POST：请求方式
+	#请求资源
+		URL:统一资源定位符.只能定位互联网资源
+		URI:同一资源标记符。用于标记任意资源，可以是互联网、局域网和本地上的，不同地方使用协议不同。
+	#http协议版本
+		http1.0：连接后，只发送一个请求，之后关闭连接。
+		http1.1：一次连接中可以发送多个请求。
+		
+请求头：(Key-Value对)不是说每次请求都有所有的请求头
+	Accept:text/html,iamge/*	--浏览器可以接受的数据内容
+
+	Accept-Charset:ISO-8859-1	--浏览器可以接受的编码格式
+	
+	Accept-Econding:gzip,compress	--浏览器可以接收的数据压缩格式
+	
+	Host:www.it315.org:80		--(必须的)当前请求访问目标地址(主机:端口)
+	
+	Referer:http://www.it315.org/index.jsp	--当前请求来自于哪里
+	
+	Connection:close/Keep-Alive  --浏览器跟服务器的连接状态(close:连接关闭/Keep-Alive:保持连接)
+	

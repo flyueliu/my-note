@@ -1,0 +1,19 @@
+事件监听机制
+	A：事件源	事件发生的地方
+	B：事件		就是要发生的事情
+	C：事件处理	就是针对发生的事情做出的处理方案
+	D：事件监听	就是把事件源和事件关联起来
+
+举例：人受伤事件
+	事件源：人(具体的对象)
+		Person p1=new Person("张三");
+		Person p2=new Person("李四");
+		
+GUI继承体系
+	Component：具有图形表述能力的顶层抽象类
+	Button、Label、Checkbox和
+	TextComponent下的TestArea、TextField都是具体的实现类
+	
+	Container是容器的父类，具体的实现类都必须依赖于容器而存在(必须放到容器里面)
+	Container下有Window(窗体)和Panel(面板)两个子类
+	

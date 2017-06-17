@@ -1,0 +1,67 @@
+1.javaScript中的键值对变量：
+例如：	var map={
+		key1:"value1",
+		key2:"value2"
+		key3:function(args){
+			for(var a in args){
+				console.log(a);
+			}
+		};
+	};
+键值对变量可以视为java、C#语言中的对象。key1,key2相当于成员变量，key3相当于该对象的方法。
+成员变量可以通过 map.key1或者map["key1"]来访问该变量，
+而对象的方法可以通过map["key3"](list)或者map.key3(list)来调用。
+
+2.给键值对的成员变量或者方法不一定得在该键值对内部，也可以在外面给该键值对添加成员变量或者方法。
+例如：
+	var map={
+		key1:"value1",
+		key3:function(args){
+			for(var a in args){
+				console.log(a);
+			}
+		};
+	};
+	var obj="刘跃飞";
+	map.name=obj;
+这相当于给键值对添加了一个键为name，值为"刘跃飞"的成员变量，可以在map中使用。即上面代码修改为：
+	var map={
+		key1:"value1",
+		key3:function(){
+			console.log(this["name"]);
+			//当然，console.log(this.name)也是一样的
+		}//这里也是变量的声明，如果后面有内容，应该加逗号"，".
+	};//这个属于变量声明，按规范加分号
+	var obj="刘跃飞";
+	map.name=obj;
+	map.key3();
+输出结果为："刘跃飞"
+如此，
+
+下面这段代码就可以看懂了
+	var o = { 
+				css: function(styles) {
+						// styles是json格式的样式，可以将样式交给
+						// [0]这个节点
+						for(var k in styles) {
+							this[0].style[k] = styles[k];
+						}
+					}
+				};
+			
+			var J = function(id) {
+				var obj = document.getElementById(id);
+				//o[0]和o["name"]本质上是一样的，0成为了o的一个成员变量的键，但因为数字的问题，不能使用this.0来访问值，
+				//而this["0"]和this[0]一样。
+				o[0] = obj;
+				return o;
+			};
+			
+			
+			onload = function() {
+				J("dv").css({
+						border:"1px solid red",
+						width:"200px",
+						height:"100px"
+					});
+			};

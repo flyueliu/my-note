@@ -1,0 +1,68 @@
+数据约束：对用户操作表的数据进行约束
+类型：
+	1.默认值：当字段未赋值时，自动给该字段分配默认值
+	create table student(
+	id int,name varchar(16),
+	address varchar(20) default '广州天河');
+	
+	2.非空：
+	create table student(
+	id int,name varchar(16),
+	gender varchar(2) not null);
+	
+	3.唯一：不能限制空值，只有在有值才起作用
+	create table student(
+	id int unique,
+	name varchar(16));
+	
+	4.主键（非空+唯一）：通常每张表都会设置主键的字段，用于标记表中每条记录的唯一性。
+	create table student(
+	id int primary key,-- 主键
+	name varchar(16));
+	
+	5.自增长：
+	create table student(
+	id int(4) zerofill primary auto_increment,-- 自增长,从1开始 zerofill 零填充（0001）
+	name varchar(20))
+	
+	6.外键：约束两张表的数据
+	create table employee(
+	id int primary key,
+	empName varchar(16),
+	deptName varchar(16)
+	);	
+	insert into employee values(1,'张三','软件开发部');
+	insert into employee values(2,'李四','软件开发部');
+	insert into employee values(3,'王五','应用维护部');
+	insert into employee values(1,'陈六','软件开发部');
+--解决数据冗余字段问题，给部门创建一张表
+部门表：
+	create table dept(
+	id int primary key auto_increment,
+	deptName varchar(16)
+	);
+员工表：
+	create table employee(
+	id int primary key,
+	empName varchar(16),
+	deptId int
+	);
+员工deptId和部门表中的id要对应，不能插入没有的部门(外键约束)
+	create table employee(
+	id int primary key auto_increment,
+	empName varchar(16),
+	-- 声明一个外键约束
+	constraint employee_dept_fk foreign key(deptId) references  dept(id)
+ -- 声明			外键名称				外键				被参考的数据
+	)
+	
+	7.级联操作:改动主表，直接改变副表-- 
+	-- 级联修改on update cascade
+	-- 级联删除 on delete casecade
+	create table employee(
+	int id primary key auto_increment,
+	empName varchar(16),
+	constract employee_dept_fk(deptId) references dept(id) on update cascade-- on update cascade级联修改
+	);
+	
+	

@@ -1,0 +1,35 @@
+1.JSTL:java standard tag libarary:java标准标签库
+
+重点：
+	核心标签库：(C标签库)
+		
+	
+	国际化标签库：(fmt标签库)
+	EL函数库(fn函数库)
+	--------------
+	xml标签库(x标签库)
+	sql标签库(sql标签库)
+
+	
+2.使用JSTL标签步骤
+
+	1.导入jstl支持的jar包(标签背后隐藏的java代码)
+		也需要在web.xml文件中配置jstl的jar包所在路径，可以参考webapps下example项目中web.xml的配置
+	2.
+	保存数据：
+		<c:set></c:set>
+	获取数据：
+		<c:out value=""></c:out>
+	单条件判断：
+		<c:if test=""></c:if>
+	多条件判断：
+		<c:choose></c:choose>
+		<c:when test=""></c:when>	
+		<c:otherwise></c:otherwise>
+		
+	循环数据
+		<c:forEach></c:forEach>
+		<c:forTokens items="" delims=""></c:forTokens>
+	
+	重定向：
+		<c:redirect></c:redirect>

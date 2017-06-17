@@ -1,0 +1,61 @@
+Linux网络配置命令:
+	1.linux下网卡命名规律：
+		eth0,eth1.第一块以太网卡，第二块以太网卡。
+		lo为环回接口，它的ip地址固定为127.0.0.1，掩码8位.它代表你的机器本身.
+	2.ifconfig是查看网卡的信息
+		ifconfig [interface]
+		---interface是可选项，如果不加此项，则显示系统中所有的网卡信息。如果添加此选项则显示指定网卡的信息，如 ifconfig eth0.
+	-->显示信息为--->
+		eth0 Link encap:Ethernet
+            HWaddr 00:0C:29:F3:3B:F2
+            inet addr:192.168.0.10 Bcast:192.168.0.255 Mask:255.255.255.0
+            UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1
+            RX packets:78 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:104 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:100
+            RX bytes:11679 (11.4 Kb)
+            TX bytes:14077 (13.7 Kb)
+            Interrupt:10 Base address:0x1080
+	可以看到，
+		第一行：连接类型：Ethernet(以太网)HWaddr(硬件mac地址)
+		第二行：网卡的ip地址,子网,掩码
+		第三行：UP(代表网卡开启状态)Runing(代表网卡的网线被接上)MUTICAST(支持组播)MTU：1500（最大传输单元）:1500字节
+	3.配置网卡的信息
+		3.1配置eth0的IP地址，同时激活该设备
+			#ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+		3.2激活设备
+			ifconfig eth0 up
+	
+	4.traceroute命令显示数据包到达目的主机所经过的路由
+		traceroute www.sina.com.cn
+
+如果想要配置永久生效，必须修改配置文件。
+	配置文件所在目录：
+		/etc/sysconfig/network/ifcfg-eth0
+	cat 查看该文件可以看到：
+		BOOTPROTO='dhcp'
+		BROADCAST=''
+		ETHTOOL_OPTIONS=''
+		IPADDR=''
+		MTU=''
+		NAME=''
+		NETMASK=''
+		NETWORK=''
+		REMOTE_IPADDR=''
+		STARTMODE='auto'
+		DHCLIENT_SET_DEFAULT_ROUTE='yes'
+	
+	BOOTPROTO=static:表示使用静态ip地址。dhcp使用dhcp自动指定
+	ONBOOT=yes:表示开机时，启动这个网卡。
+	设置好IP地址，现在还不能生效哦，要重新启动网卡才可以。 
+	
+	
+	重启命令：service network restart
+	关闭网卡:ifconfig eth0 down 
+	开启网卡:ifconfig eth0 up
+	
+
+	
+	
+	
+			

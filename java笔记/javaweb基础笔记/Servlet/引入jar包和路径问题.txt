@@ -1,0 +1,16 @@
+1.引入jar包：
+	在web项目中，引入的jar包如果只需要该web项目使用，则应该放在web-inf目录下，最好单独建立一个lib文件夹存放引入的jar包
+
+2.路径问题：
+
+2.1在web项目中，系统的编译路径在tomcat服务器下的bin文件夹下，因此如果使用相对路径则必然找不到该文件。
+	因此在需要加载外部文件时，应该使用Class中的getResource()方法。
+	其中getResource("/")是在web-inf/classes下。
+	在使用eclipse时，src文件夹下的文件(java文件不会)会自动部署到web-inf/classes文件夹下。
+
+2.2在java项目中，使用elipse会自动将该项目的文件夹作为系统的编译路径。
+	即如果项目的名称是：Day15,那么eclipse的编译路径会是在Day15文件夹下。
+	
+因此，无论是java项目还是web项目，使用Class中的getResource()方法都不会造成路径不对的问题。
+所以在编写工具类时，考虑到该工具类的通用性，应该使用Class中的getResource()方法来获取路径，才不会出问题。
+	

@@ -1,0 +1,50 @@
+1.dom4j的功能
+	读取XMl文档的内容
+
+2.方法
+	Dom4j工具（基于DOM解析原理）：
+	
+2.1读取xml文档：
+			Document doc = new SAXReader().read("xml文件"); 
+
+	节点：Node：标签、属性和文本都是节点
+			nodeIterator();  所有节点
+			
+	标签：<>括号中的名称就是标签
+			element("名称")   指定名称的第一个子标签对象
+			elementIterator("名称");  指定名称的所有子标签对象
+			elements();  所有子标签对象
+			
+	属性：<>括号中额外的赋值语句就是属性，参考HTML中标签的属性。属性得有：名称、值，
+			attributeValue（“名称”） 指定名称的属性值
+			attribute("名称")   指定名称的属性对象
+					getName()  属性名称
+					getValue（）  属性值
+			atributeIterator()   所有属性对象（Iterator）
+			attributes()       所有属性对象（List）
+			
+	文本：<>文本</>  文本就是开始标签和结束标签之间的内容
+			getText（）  得到当前标签的文本
+			elementText("子标签名称")  得到子标签的文本
+			
+2.2 写出内容到xml文档
+		XMLWriter writer = new XMLWriter(OutputStream, OutputForamt)						
+		wirter.write(Document);	
+		
+	//OutputForamt方法：
+		createPrettyPrint()：生成漂亮格式的XML
+		createCompactFormat()：紧凑格式的XML
+		setEncoding("utf-8"):指定生成的XML文档的编码格式
+		
+2.3 修改xml文档的API
+	增加： 
+			DocumentHelper.createDocument()  增加文档
+			addElement("名称")  增加标签
+			addAttribute("名称"，“值”)  增加属性
+	修改：
+			Attribute.setValue("值")  修改属性值
+			Element.addAtribute("同名的属性名","值")  修改同名的属性值
+			Element.setText("内容")  修改文本内容
+	删除
+			Element.detach();  删除标签  
+			Attribute.detach();  删除属性

@@ -1,0 +1,43 @@
+spring框架：
+	是分层架构。做了很多事情。
+1.spring是创建对象的大工厂。
+
+
+使用spring的步骤：
+1.加入spring所需要的jar包。
+2.
+
+IOC:控制反转，反转的控制权。
+I-inverse
+O-of
+C-Control
+控制反转：是指在程序手动穿件对象的控制权，反转交给spring来管理。
+依赖关系的注入:由于UserDaoImpl和 String info有依赖关系，因此给info赋值就是注入依赖关系的过程
+
+DI：依赖注入：是指原本需要在程序中手动给一个对象注入其依赖关系，现在将这种依赖关系的注入直接交给Spring来管理
+D:Dependency
+I:injection
+
+
+Spring
+1.是创建对象的大工厂
+2.是IOC和AOP的容器
+3.spring对现在一些流行的框架进行了支持，作为框架集成的粘合剂。
+	集成：多个框架一起开发
+
+Spring事务管理
+	基本原理：拦截指定方法，在方法执行之前，
+	（Spring会先获取一个Session，并绑定到当前线程中，并通过该session打开一个事务。）
+	
+	
+	通过Session打开一个事务，在方法执行之后，通过Session获取已经打开的事务，然后提交/回滚事务，最后关闭Session。
+
+Spring事务的类型：
+1.hibernate事务
+2.jdbc事务
+3.jpa(java 持久化API)
+
+spring中的hibernate声明式事务：配置在spring的xml中
+1.spring使用事务管理器来管理事务。
+2.注入sessionFactory。
+3、配置事务管理器特有的通知

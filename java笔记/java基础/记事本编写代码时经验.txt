@@ -1,0 +1,16 @@
+1.java源文件内声明所在包名，使用cmd命令行运行往往出现：找不到或无法加载主类的情况
+	解决办法：
+		1、删除包名（适用于没有引入其他类）
+		2、在.java文件下创建一个与包名相同的文件结构
+		
+			例：源文件在：H:code\Hello2.java;
+				源文件中有声明包名：package com.example;
+			那么应该将源文件移到H:code\com\example\Hello2.java中，
+			并且编译时在H:\code>路径下采用命令：javac com\example\Hello2.java
+				运行是在H:\code>路径下采用命令：java com.example.Hello2
+
+				
+2.	类的访问修饰符的问题
+	一个.java文件中只能有一个public类，并且.java文件的名称必须和该public类名相同。
+	当一个.java文件中有多个默认访问修饰符的类时，编译不会报错，会生成多个与类名相同的.class文件。
+	而main()方法并没有规定一定得在public类中。

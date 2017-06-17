@@ -1,0 +1,28 @@
+1.EL:向浏览器输出域对象变量值或者表达式计算结果(一定得是域对象中的)
+	语法：${name}
+	
+	${pageScope.name}  ---等价于pageContext.getAttribute("name",pageContext.page_Scope)
+	
+	
+	
+	
+	--获取对象
+	${student.name}	--先后从4个域对象中搜索该"student"资源
+	
+	这个资源放到域对象中的代码是：
+		Student s=new Student("sd",20);
+		pageContext.setAttribute("student",s);
+	
+	获取的方法：
+	1.	${student.name}----能够获得s.getName()并打印到浏览器中
+		student是保存在域对象中的名称字符串。name是这个资源的getName方法
+	
+	2.获取list集合元素
+		${list[0].XXX}
+			list是保存在域中的字符串名，[X]是集合中的下标，
+	
+	3.获取map集合元素
+		${map[key].XXX}
+			key是map集合中的键的值
+			
+	

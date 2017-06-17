@@ -1,0 +1,75 @@
+1.spring-boot中maven需要依赖:
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+2.springBoot的启动类：必须在类上加@SpringBootApplication注解
+
+@SpringBootApplication
+public class BootApplication {
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(BootApplication.class, args);
+	}
+
+}
+
+3.如果在项目 中使用jsp页面，必须使用以下依赖：
+	<!-- 使用jsp -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+同时在application.yml文件中添加：mvc View的前缀和后缀：
+spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/jsp/
+
+4.使用数据库:JPA+数据库驱动包
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+同时，需要在application.yml文件 中添加数据库连接配置和jpa配置
+	spring:
+	  datasource:
+		username: root
+		password: root
+		driver-class-name: com.mysql.jdbc.Driver
+		url: jdbc:mysql://localhost:3306/test
+		dbcp2:
+		  initial-size: 5
+		  min-idle: 5
+		  max-idle: 5
+		  max-total: 10
+	  jpa:
+		database: mysql
+		show-sql: true
+		hibernate:
+		  ddl-auto: update
+接下来，就是创建实体类与表的映射，使用spring-data的CRUD方法
+		

@@ -1,0 +1,16 @@
+1.html的编码：
+	通过在head标签下添加<mate charset='utf-8'>可以设置浏览器解析html5时所使用的编码。
+	同时，若该html5中有form表单的提交，提交的内容也会使用该编码
+
+2.request的编码
+	 req.setCharacterEncoding("utf-8"),尽量设置为一样
+
+
+3.response的编码问题：
+	tomcat默认的响应编码是iso-8859-1。
+	因此，若输出内容有中文时，应在输出前指定编码格式。	使用response.setCharacterEncoding("utf-8")
+注意：		指定的输出格式必须和浏览器解析html5时的编码保持一致。
+也就是说：	指定输出格式是utf-8时，必须设置html5中head标签下添加<mate charset='utf-8'>，才能使得解析编码和输出编码一致。
+
+	
+	

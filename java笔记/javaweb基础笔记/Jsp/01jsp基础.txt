@@ -1,0 +1,61 @@
+1.jsp基础：会将jsp文件翻译成java文件，其实也是一个servlet。
+	1.输出<%=要输出的内容 %>
+	2.脚本<% 这里可以写java代码 %>（不能定义方法）这些代码会被自动写入到service方法中
+	3.jsp的声明
+		<%!  这里面可以定义方法  %>:但是不能定义一些jsp中已经翻译好的方法。
+		例如：
+			<%!  
+				pulbic String getName()
+				{
+					return name;
+				}
+			%>
+	
+	4.注释
+		<%-- 这里可以写注释的内容-->
+		
+		
+2.jsp指令(三大指令)
+	1.include指令：(静态包含)
+		作用：在当前页面用于包含其他页面
+			<%@include file="common/header.jsp" %>  路径不用写"/",和类文件路径类似，是在当前项目的根目录
+		心得：如果被包含的是html文件，且包含中文，那么请在开头使用page指令指定编码格式，否则也会造成乱码
+			原因：它会将被包含的页面的源代码全部拷贝过来，合并成一个页面。
+		
+	2.page指令：
+		<%@ page  %>
+		page指令中有这么一些属性：
+			language="java"	--告诉服务器用java翻译jsp文件
+			import="java.util.*";	--告诉服务器使用的是java的什么包，多个包时用逗号分隔import="java.util.*,java.io.*";	
+			pageEncoding="utf-8";	--告诉服务器用什么编码翻译jsp文件
+			contentTyep="text/html;charset=utf-8";		--服务器发送给浏览器数据类型和内容编码
+			errorpage="error.jsp"
+			isErrorPage="false";
+			buffer="8kb";
+			session="true";
+			isELIgnored="false"
+			
+	session="true"  --表示是否能够在jsp中使用session内置对象
+	
+	buffer：表示jsp页面的缓存区大小
+	
+	isELIgnored		--表示是否忽略EL表达式
+
+	异常相关的指令：
+		错误处理页面：errorPage="common/1.jsp"  ：当发生错误时跳转到的页面
+		isErrorPage="false":代表当前页面是不是错误处理页面
+			如果页面是错误处理页面，那么该页面会多一个exception的对象，可以输出错误原理
+			<%=exception.getMessage() %>
+	全局错误处理：
+		web.xml中在<web-app>下配置
+		<error-page>
+			<error-code></error-code>				---错误发生的代号
+			<location>/common/1.jsp</location>      ---该路径已经进入到了web项目路径
+		</error-page>
+		
+			
+			
+				
+	
+		
+	3.taglib指令：

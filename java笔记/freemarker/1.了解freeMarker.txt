@@ -1,0 +1,12 @@
+1.freemarker对空值的运算符
+	(1).freemarker中变量必须赋值，否则抛异常
+	(2)运算符
+		!:指定缺失变量的默认值；
+		??:判断变量是否存在
+	!有两种用法：
+		variable!或者variable!defaultVaue.
+		第一种不给变量指定默认值，第二种指定默认值
+	??运算符返回布尔值，如variable??,如果变量存在，返回true,否则返回false.
+		<#if user??><h1>Welcome ${user}!</h1></#if>
+		
+	

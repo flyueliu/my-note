@@ -1,0 +1,33 @@
+library:
+	library是一个库的集合，library中可以包含多个jar包，而一个jar包中是许多封装好的javaclass类。
+
+引入library：
+	引入自定义的library需要一个*.userlibraries的文件，其中内容是符合xml规范的。
+	library标签中name是该library的名字。
+	archive标签下的path是路径，
+	source是源文件所在的路径，
+	尽量使用绝对路径，使用相对路径有问题，得进一步探究
+	
+下面是tomcat中所需要的library配置。
+	
+	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="Apache Tomcat" systemlibrary="false">
+        <archive path="D:/apache-tomcat-6.0.39/lib/annotations-api.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/catalina.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/catalina-ant.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/catalina-ha.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/catalina-tribes.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/ecj-4.3.1.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/el-api.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/jasper.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/jasper-el.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/jsp-api.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/servlet-api.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/tomcat-coyote.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/tomcat-dbcp.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/tomcat-i18n-es.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/tomcat-i18n-fr.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+        <archive path="D:/apache-tomcat-6.0.39/lib/tomcat-i18n-ja.jar" source="D:/apache-tomcat-6.0.39/lib/apache-tomcat-6.0.45-src"/>
+    </library>
+</eclipse-userlibraries>

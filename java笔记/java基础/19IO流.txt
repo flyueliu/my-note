@@ -1,0 +1,72 @@
+19.IO流
+	File类：
+		文件与路径的抽象表现形式
+	构造方法：
+		File(String pathName):根据一个路径来获取File对象.
+		File(String parent,String child):parent是文件夹，后面是文件名。但是后面的子文件名也有可能是文件夹
+		File(File parent,String child)
+	
+	创建功能：
+		创建文件夹：
+		 	public boolean mkdir();只能创建一个文件夹
+			public boolean mkdirs();如果父文件夹不存在，也会创建
+		创建文件:
+			public boolean creatNewFile();
+	
+	删除功能:
+		public boolean delete();
+	
+	重命名功能：	
+		public boolean renameTo(File dest)：还可以当剪切功能使用
+	
+	判断功能：
+		public boolean isDirectory(); 
+		public boolean isFile();
+		public boolean exists();
+		public boolean canRead();
+		public boolean canWrite();
+	
+	获取功能：
+		public String getAbsolutePath();
+		public String getPath();
+		public String getName();
+		public long length();
+		public long lastModified();
+	高级获取功能
+		public String[] list();
+		public File[] listFiles();//获取该文件夹下所有的子文件
+		
+IO流的类别：
+	字节流：
+		读取数据	InputStream
+		写出数据	OutputStream
+	字符流
+		读取数据	Reader
+		写出数据	Writer
+	|--这些流都是抽象的，因此使用时要找其子类
+	
+文件IO流：
+	字节流：
+		读取数据	FileInputStream
+		写出数据	FileOutputStream
+		
+	FileOutputStream的构造函数：
+		1、FileOutputStream fos=new FileOutputStream(File file):需要传一个你想写入的文件对象
+		2、FileOutputStream fos=new FileOutputStream(String name)：只需要你想写如的文件的路径
+	
+	写入数据三步：
+		1.创建FileOutputStream对象
+		2.写入数据，调用FileOutputStream的write方法，(字符串可以调用getByte()方法转换为字节数组)
+		3.关闭流
+		
+向文件中追加数据的方法：
+	FileOutputStream(String name, boolean append):
+	1.创建一个向具有指定 name 的文件中写入数据的输出文件流。
+	2.append设置为true则表示是向文件中追加数据。
+
+字节缓冲区流(本身提供缓冲区)
+	BufferedOutputStream
+	BufferedInputStream
+	构造方法：
+		BufferedOutputStream(OutputStream out)：创建一个新的缓冲输出流，以将数据写入指定的底层输出流。
+		

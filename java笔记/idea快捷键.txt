@@ -1,0 +1,2 @@
+Ctrl+Shift+R:按照文件名搜索文件
+Ctrl+Shift+T:搜索类名

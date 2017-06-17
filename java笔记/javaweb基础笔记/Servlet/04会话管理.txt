@@ -1,0 +1,24 @@
+Cookie：
+	1.会话数据保存在客户端中
+	2.只能保存非中文数据的字符串类型
+
+Cookie类：
+	1.构造方法：
+		Cookie(String name,String value);
+	2.设置Cookie：
+		void setPath(String uri):设置Cookie的有效访问路径，默认在整个web项目都有效
+		void setMaxAge(int expiry):设置有效时间，以秒为单位
+		void setValue(String newValue):设置Cookie的值
+	3.发送Cookie的方法
+		response.addCookie(Cookie cookie);
+	4.服务器接受Cookie
+		Cookie[] cookies=request.getCookies();
+		
+Session技术：
+	会话数据保存在服务器中。
+
+	1.创建或者得到session对象
+		HttpSession getSession();
+		
+	
+	

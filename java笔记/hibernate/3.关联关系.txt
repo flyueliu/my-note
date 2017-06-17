@@ -1,0 +1,85 @@
+1.单向一对一关系：直接使用@OneToOne注解就性
+2.双向一对一关系：
+	例：
+	@Entity
+	public class User{
+		@Id
+		protected String userId;
+		protected String email;
+		@OneToOne
+		protected BillingInfo billingInfo;
+	}
+	
+	@Entity
+	public class BillingInfo{
+		@Id
+		protected Long billingId;
+		protected String creditCardType;
+		..
+		@OneToOne(mappedBy="billingInfo",optional="false")
+		protected User user;
+	}
+	
+解释：
+	User任然通过billingInfo变量具有 对BillingInfo类的关系。
+	BillingInfo类也通过user字段具有对User类的引用。
+	mappedBy="billingInfo":通知容器关系的"拥有"端在User类的bilingInfo实例变量中。？？
+	optional参数设置为false:BillingInfo对象不能在没有相关User对象时存在。
+	
+*****mappedBy************ 
+1>只有OneToOne，OneToMany，ManyToMany上才有mappedBy属性，ManyToOne不存在该属性； 
+2>mappedBy标签一定是定义在被拥有方的，他指向拥有方； 
+3>mappedBy的含义，应该理解为，拥有方能够自动维护跟被拥有方的关系，当然，如果从被拥有方，通过手工强行来维护拥有方的关系也是可以做到的； 
+4>mappedBy跟joinColumn/JoinTable总是处于互斥的一方，可以理解为正是由于拥有方的关联被拥有方的字段存在，拥有方才拥有了被拥有方。mappedBy这方定义JoinColumn/JoinTable总是失效的，不会建立对应的字段或者表。 
+
+	下面是一个例子： 
+	   人跟身份证双向关联 
+	   在Person里面定义的注解： 
+	@OneToOne(cascade = CascadeTye.ALL,optional = true)  
+	public IDCard getIdCard(){  
+	   return idCard;  
+	}  
+	在idcard里面定义的注解： 
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "idCard",optional = false)  
+	public Person getPerson(){  
+	   return person;  
+	}  
+多了一个mappedBy这个方法，他表示什么呢？它表示当前所在表和Person的关系是定义在Person里面的idCard这个成员上面的，他表示此表是一对一关系中的从表，也就是关系是在person表中维护的，这是最重要的。Person表是关系的维护者，有主导权，它有个外键指向IDCard。 
+我们也可以让主导权在IDCard上面，也就是让他产生一个指向Person的外键，这也是可以的，但是最好让Person来维护整个关系，这样更符合我们的思维。 
+我们也可以看到在Person里面的IDCard是注释optional=true,也就是说一个人是可以没有身份证的，但是一个身份证是不可以没有人的，所以在IDCard里面注释Person的时候，optional=false了，这样就可以防止一个空的身份证记录进数据库。
+-------------------------------------------------------------------------------------------
+2、@OneToMany和@ManyToOne：一对多和多对一关系
+
+	@Entity
+	public class Item{
+		@Id
+		protected Long itemId;
+		protected String title;
+		protected Date postDate;
+		..
+		@OneToMany(mappedBy="item")
+		protected Set<Bid> bids;
+	}
+	
+	@Entity
+	public class Bid{
+		@Id
+		protected Ling bidId;
+		protected Double amount;
+		...
+		@ManyToOne
+		protected Item item;
+	}
+	
+	@ManyToOne中targetEntity属性：
+		如果没有对Set使用泛型，那么就不能判断Item对象和什么实体相关，这正式targetEntity参数应对的情况
+		---
+		@OneToMany(targetEntity=Bid.class,mappedBy="item")
+		protected Set bids;
+	-------------------------
+	@OneToMany:因为ManyToOne总是关系的拥有端，所有该注解没有mappedBy属性。
+
+
+
+	
+	

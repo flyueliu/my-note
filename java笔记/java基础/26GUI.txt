@@ -1,0 +1,2 @@
+swing GUI中解决图片闪烁的问题：
+	在paintComponent中绘制图像，然后paint方法调用paintComponent方法绘制图像，实现双缓冲。

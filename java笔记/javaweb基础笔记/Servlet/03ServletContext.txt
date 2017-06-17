@@ -1,0 +1,59 @@
+ServletContext:叫做Servlet的上下文对象，表示一个当前的web应用环境。
+	一.代表了整个web应用的信息，一个web应用中只有一个ServletContext对象。
+	
+	二.创建时机：在服务器加载web.xml文件时创建ServletContext对象，
+		从servletConfig中的getServletContext对象获得。
+
+	1.String getContextPath();	--得到当前web应用的路径，就是部署到tomcat服务器运行的web应用名称。/day10  (day10是项目名称)
+	
+域对象有关方法：
+	2.java.util.Enumeration getAttributeNames();
+	3.void setAttribute(String name,Object object);
+	4.Object getAttribute(String name);
+	
+域对象的有关方法：
+	用于保存数据和获取数据。可以在不同的动态资源中共享数据。
+		保存数据：
+			void setAtrribute(String name,Object value);
+		获取数据：
+			Object getAttribute(String name);	
+ 
+	
+	
+	5.java.lang.String getRealPath(java.lang.String path) 
+		this.getServletContext().getRealPath("/"):这个斜杠代表web应用的根目录下，
+			如果项目名称为day11，那么则进入到了day11文件夹。
+	
+	6.RequestDispatcher getRequestDispatcher(java.lang.String path) --转发
+	//转发
+		this.getServletConfig().getServletContext().getRequestDispatcher("/项目名称下的文件路径").forward(request,response);
+		转发只能够转发到本项目内的其他页面
+	//重定向
+		response.sendRedirect("/项目名/项目下的文件");
+		重定向能够进入到其他web项目下
+	
+	
+
+	初始化参数的有关方法：ServletContext的初始化参数在整个web应用中都有效，任何web项目下的servlet对象都能获得
+		7.Enumeration getInitParameterNames();
+		8.String getInitParameter(String initParameterName);
+		
+	初始化参数放在：web.xml下的<web-app>标签下使用：
+		<context-param>
+			<param-name></param-name>
+			<param-value></param-value>
+		</context-param>
+
+	
+
+		
+		
+	
+	
+ 
+	
+ 
+	
+ 
+	
+ 

@@ -1,0 +1,64 @@
+1:表单标签如<s:form> 、<s:fieldtext>等
+2.使用这些标签会有表单数据自动回显，检测输入验证等功能。
+
+一：***数据回显****
+	(1)表单标签会自动将值栈中的栈顶对象中值自动填入表单中。因此需要使用表单回显时应该将需要回显的对象放入**值栈栈顶***。
+	
+二：输入校验：
+	(1)使用数据校验时，该Action必须实现Validation接口(继承ActionSupport就会实现该接口)。	(2)如果提交的数据出现异常(一般是类型转换出错)，该Action会自动去找result为input的页面。并且将错误消息fieldErrors(Map集合)放入list栈。
+	(3)如果s表单标签不是使用的Simple主题，错误消息会自动显示。
+	(4)如果是Simple主题，那么需要手动的显示错误消息。方式有三种。
+		4.1使用EL表达式获取错误消息${fieldErrors['错误的字段']}
+		4.2使用<s:property>标签获取
+		4.3使用<s:fielderror value=""></s:fielderror> value中填入出错的字段即可。
+	
+	(5)定制错误消息：
+		错误消息一般都是显示英文，不能满足我们的需求。
+		过程：	1.在该Action所在包下，添加一个properties文件。该文件的文件名必须是：该Action的类名.properties文件。(如Action的类名为：GoodsAction.java,那么该properties文件必须是GoodsAction.properties,并且和该Action在同一包下)。
+		2.在properties文件中填写：invalid.fieldvalue.需要检测的对象=错误消息.
+			
+			例：GoodsAction中有一个成员变量Goods。
+				1.表单提交到commitGoods方法中。
+				2.如果goods中的属性gprice(必须为double类型)输入错误，此时无法将该值放入gprice属性中，
+				3.那么properties文件中就这么写：
+					invalid,fieldvalue.goods.gprice=价格必须为浮点型
+				4.代码：
+				public class GoodsAction extends ActionSupport{
+					private Goods goods;
+					public void setGoods(Goods goods) {
+						this.goods = goods;
+					}	
+					public Goods getGoods() {
+						return goods;
+					}
+					
+					public String commitGoods(){
+						return "success"
+					}
+				}
+		3.去result中找到input的页面：在这个页面中，值栈中的list栈的栈顶Action对象，会有fieldErrors这样一个属性。
+			该属性是一个Map<String,List<String>>集合对象。key存的是"goods.gprice",value存的是定制的错误消息。
+			由于key中包含特殊字符"."号，EL表达式必须通过${fieldErrors['goods.gprie']}获取。
+			
+三：防止表单重复提交：
+		使用token令牌
+		原理：在服务器中session中存一个UUID，然后发送给客户端，如果服务器该uuid已经使用过了，那么不会进入action，由token拦截器拦截，并去找result 为"invalid.token"的结果视图并返回。
+		
+	1.使用步骤：
+		需要在提交到的Action中配置token拦截器：
+			如下:
+		<action name="update_goods" class="com.jky.goods.action.GoodsAction" method="updateGoods">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="success">/index.jsp</result>
+			<result name="invalid.token" type="redirect">/token_error.jsp</result>
+		</action>
+	2.配置该action的返回invalid.token结果。
+	3.在提交的表单中写上
+		<s:token><s:token/>标签。即可
+
+		
+		
+		
+
+		

@@ -1,0 +1,20 @@
+Map集合的特点：
+	将键映射到值的对象。一个映射不能包含重复的键，每个键只能映射到一个值。
+
+Map集合的功能:
+	1.添加功能
+		V put(K key,V value):添加功能
+	2.删除功能
+		void clear()
+		V remove(Object key):根据键删除键值对，并返回值
+	3.判断功能
+		boolean containsKey(Object key):判断集合是否包含指定的键
+		boolean containsValue(Object value):判断集合是否包含指定的值	
+		boolean isEmpty
+	4.获取功能
+		 Set<Map.Entry<K,V>> entrySet():返回此映射中包含的映射关系的 Set 视图。 
+		V get(Object key):根据键获取值
+		Set<K> ketSet():获取集合中所有键的集合
+		Collection<V> values():获取集合中所有的值的集合
+	5.长度功能
+		int size():返回集合中的键值对个数

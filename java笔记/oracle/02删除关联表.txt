@@ -1,0 +1,2 @@
+如果是单方向的外键关联的时候：先删子表，然后删父表就可实现了。命令为：drop table tablename；
+如果两张表相互有主外键约束命令为”drop table tablename cascade constraints“。只删除其中的一个即可完成两张表的同时删除。

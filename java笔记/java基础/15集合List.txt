@@ -1,0 +1,52 @@
+1.List集合的特点（存储字符串、存储自定义对象）
+	1.有序(序列、存储和取出元素一致)的Collection //根据索引可以找到元素
+	2.元素可以重复
+	
+2.List的特有功能
+	A:添加功能
+		void add(int index,E element):在指定位置添加元素
+	B：获取功能
+		E get(int index):获取指定位置的元素
+	C:列表迭代器
+		 ListIterator<E> listIterator(int index):返回列表中元素的列表迭代器（按适当顺序），从列表的指定位置开始。 
+		 
+	D:删除功能
+		E remove(int index):根据索引删除元素，返回被删除的元素	
+	E：修改功能
+		E set(int index,E element):修改指定位置元素，返回被修改的元素
+		
+	F:List集合的特有遍历功能：get方法和size方法的结合
+	for(int i=0;i<list.size();i++)
+	{
+		System.out.println(list.get(i));
+	}
+
+列表迭代器方法：
+	ListIterator listIterator();//List的特有方法
+	ListIterator里面有逆向遍历的方法
+	E previous()
+	
+数据结构：数据的组织方式。
+
+面试题：常见的数据结构的优缺点？
+		数据结构+算法
+
+栈：	先进后出
+队列：	先进先出
+
+数组：存储一种类型的多个元素的容器。有索引，方便我们获取
+	查询快，增删慢
+
+链表：由一个链子把多个结点连起来组成的数据
+结点：由数据和地址组成（数据域和指针域组成）
+	查询慢，增删快
+	
+面试题：
+	List的子类特点：
+	ArrayList：
+		底层数据是数组，查询快，增删慢，因为线程不安全，因此效率高
+	Vector：
+		底层数据是数组，查询块，增删慢，又因为线程安全，效率低
+	LinkedList：
+		底层数据是链表，查询慢，增删快。线程不安全，效率高
+	

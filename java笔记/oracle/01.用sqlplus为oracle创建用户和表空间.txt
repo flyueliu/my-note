@@ -1,0 +1,54 @@
+用Oracle10g自带的企业管理器或PL/SQL图形化的方法创建表空间和用户以及分配权限是相对比较简单的，本文要介绍的是另一种方法，使用Oracle 9i所带的命令行工具：SQLPLUS
+来创建表空间，这个方法用起来更加简明快捷。
+
+---------------------------
+　　假设： 文章假设，如果您用的是Linux系统，那么Oracle用户名为oracle。同时，您是在oracle服务器上操作。
+　　如果是在Windows系统下， 请先点击“开始”，然后点“运行”，输入cmd并点击“确定”，打开命令行窗口
+　　如果是在Linux的图形窗口，请右键点击桌面并点击“打开终端”，然后输入    su  -   oracl
+　　做好上述准备工作以后，输入以下命令：
+　　sqlplus   /nolog
+　　回车后，将出现提示符 SQL>
+　　这时输入
+　　conn   /   as   sysdba
+　　一般即可登录，如果失败的话，可以试一下用conn    sys/sys用户的密码   as sysdba来重试一下
+　　接下来，我们看看您当前的数据库文件一般都是放在哪里的：
+　　select    name    from    v$datafile;
+　　windows下可能看到的结果如下：
+　　SQL> select name from v$datafile;
+　　NAME
+　　--------------------------------------------------------------------------------
+　　D:\oracle\oradata\orcl\system01.dbf
+　　D:\oracle\oradata\orcl\undotbs01.dbf
+　　D:\oracle\oradata\orcl\cwmlite01.dbf
+　　D:\oracle\oradata\orcl\drsys01.dbf
+　　D:\oracle\oradata\orcl\indx01.dbf
+　　D:\oracle\oradata\orcl\tools01.dbf
+　　说明您的数据文件是放在 D:\oracle\/oradata\orcl\ 这个目录下的
+　　Linux下可能看到的结果如下：
+　　SQL> select name from v$datafile;
+　　NAME
+　　--------------------------------------------------------------------------------
+　　/oracle/oradata/orcl/system01.dbf
+　　/oracle/oradata/orcl/undotbs01.dbf
+　　/oracle/oradata/orcl/cwmlite01.dbf
+　　/oracle/oradata/orcl/drsys01.dbf
+　　/oracle/oradata/orcl/indx01.dbf
+　　/oracle/oradata/orcl/tools01.dbf
+　　说明您的数据文件是放在 /oracle/oradata/orcl/ 这个目录下的
+　　好，我们可以开始创建数据库表空间了，创建数据库表空间的命令格式如下：
+　　create  tablespace  表空间名  datafile   '对应的文件名'    size   大小;
+　　举例如下：
+　　对于上述的windows情况：
+　　create  tablespace  yang   datafile   'D:\oracle\oradata\orcl\yang.dbf'    size   3000m;
+　　3000m指的是3000MB
+　　对于上述的Linux的情况：
+　　create  tablespace  yang   datafile   '/oracle/oradata/orcl/yang.dbf'    size   3000m;
+　　至此，所需的表空间已建立。
+　　接下来我们开始创建用户，创建用户的命令格式如下：
+　　create  user  用户名  identified   by   密码  default   tablespace   用户默认使用哪一个表空间;
+　　修改用户的权限：
+　　grant   角色1,角色2  to  用户名;
+　　举例如下：
+　　create   user   yanglei   identified    by    yang123    default   tablespace   yang;
+　　grant   dba, connect    to   yanglei;
+授权成功。

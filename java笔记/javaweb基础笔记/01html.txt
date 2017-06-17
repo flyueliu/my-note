@@ -1,0 +1,6 @@
+浏览器：是解释和运行网页的工具
+	1、静态网页
+	2、动态网页
+HTML：Hyper Text Markup Language
+
+	
