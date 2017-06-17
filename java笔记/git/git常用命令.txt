@@ -3,6 +3,12 @@
 2.把文件添加到版本库：git add readme.txt(readme.txt该文件)/git add .(当前目录)
 3.把文件提交到仓库：git commit -m "提交信息"
 --------------------------------------------------
+***git中文件只有的三种状态：
+		已修改(modified):修改了文件，但没有保存到数据库中 【文件被修改】
+		已暂存(staged):已经对修改文件的当前版本最了标记，使之包含在下次提交的快照中。 【git add .就会将文件暂存】
+		已提交(committed):数据已经安全保存在本地数据库中 【git commit 将文件保存到本地数据库】
+-------------------------------------------------------
+
 二：从远程库中克隆项目:
 	git.exe clone --progress -v "http://gitzx.itbo.cc:33516/zxlab/admin.git" "C:\programmer\git\repository\admin"
 	git clone git@github.com:michaelliao/gitskills.git
@@ -66,7 +72,53 @@
 		(1)先将服务器的代码pull到本地一个新的分支上
 		(2)将本地的分支与服务器的分支做合并(	合并分支：git merge --no-ff -m "merge with no-ff" dev)
 		(3)解决本地与服务器分支的冲突问题，最后提交代码
+
+
+git的撤销操作
+	1.撤销提交操作(追加提交):【修改"已提交"】
+		(1).如果commit后发现还有文件没有添加，或者写错了提交信息，可以再次使用git commit --amend 追加操作,最终之后产生一份提交
+		例子：
+			$ git commit -m "initial commit"
+			$ git add forgoten_file
+			$ git commit --amend
+	2.取消暂存的文件(已暂存->到上次已修改):【修改"已暂存"】如果修改了两个文件，并且想要将他们作为两次独立的修改提交，但却输入了 git add *将两个文件同时暂存起来了，可使用 git reset HEAD <file>命令
+		$ git add *
+		$ git reset HEAD configure.md   (这时候configure.md文件会被移除暂存区)
+	3.撤销对文件的修改(已修改状态的文件恢复到上次已暂存状态,危险命令[对文件的修改将消失，无法找回]):git checkout -- [file]
+
+远程仓库的使用
+	1.
 	
+git别名：查看历史记录
+	$　git config --global alias.lg  'log --online --decorate --graph --all'
+
+分支管理
+	1. git branch :查看所有分支
+	   git branch --merged:查看哪些分支已经合并到当前分支
+	   git branch -d testing：删除已经被合并的分支
+	   git branch -D testing :强制删除分支
+	2.远程分支
+		[1]git fetch origin :抓取远程分支
+			(1)远程所有的分支都会被抓取.
+			(2)远程分支的名字为:origin/master或其他分支名[/前是远程地址的别名,master为远程分支名])
+			(3)但不会自动合并到本地分支。
+		[2]git merge origin/master:合并远程的master分支到当前的分支上。
+		[3]跟踪分支:
+			(1)从一个远程跟踪分支检出一个本地分支会自动创建一个叫做"跟踪分支"(有时也叫做"上游分支")。
+			(2)跟踪分支是远程分支有直接关系的本地分支。
+			(3)如果在跟踪分支上输入git pull ，git能自动识别去哪个服务器上抓取，合并到哪个分支。
+			git checkout -b [local branch name] [remotename]/[remote server branch name]
+				这时候，本地分支就会和远程分支同步
+			(4)删除远程分支
+				$ git push origin --delete dev
+	    [4]变基
+			
+		
+
+git reflog
+	git reflog 命令分析你所有分支的头指针的日志来查找出你在重写历史上可能丢失的提交。
+	
+
 
 .gitingnore文件 ：
 	.gitignore有两种文件过滤模式，开放模式和保守模式
