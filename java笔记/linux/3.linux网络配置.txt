@@ -54,7 +54,9 @@ Linux网络配置命令:
 	关闭网卡:ifconfig eth0 down 
 	开启网卡:ifconfig eth0 up
 	
-
+4.查看本地端口号被使用情况：
+	lsof -i:端口号  #查看指定端口号是否被使用，被什么进程使用
+	netstat -tlun #查看tcp协议监听的端口号
 	
 	
 	
