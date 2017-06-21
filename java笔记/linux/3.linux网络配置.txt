@@ -54,9 +54,48 @@ Linux网络配置命令:
 	关闭网卡:ifconfig eth0 down 
 	开启网卡:ifconfig eth0 up
 	
+
+	
 4.查看本地端口号被使用情况：
 	lsof -i:端口号  #查看指定端口号是否被使用，被什么进程使用
-	netstat -tlun #查看tcp协议监听的端口号
+	netstat -tlun #常用
+	        -t:列出TCP协议端口号
+			-u:列出UDP协议端口号
+			-n:不使用域名与服务器名,而是用ip地址和端口号
+			-l:仅列出监听状态网络服务
+			-a:列出所有的网络连接
+
+5.ssh命令
+	1. ssh 用户名@ip地址  #远程管理制定Linux服务器
+	2. scp [-r] 用户名@ip:文件路径 本地路径  #下载文件
+	3. scp [-r] 本地文件 用户名@ip地址:上传路径
+	
+	
+	
+	
+-------------------------------------------------------------------------
+5.网卡信息文件
+	vim	/etc/sysconfig/network-script/ifcfg-eth0
+	内容：
+		DEVICE=eth0     #网卡设备名,必须和文件名后一段一致
+		BOOTPROTO=none  #是否自动获取ip（none、static、dhcp）
+		HWADDR=00:0c:29:17:c4:09 #mac地址
+		ONBOOT=yes		#是否随网络服务启动，eth0生效
+		TYPE=Ethernet 	#类型为以太网
+		UUID="44dasd-asd-sd-d-adad-ad" #唯一识别码
+		USERCTL=no		#不允许非root用户控制此网卡=建议yes
+		----dhcp不需要配置下面内容----
+		IPADDR=			#ip地址
+		NETMASK			#子网掩码
+		GATEWAY			#网关
+		DNS1			#DNS
+		IPV6INIT=no		#Ipv6没有启动
+6.主机名文件
+	vim	/etc/sysconfig/network
+	
+7.DNS配置文件
+	vim /etc/resolv.conf
+		
 	
 	
 	
