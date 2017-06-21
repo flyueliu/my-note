@@ -1,0 +1,69 @@
+Nginx+tomcat配置集群负载均衡
+	1.nginx 读取指定配置文件启动
+		./nginx -c <配置文件nginx.conf>
+	2.nginx 停止
+		./nginx -s  stop 快速退出
+		./nginx -s quit  优雅退出
+		./nginx -s reload 更新配置，启动新的工作进程，优雅的关闭以往的工作进程
+		./nginx -s reopen 重新打开日志文件
+	3.配置文件nginx.conf
+		server{
+			listen 80;
+			server_name localhost;
+			#charset koi8-r;
+			#access_log logs/host.access.log main;
+			location / {
+				root html;
+				index index.html index.htm;
+			}
+		}
+		listen:表示当前代理服务器监听的端口，默认是监听80端口。如果我们配置了多个server，这个listen要配置不一样，不然就不能确定转到哪里去了。
+		server_name:表示监听到之后要转到哪里去，这时我们直接转到本地
+		location:表示匹配的路径，这时配置/表示所有的请求都被匹配到这里 
+		root：配置root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件，这里对我们之后的静态文件伺服很有用。
+		index：当没有指定主页时，默认会选择这个指定的文件，它可以有多个，并按顺序来加载，如果第一个不存在，则找第二个，依此类推。
+		
+	4.配置转发到Tomcat
+	根据以上描述，将请求转发到tomcmat只需要修改配置：
+		server{
+		
+			server_name localhost:8080;
+			#charset koi8-r;
+			#access_log logs/host.access.log main;
+			location / {
+				proxy_pass http://localhost:8080;
+			}
+		}
+	5.配置集群负载均衡
+		proxy_pass在负载均衡中作用很大
+	
+		将第4步的代码修改如下：
+			upstream local_tomcat{
+				server localhost:8080;
+				server localhost:8090;
+			}
+			
+			server{
+				location / {
+					proxy_pass http://local_tomcat;
+				}
+				# ....其余省略
+			}
+		我们在server外添加了一个upstream，而直接proxy_pass里面直接用http://+upstream的名称来使用
+		我们还是直接来http://localhost,效果还是和第一个一样。所有链接都没有问题。说明配置正确
+		注意:upstream中的server元素必须不能加http://,但proxy_pass必须加。
+		
+	权值：
+		upstream local_tomcat{
+			server localhost:8080 weight=1;
+			server localhost:8090 weight=5;
+		}
+		数字越大，表示被访问的机率就越大。
+		
+	6.更深入了解
+		当然,server还有一些其他的元素，比如down表示暂时不用到该服务器等等。这些可以参考nginx的wiki。也许写了一大堆，有人会有问题，那nginx怎么关闭呢？这倒是个问题，其实直接运行nginx -s stop就可以关闭了。
+
+	 至此nginx+tomcat负载均衡配置结束，关于tomcat中Session的问题通常是采用memcached
+	 或者采用nginx_upstream_jvm_route ，他是一个 Nginx 的扩展模块，用来实现基于 Cookie 的 Session Sticky的功能。
+	 如果tomcat过多不建议session同步，server间相互同步session很耗资源，高并发环境容易引起Session风暴。请根据自己应用情况合理采纳session解决方案。
+		
