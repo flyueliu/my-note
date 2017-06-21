@@ -1,0 +1,7 @@
+find：
+	find /etc -namt init :在/etc中查找文件init(文件名只能是init)
+	find /etc -name *init* :在/etc忠查找文件名包含init的文件
+
+	按文件大小：
+		find / -size +204800：查找文件大于100MB
+	
