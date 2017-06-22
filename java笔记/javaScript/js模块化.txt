@@ -1,0 +1,68 @@
+requirejs:模块化
+1.入门：
+	(1)html：
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<!-- 引入requirejs文件 -->
+				<script type="text/javascript" src="require.js"></script>
+				<script type="text/javascript">
+					require(["a"]);
+				</script>
+			</head>
+			<body>
+			  <span>body</span>
+			</body>
+		</html>
+	(2)a.js:
+		define(function(){
+			function fun1(){
+			  alert("it works");
+			}
+
+			fun1();
+		})
+	(3)效果和优点：浏览器提示"it works".
+		3.1防止js加载阻塞页面渲染
+		3.2使用程序调用方式加载js,不需要在写很多script标签
+			
+2.基本API
+	2.1	require会定义三个变量:define,require,requirejs,其中require===requirejs,一般使用require。
+		(1)define用来定义一个模块
+		(2)require加载依赖模块，并执行加载完后的回调函数
+	入门例子中a.js定义了一个模块,然后通过require(["a"]);来加载模块。
+		注意：
+			*.require忠的依赖是一个数组，即使只有一个依赖，也必须使用数组来定义
+			*.require API中第二个参数是callback，一个function，是用来处理加载完毕后的逻辑。
+				例:
+					require(["a"],function(){
+						alert("load finished");
+					});
+	2.2 加载文件
+		大部分情况下网页需要加载的js来自于本地服务器，这样就不能通过以上方式加载
+		例子：
+			require.config({
+				paths:{
+					"jquery":["http://libs.baidu.com/jquery/2.0.3/jquery"]
+				}
+			});
+			require(["jquery","js/a"],function($){
+				$(function(){
+					alert("load finished");
+				});
+			});
+		通过paths的配置会使我们的模块名字更精练，paths还有重要功能就是可以配置多个，第一个未成功会加载第二个。
+			require.config({
+				paths:{
+					"jquery":["http://libs.baidu.com/jquery/2.0.3/jquery","js/jquery"],
+					"a":"js/a"
+				}
+			});
+		注意：
+			(1)在使用requirejs时，加载模块不用写.js后缀，也不能写
+			(2)callback函数中$参数，就是依赖jquery模块的输出变量，如果依赖多个模块。可以依次写入多个参数使用。
+				require(["jquery","underscore"],function($, _){
+					$(function(){
+						_.each([1,2,3],alert);
+					});
+				});
