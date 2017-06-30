@@ -10,6 +10,14 @@
 
 9。移动文件： mv /tmp/res.txt /tmp/des.txt
 
+10.链接文件 
+	软链接(相当于window的快捷方式):ls -s 源文件  目标文件
+	硬链接: ls 源文件 目标文件 
+	软连接能够创建目录，硬链接不能
+
+11.查找文件
+	find：find /usr -name *emacs #查找usr文件夹下所有含有emacs的文件
+	
 压缩和解压缩：
 	tar命令
 	

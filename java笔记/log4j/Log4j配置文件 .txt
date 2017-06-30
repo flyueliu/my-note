@@ -1,0 +1,64 @@
+properties格式:
+	示例:
+		log4j.rootLogger=INFO, A1 
+		log4j.appender.A1=org.apache.log4j.ConsoleAppender 
+		log4j.appender.A1.layout=org.apache.log4j.PatternLayout 
+		log4j.appender.A1.layout.ConversionPattern=%-4r %-5p [%t] %37c %3x - %m%n
+	1.配置根Logger:
+		log4j.rootLogger=[level],appenderName,appenderName,...
+		
+		[level]:是日志记录级别，ERROR、WARN、 INFO、DEBUG
+		appenderName:指定日志信息数据到哪个地方。名字可以自由取
+	
+	2.配置日志信息输出目的地Appender,其语法为:
+		log4j.appender.appenderName = package+appender_class_name
+		log4j.appender.appenderName.option1 = value1 
+		… 
+		log4j.appender.appenderName.option = valueN 
+		
+	其中，Log4j提供的appender有以下几种:
+		org.apache.log4j.ConsoleAppender（控制台）， 
+		org.apache.log4j.FileAppender（文件）， 
+		org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）， 
+		org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）， 
+		org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方)
+		org.apache.log4j.jdbc.JDBCAppender(将日志写入数据库)
+		
+		(1).ConsoleAppender选项 	
+			Threshold=WARN:指定日志消息的输出最低层次。 
+			ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。 
+			Target=System.err：默认情况下是：System.out,指定输出控制台 
+			
+		(2).FileAppender 选项 	
+			Threshold=WARN:指定日志消息的输出最低层次。 
+			ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。 
+			File=mylog.txt:指定消息输出到mylog.txt文件。 
+			Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖指定的文件内容。 
+			
+		(3).DailyRollingFileAppender 选项 
+			Threshold=WARN:指定日志消息的输出最低层次。 
+			ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。 
+			File=mylog.txt:指定消息输出到mylog.txt文件。 
+			Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖指定的文件内容。 		DatePattern=’.'yyyy-ww:每周滚动一次文件，即每周产生一个新的文件。当然也可以指定按月、周、天、时和分。即对应的格式如下： 
+				1)’.'yyyy-MM: 每月 
+				2)’.'yyyy-ww: 每周 
+				3)’.'yyyy-MM-dd: 每天 
+				4)’.'yyyy-MM-dd-a: 每天两次 
+				5)’.'yyyy-MM-dd-HH: 每小时 
+				6)’.'yyyy-MM-dd-HH-mm: 每分钟 
+				
+		(4).RollingFileAppender 选项 
+			Threshold=WARN:指定日志消息的输出最低层次。 
+			ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。 
+			File=mylog.txt:指定消息输出到mylog.txt文件。 
+			Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖指定的文件内容。 
+			MaxFileSize=100KB: 后缀可以是KB, MB 或者是 GB. 在日志文件到达该大小时，将会自动滚动，即将原来的内容移到mylog.log.1文件。
+			MaxBackupIndex=2:指定可以产生的滚动文件的最大数。
+
+		(5). JDBCApperder选项
+			URL=jdbc:MySQL://localhost:3306/test：指定日志写入的数据库链接
+			driver=com.mysql.jdbc.Driver：指定数据库驱动
+			user=root：指定数据库的用户名
+			password=123：指定数据库的登录密码
+			sql=insert into tb_log (message) values('=[%-5p] %d(%r) --> [%t] %l: %m %x %n')：指定写入数据库的执行语句
+		

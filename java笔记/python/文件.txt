@@ -1,0 +1,54 @@
+open 函数：打开文件 
+	mode参数：
+		'r'：默认，以只读方式
+		'w':写入方式，会覆盖已存在文件
+		'x':如果文件已存在，会引发异常
+		'a':写入模式，会将内容追加至末尾
+		'b':以二进制方式
+		't':以文本模式打开
+		'+':可读可写模式（可以加到其他模式中使用）
+		'U':通用换行符支持
+
+文件对象的方法：
+	f.close():关闭文件
+	f.read(size=-1):从文件中读取size个字符，未给定或者给定负值会读取剩余所有字符，然后返回字符串
+	f.readline():读取一行
+	f.write(str):将字符串写入文件
+	f.writelines(seq):向文件中写入字符串序列seq，seq应该是返回字符串的可迭代对象
+	f.seek(offset,from):在文件中移动文件指针，从form(0代表文件 开始位置，1代表当前位置，2代表文件末尾)偏移offset个字节
+	f.tell():返回当前文件中的位置 
+	
+操作文件和目录:os模块
+	1.获取操作系统
+		os.name #操作系统类型:nt为windows，posix为linux or Mac OX
+	2.环境变量
+		os.environ #获取整个环境变量
+		os.environ.get('PATH') #获取某个环境变量的值
+		
+	3.	os.path.abspath('.') #当前目录的绝对路径
+		#在某个目录下创建新的目录，首先把新目录的完整路径表示出来
+		os.path.join('/Users/michael','testdir')
+		# 然后创建一个目录
+		os.mkdir('/Users/michael/testdir')
+		#删除一个目录：
+		os.rmdir('/Users/michael/testdir')
+		
+		# 拆分：仅仅只是对字符串进行了操作，不检测文件是否存在
+			os.path.split('/Users/michel/testdir/file.txt') #可以直接获取文件名
+			-->('/Users/michael/testdir', 'file.txt')
+			os.path.splitext('/Users/michel/testdir/file.txt') #可以获取扩展名
+			-->('/Users/michael/testdir', '.txt')
+			
+		#对文件重命名
+			os.rename('test.txt','test.py')
+		
+		#删除文件
+			os.remove('test.py')
+		
+		
+	
+			
+			
+		
+			
+	

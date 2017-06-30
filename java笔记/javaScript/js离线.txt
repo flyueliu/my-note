@@ -1,0 +1,4 @@
+1.离线检测：
+	(1)使用navagator.onLine属性。true在线，false离线
+	(2)online、offline事件。当网络离线->在线、在线->离线时触发。这俩个事件在window对象上触发。
+		
