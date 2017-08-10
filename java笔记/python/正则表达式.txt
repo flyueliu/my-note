@@ -1,0 +1,11 @@
+正则使用：re模块
+	1.re.match('正则表达式','用户输入的字符串'):如果匹配返回一个match对象，否则返回None
+		常用判断方法是:
+			test = '用户输入的字符串'
+			if re.match(r'正则表达式', test):
+				print('ok')
+			else:
+				print('failed')
+	
+	3.切分字符串 :
+		

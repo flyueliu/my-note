@@ -81,4 +81,5 @@ users表中的外键名称就将是"User_billing_id"(本表中的列名),referen
 		protected Item item;
 		....
 	}
-	
+-------------------------
+实体类的字段名切记避免和数据库得到关键字重名

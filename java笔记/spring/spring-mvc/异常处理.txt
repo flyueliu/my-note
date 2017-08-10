@@ -1,0 +1,9 @@
+1.@ExceptionHandler({Arithme}):方法的入参可以加入Exception类型的菜熟，该参数对应的异常对象
+2.@ExceptionHandler的方法不能传入Map。若希望异常信息传到页面上，需要用ModelAndView
+3.@ExceptionHandler的方法具有优先级先匹配
+
+4.ControllerAdvice:
+	如果在当前的Handler中找不到ExceptionHandler来处理当前方法出现的异常，则将去ControllerAdvice标记的类中查找对应的异常
+	
+5.ResponseStatusExceptionResolver：
+	

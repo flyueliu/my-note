@@ -1,0 +1,30 @@
+一、脚本介绍
+1.redis-server:
+	redis服务器的daemon启动程序
+2.redis-cli：
+	redis命令行操作工具
+3.redis-benchmark:redis性能测试工具，测试redis在你的系统及配置下的读写性能
+	redis-benchmark -n 100000 -c 50 
+	
+二、redis.conf配置文件
+daemonize：#是否以后台守护进程方式运行
+pidfile: #pid文件位置
+	##(1) pid文件的内容：pid文件为文本文件，内容只有一行, 记录了该进程的ID。用cat命令可以看到。
+	##(2)pid文件的作用：防止进程启动多个副本。只有获得pid文件(固定路径固定文件名)写入权限(F_WRLCK)的进程才能正常启动并把自身的PID写入该文件中。其它同一个程序的多余进程则自动退出。
+port: #监听的端口号
+timeout: #请求超时时间
+loglevel：#log信息级别
+logfile: #默认为标准输出(stdout),如果以守护进程运行，又配置标准输出，则日志会发送给/dev/null
+databases: #开启数据库的数量 
+save *  *: #保存 快照的频率，第一个*表示多长时间，第二个*表示执行多少次操作。
+	## 在一定时间内执行一定数量的写操作时，自动保存快照。可设置多个条件。
+rdbcompression： #保存快照是否使用压缩
+dbfilename:数据库快照文件名（只是文件名，不包括目录）。默认dump.rdb
+dir: #数据快照保存目录
+requirepass：#设置连接redis的密码,如果配置了连接密码,客户端在连接 Redis 时需
+要通过 AUTH <password>命令提供密码,默认关闭
+
+
+
+
+
