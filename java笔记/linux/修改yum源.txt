@@ -1,0 +1,30 @@
+1.http://blog.csdn.net/henulwj/article/details/47061527
+
+一、centos更新系统源
+	1.首先备份/etc/yum.repos.d/CentOS-Base.repo
+		$  mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+	2.下载对应版本repo文件, 放入/etc/yum.repos.d/(再次提醒操作前请做好相应备份) 
+		CentOS7 (http://mirrors.163.com/.help/CentOS7-Base-163.repo)
+		CentOS6 (http://mirrors.163.com/.help/CentOS6-Base-163.repo)
+		CentOS5 (http://mirrors.163.com/.help/CentOS5-Base-163.repo)
+	3.最后运行一下命令生成缓存
+		$ yum clean all
+		$ yum makecache
+		
+二、修改pip更新源
+	1.pipy国内镜像目前有： 
+		http://pypi.douban.com/ 豆瓣 
+		http://pypi.hustunique.com/ 华中理工大学 
+		http://pypi.sdutlinux.org/ 山东理工大学 
+		http://pypi.mirrors.ustc.edu.cn/ 中国科学技术大学 
+	2.安装时我们可以手动指定安装源如下：
+		pip -i http://pypi.douban.com/simple install Flask
+	3.如果感觉每次安装都手动指定安装源麻烦的话，也可以配置pip更新源 
+		(1)在主目录下创建.pip文件夹
+			mkdir ~/.pip
+		(2)然后在该目录下创建pip.conf文件编写如下内容：
+			[global]
+			trusted-host =  pypi.douban.com
+			index-url = http://pypi.douban.com/simple
+这里以豆瓣的源为例，由于最新的pip安装需要使用的https加密，所以在此需要添加trusted-host 
+对于window系统来说基本配置相同创建或修改配置文件在%HOMEPATH%\pip\pip.ini
