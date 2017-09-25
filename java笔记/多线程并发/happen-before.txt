@@ -1,0 +1,12 @@
+先行发生规则：
+	如果操作A先行发生于操作B，意思就是说：在发送操作B之前，操作A产生的影响都能被操作B观察到。
+	1."影响"包括修改了内存中共享变量的值、发送了消息、调用了方法等。它与时间是的先后发生基本没有太大关系
+
+(1)程序顺序规则：一个线程中的每一个操作，happens-before于该线程中的任意后续操作。
+(2)监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。
+(3)volatile变量规则:对一个volatile域的写happends-bofore于任意后续对这个volatile域的读。
+(4)传递性：如果A happends-bofore B，且B happens-before C，那么A happens-before C。
+注意：happens-bofore仅仅要求前一个操作(执行的结果)对后一个操作可见，并没有要求前一个操作必须在后一个操作之前执行。
+
+
+

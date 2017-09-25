@@ -1,0 +1,7 @@
+现在，想知道这个约束名为“PK_ID”的约束，是属于那张表的，后台sql语句可以写为：
+select TABLE_NAME from all_constraints where CONSTRAINT_NAME='PK_ID';
+或
+select constraint_name,constraint_type,table_name from all_constraints where CONSTRAINT_NAME='PK_ID';
+注意：
+1.表应为：all_constraints
+2.主键约束“PK_ID”必须大写

@@ -12,7 +12,7 @@ open 函数：打开文件
 文件对象的方法：
 	f.close():关闭文件
 	f.read(size=-1):从文件中读取size个字符，未给定或者给定负值会读取剩余所有字符，然后返回字符串
-	f.readline():读取一行
+	f.	():读取一行
 	f.write(str):将字符串写入文件
 	f.writelines(seq):向文件中写入字符串序列seq，seq应该是返回字符串的可迭代对象
 	f.seek(offset,from):在文件中移动文件指针，从form(0代表文件 开始位置，1代表当前位置，2代表文件末尾)偏移offset个字节

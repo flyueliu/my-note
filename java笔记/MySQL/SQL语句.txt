@@ -33,3 +33,13 @@ mysql> desc student;
 5.4 删除表				
 mysql> drop table student;
 Query OK, 0 rows affected (0.01 sec)
+
+5.5修改
+mysql> alter table 表名 modify column 字段名 类型;
+例如
+数据库中address表 city字段是varchar(30)
+修改类型可以用（谨慎修改类型，可能会导致原有数据出错）
+
+mysql> alter table address modify column city char(30);
+修改长度可以用（修改长度，要保证不短于已有数据，以保证原有数据不出错）
+mysql> alter table address modify column city varchar(50);

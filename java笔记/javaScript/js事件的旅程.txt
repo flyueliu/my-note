@@ -1,0 +1,37 @@
+1.事件捕获：允许多个元素响应单击事件的一种策略
+	过程:首先交给最外层元素 --> 再给更具体的元素 -->
+2.事件冒泡：
+	过程:首先发送给更具体的元素,在这个元素获得响应机会之后，事件会向上冒泡到更一般的元素。
+
+3.DOM标准:
+	1.首先，事件要从一般元素 --> 具体元素 逐层捕获
+	2.然后，事件再通过  冒泡 返回DOM树的顶层。
+	3.事件处理程序可以注册到这个过程中的任何一个阶段
+
+4.停止事件传播
+	event.stopPropagation()方法。可以完全组织事件冒泡
+
+5.阻止默认操作.preventDefault()
+	默认操作:
+		eg:点击超链接后的跳转、点击submit的提交表单
+	event.preventDefault()
+	
+example:
+
+	$(document).ready(function() {
+		$('#switcher').click(function(event) {
+			if ($(event.target).is('button')) {//测试被单击的元素是否包含button标签
+			var bodyClass = event.target.id.split('-')[1];
+			$('body').removeClass().addClass(bodyClass);
+			$('#switcher button').removeClass('selected');
+			$(event.target).addClass('selected');
+			event.stopPropagation();
+			}
+		});
+	});
+
+	.is()方法：接收一个选择符匹配，然后用原则符匹配当前的jQuery对象。如果集合中至少有一个元素符合，返回true
+	
+		
+
+	
