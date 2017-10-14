@@ -70,3 +70,7 @@ IO流的类别：
 	构造方法：
 		BufferedOutputStream(OutputStream out)：创建一个新的缓冲输出流，以将数据写入指定的底层输出流。
 		
+使用ZipOutStream 进行打包:
+	
+
+		
