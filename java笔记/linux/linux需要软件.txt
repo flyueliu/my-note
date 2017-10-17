@@ -1,0 +1,13 @@
+1. 更新源
+	(1)apt-get 镜像源:
+		deb http://mirrors.aliyun.com/raspbian/raspbian/ jessie main contrib non-free rpi
+		deb http://mirrors.aliyun.com/raspbian/raspbian/ stretch main contrib non-free rpi
+		deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi
+		
+		再执行apt-get update命令更新镜像源
+	(2)安装vim:sudo apt-get install vim 
+		需要先卸载vim-common
+	(3)安装java:sudo apt-get install openjdk-8-jdk
+	
+
+1. nginx

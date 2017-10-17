@@ -17,7 +17,19 @@
 
 11.查找文件
 	find：find /usr -name *emacs #查找usr文件夹下所有含有emacs的文件
+
+12.locate命令
+	locate命令和'find -name'的另一种写法.
 	
+13.whereis:用于程序名额搜索,只搜索二进制文件.
+
+	例子:$ whereis grep
+		 grep: /bin/grep /usr/share/man/man1p/grep.1p.gz /usr/share/man/man1/grep.1.gz
+
+14.which
+	which命令的作用是，在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。
+	也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。
+		 
 压缩和解压缩：
 	tar命令
 	

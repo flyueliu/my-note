@@ -1,4 +1,4 @@
-1.http://blog.csdn.net/henulwj/article/details/47061527
+﻿1.http://blog.csdn.net/henulwj/article/details/47061527
 
 一、centos更新系统源
 	1.首先备份/etc/yum.repos.d/CentOS-Base.repo
@@ -26,5 +26,6 @@
 			[global]
 			trusted-host =  pypi.douban.com
 			index-url = http://pypi.douban.com/simple
+
 这里以豆瓣的源为例，由于最新的pip安装需要使用的https加密，所以在此需要添加trusted-host 
 对于window系统来说基本配置相同创建或修改配置文件在%HOMEPATH%\pip\pip.ini
