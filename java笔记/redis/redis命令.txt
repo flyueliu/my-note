@@ -15,8 +15,7 @@ redis 字符串命令：
 	geteset key value :将给定的值设为value,并返回key的旧值(old value).
 
 redis hash 命令：
-	hmset runoobkey name "redis tutorial" description "redis basic command for caching" likes 20 visitors 23000
-	
+	hmset runoobkey name "redis tutorial" description "redis basic command for caching" likes 20 visitors 23000	
 	hset myhash field1 "foo1"; //设置 
 	hdel myhash field1; //删除
 	hexists myhash field1; //查看hash表中指定字段是否存在
