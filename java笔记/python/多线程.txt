@@ -1,0 +1,98 @@
+### python中有俩个线程模块，thread和threading，threading的功能更强
+
+1.创建线程的3种方法：
+	(1)thead模块的start_new_thread函数
+		1)函数原型:start_new_thread(function,args,kwargs)
+			1)args:函数function的参数，kwargs函数function参数(dict形式)
+	------------------------------------------------------------------
+	(2)继承theading.Thread模块,必须重写run方法
+	class MyThread(threading.Thread):
+		def __init__(self, id, interval):
+			threading.Thread.__init__(self)
+			self.id = id
+			self.interval = interval
+ 
+			def run(self):
+				for x in filter(lambda x: x % self.interval == 0, range(10)):
+				print "Thread id : %d   time is %d \n" % (self.id, x)
+ 
+	if __name__ == "__main__":
+		t1 = MyThread(1, 2)
+		t2 = MyThread(2, 4)
+		t1.start()
+		t2.start()
+		t1.join()
+		t2.join()
+	
+	(3)用thrading.Thread直接返回一个thread对象，然后运行它的start方法
+	def hello(id,times):
+		for i in range(times):
+			 print ("hello %s time is %d\n" % (id , i))
+	if __name__=='__main__':
+		t = threading.Thread(target=hello, args=("hawk", 5))
+		t.start()
+		
+2.简单锁同步
+python中有两种锁，一个锁是原始的锁(原语),不可重入。而另一个锁则是可重入的锁，即递归锁。
+可重入：当一个线程拥有一个锁的使用权后，再次获取锁的使用权时，不会阻塞，会立马得到使用使用权，而原始锁的话，则不行，会阻塞。
+
+
+1.threading的Lock(不可重入锁)
+
+2.threading的RLock（可重入锁）
+
+import threading
+import time
+
+lock = threading.RLock()
+
+
+def Count(id):
+    global num
+    while True:
+        print('Thread id is :%s 尝试获得锁' % id)
+        lock.acquire()
+        print('Thread id is :%s 已经获得锁' % id)
+        if num <= 100:
+            print('Thread id is :%s  The num is %s\n' % (id, str(num)))
+            num = num + 1
+            # lock.release()
+            # print('Thread id is :%s 已经释放锁' % id)
+            continue
+            # time.sleep(1)
+        print('Thread id is %s 尝试释放锁' % id)
+        lock.release()
+        print('Thread id is %s 已经释放锁' % id)
+        break
+    if id == 'B':
+		# 线程B在循环中获取了101次的锁（num==100后，会自增1成为101再次进入循环，被break，同时释放一次锁），而
+        for i in range(100):
+            lock.release()
+    print('Thread id is %s 终止' % id)
+
+
+if __name__ == '__main__':
+    num = 1
+    t1 = threading.Thread(target=Count, args=('A',))
+    t2 = threading.Thread(target=Count, args=('B',))
+
+    t2.start()
+    t1.start()
+    t1.join()
+    t2.join()
+    # time.sleep(5)
+
+3.Condtion（条件变量）
+Condtion：一个比Lock和Rlock更高级的锁
+wait:等待被唤醒
+notify/notifyAll:唤醒一个线程
+注意:Condtion,在wait之前必须有require
+
+1)Condtion的acquire 与release方法组合  -->java中的synchronized关键字{}
+2)notify/notifyAll相当于锁对象obj的这些方法
+
+	
+
+
+
+	

@@ -1,0 +1,21 @@
+subprocess.Popen方法的返回值对象:
+	p=subprocess.Popen('ls -l')
+	
+	Popen对象有以下方法:
+		1.Popen.poll():检查子进程是否已结束，设置并返回returncode属性。如果返回0表示正常运行，已经结束，如果返回None，表示没有结束
+		2.Popen.wait():等待子进程结束，设置返回值。
+		3.Popen.communicate():参数是标准输入，返回标准输出和标准出错
+			1)和子进程交互：发送数据到stdin，并从stdout和stderr读数据，直到收到EOF。等待子进程结束。可选的input如有有的话，要为字符串类型。
+			2)此函数返回一个元组： (stdoutdata , stderrdata ) 。
+		4.Popen.terminate():停止子进程，windows平台下调用Windows API TerminateProcess（）来结束子进程
+		5.Popen.kill():杀死子进程
+		6.Popen.send_signal(signal):向子进程发信号。
+	
+	Popen对象的属性:
+		1)Popen.pid:进程号
+		2)Popen.returncode:子程序返回值。
+			由poll()或者wait()设置
+			如果为None，子进程还未终止
+			如果为负数-N，表示子进程被N号信号终止（仅限*unx）
+		
+		
