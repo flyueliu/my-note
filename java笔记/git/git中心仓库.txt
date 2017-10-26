@@ -1,0 +1,29 @@
+
+git init --bare:创建"裸库"，没有工作区（只有.git文件夹）。
+	1.作为大家一起工作的共享库，每个人都可以往上push自己的本地更改。
+	2.可以理解为中心仓库，只有.git文件夹
+git init ：创建普通仓库（除.git文件夹外，还有保存代码的空间）
+	1.只能由普通仓库 push 代码到“裸库”上，没有从一个“普通仓库”push代码到另一个普通仓库。
+
+git remote add :添加远程仓库（链接）
+	example: 
+		git remote add 		pi 				git@192.168.1.105:/home/git/video.git 
+					   给远程库起名字		远程库的url：后面是裸库的所在路径（传输时用的ssh协议）
+
+	如果远程仓库修改了ssh协议的端口号：有两种办法:
+		1.直接修改URL为SSH://开头:	
+			git remote set-url origin ssh://git@domain.com:3022/~/Projects/p1.git
+			
+		2.修改本地配置文件：修改.ssh/config中配置
+			第（1）步: cat>~/.ssh/config
+				# 映射一个别名
+				host newdomain
+				hostname domain.com
+				port 3022
+			
+			第(2)步：
+				git remote set-url origin git@newdomain:Projects/p1.git
+
+					  
+git remote -v:查看所有远程仓库
+	
