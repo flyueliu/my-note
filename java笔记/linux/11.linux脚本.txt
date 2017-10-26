@@ -1,0 +1,45 @@
+1.命令替换：从命令输出中提取信息，并将其赋值给变量。
+	一.有两种方法可以将命令输出赋值给变量：
+		(1)反引号字符(`) esc键下面
+		(2)$()格式
+	example:
+		#!/bin/bash
+		testing1=`date`
+		testing2=$(date)
+		echo "The date and time are: $testing1"
+		echo "The date and time are:"$testing2
+	--------------------------	
+	shell会运行命令替换符号中的命令，并将其输出赋给变量testing 	
+
+2.重定向输入输出
+	输出重定向：
+	(1)最基本的重定向:将命令的输出发送到一个文件中。 date > test6.txt
+	(2)追加到文件：使用 >>  。 date >>test6.txt
+		输入重定向：将文件的内容重定向到命令，而非将命令的输出重定向到文件。
+	(3)管道：有时候需要将命令的输出作为另一个命令的输入。
+		方案1：$ rpm -qa >rpm.list
+			   $ sort <rpm.list
+		方案2：
+			rpm -qa|sort
+		linux会同时运行这两个命令，在系统内部将它们连接起来。在第一个命令产生输出的同时，
+		输出会被立即送给第二个命令
+		
+3.执行数学运算
+	(1)将一个数学运算结果赋给某个变量时，可以用美元符和方括号(只支持整数运算)
+	example:
+		$ var1=$[1+5]
+		$ echo $var1
+		$ var2=$[$var1*2]
+	(2)浮点运算解决方案:bc
+		
+org.apache.catalina.session.StandardSessionFacade@40c8b445
+
+org.apache.catalina.session.StandardSessionFacade@7aac26a3
+
+
+
+
+		
+		
+	
+	
