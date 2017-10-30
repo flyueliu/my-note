@@ -1,0 +1,19 @@
+1.使用 import package_name.module_name as bbb 语句：
+	(1)可以导入包、模块，不能导入模块内的变量(方法、类)，使用时必须采用'bbb.变量名'使用
+	(2)导入包时(import package_name)，会执行包中的__init_.py文件.
+		如果在该文件中没有导入包中模块名，那么"package_name.module_name"会提示找不到模块。
+		(可以理解为“__init__.py什么都没有写”就是"from . import *",会导入当前包下的被__all__所包括的所有模块)
+	(3)导入到模块时(import package_name.module_name),可以使用"package_name.module_name.mothod_name"调用模块中任意方法名.
+		模块中__all__变量是否有那个方法都没有事
+	
+2.使用from package_name.module_name import method_name 语句:
+	(1)可以导入包中的模块，模块中的方法，不受__all__的影响
+	
+3.使用from package_name.module_name import * 语句：	
+	(1)from package_name import *：只会导入包中__init__.py文件中__all__变量包含的模块
+	(2)from package_name.module_name import *:只会导入模块中__all__变量包含的模块.
+	
+	
+
+	
+
