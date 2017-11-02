@@ -1,0 +1,30 @@
+1.新建会话
+	tmux new -s SESSION-NAME
+	(注:SESSION-NAME表示会话名称，可以为字母或数字)
+
+2.查看已创建的会话:
+	tmux ls
+
+3.进入一个已知会话:
+	tmux a -t SESSION-NAME 或者 tmux attach -t SESSION-NAME
+
+4.暂时离开当前会话:
+	tmux detach
+
+5.关闭会话
+	tmux kill-session -t SESSION-NAME
+	
+#分屏操作：
+	水平分屏:进入tmux后，先按ctrl+b,放开再按%
+	垂直分屏:先按ctrl+b,放开再按"
+	分屏的窗口中光标相互切换:先按ctrl+b,放开再按o
+
+#其他快捷键操作:
+	1.终止一个终端:输入exit 或者 ctrl+b,放开后再按&
+	2.再当前的窗口再打开一个新的窗口:先按ctrl+b,再按c
+	3.暂时退出当前会话:先按ctrl+b,放开再按d
+	4.关闭所有分屏后的窗口，合并为一个窗口:ctrl+b,再按!
+	
+	
+	
+http://www.linuxidc.com/Linux/2017-08/146617.htm

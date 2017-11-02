@@ -1,0 +1,32 @@
+
+1.解析器：
+	lxml:依赖c语言库
+	html.parser:python本地实现
+
+2.对象的种类:
+	4种：Tag,NavigableString,BeautifulSoup,Comment.
+	
+	Tag:与xml或html原生文档中的tag相同。（标签）
+	
+		soup = BeautifulSoup('<b class="boldest">Extremely bold</b>')
+		tag = soup.b
+		type(tag)
+		# <class 'bs4.element.Tag'>
+		
+	最重要的两个属性：name、attributes
+		name:标签名 通过tag.name获取 # u'b' ,如果改变了tag的name (tag.name="blockname"),那么html文档就会改变
+		
+		attributes：一个tag可能有很多个属性，例中"class"就是属性
+		(1)操作属性的方式和操作字典一样(tag['class'])
+		(2)也可以使用tag.attrs获取所有的属性。{'class':'boldest'}
+			* 多值属性：会返回list
+			css_soup = BeautifulSoup('<p class="body strikeout"></p>')
+			css_soup.p['class']
+			# ["body", "strikeout"]
+
+			css_soup = BeautifulSoup('<p class="body"></p>')
+			css_soup.p['class']
+			# ["body"]
+			
+	NavigableString:可遍历的字符串：字符串被包含在tag内，Beautiful Soup通过NavigableString类来包装tag中的字符串。
+	
