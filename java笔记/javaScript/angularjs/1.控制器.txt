@@ -1,0 +1,27 @@
+1.控制器:
+	1.是一个函数，用来向视图的作用域添加额外功能。
+	2.用来给作用域对象设置初始状态，并添加自定义行为.
+
+2.控制器嵌套（作用域包含作用域）
+	1.AngularJS应用的任何一个部分，无论它渲染在哪个上下文中，都有父级作用域存在。对于ng-app所处的层级来讲，它的父级作用域就是$rootScope。
+	2.AngularJS在当前作用域中无法找到某个属性时，便会在父级作用域中进行查找。如果AngularJS找不到对应的属性，会顺着父级作用域一直向上寻找，直到抵达$rootScope为止。
+
+3.自定义指令：
+	
+	
+4.内置指令：
+	基础ng属性指令：
+		ng-href:
+		ng-src:
+		ng-disabled:
+		ng-checked:
+
+		ng-app和ng-controller：它们会修改嵌套在它们内部 的指令作用域。
+			1.ng-app为AngularJS应用创建$rootScope,
+				(1)在js中通过run方法访问$rootScope
+				(2)
+			2.ng-controller则会以$rootScope或另一个ng-controller的作用域为原型创建新的子作用域。
+			
+		
+
+

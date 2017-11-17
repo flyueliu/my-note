@@ -1,0 +1,58 @@
+使用c3p0与dbcp连接池，造成mysql 8小时问题解决方案:
+	1.现象:c3p0与DBCP连接池连接Mysql数据库时，8小时内无请求断开连接时
+	报错日志:
+		Caused by: javax.persistence.PersistenceException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 45,488,781 milliseconds ago.  The last packet sent successfully to the server was 45,488,781 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+		at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1692)
+		at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1602)
+		at org.hibernate.jpa.spi.AbstractEntityManagerImpl.throwPersistenceException(AbstractEntityManagerImpl.java:1700)
+		at org.hibernate.jpa.internal.TransactionImpl.begin(TransactionImpl.java:48)
+		at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:166)
+		at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:380)
+		... 53 more
+	Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: The last packet successfully received from the server was 45,488,781 milliseconds ago.  The last packet sent successfully to the server was 45,488,781 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+		at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+		at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+		at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+		at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+		at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+		at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+		at com.mysql.jdbc.MysqlIO.send(MysqlIO.java:3743)
+		at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2506)
+		at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2677)
+		at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545)
+		at com.mysql.jdbc.ConnectionImpl.setAutoCommit(ConnectionImpl.java:4842)
+		at com.mchange.v2.c3p0.impl.NewProxyConnection.setAutoCommit(NewProxyConnection.java:881)
+		at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.begin(AbstractLogicalConnectionImplementor.java:67)
+		at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:238)
+		at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:214)
+		at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:52)
+		at org.hibernate.internal.SessionImpl.beginTransaction(SessionImpl.java:1512)
+		at org.hibernate.jpa.internal.TransactionImpl.begin(TransactionImpl.java:45)
+		... 55 more
+	Caused by: java.net.SocketException: 断开的管道 (Write failed)
+		at java.net.SocketOutputStream.socketWrite0(Native Method)
+		at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+		at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+		at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+		at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)
+		at com.mysql.jdbc.MysqlIO.send(MysqlIO.java:3725)
+		... 66 more
+		
+	2.原因:
+		mysql服务器默认的"wait_timeout"是28800秒，意味着如果 一个连接的空闲时间超过8个小时，Mysql将
+	自动断开连接，而连接池却认为该连接还是有效(因为并未校验连接的有效性)，当应用申请使用该连接时，就
+	会导致上面的报错。
+	
+	3.解决方案：(3种)
+		第一种:
+			增加Mysql的wait_timeout属性的值
+				修改mysql安装目录的配置文件my.ini
+		
+		第二种：减少连接池内连接的生存周期
+			减少连接池连接的生存周期，使之小于上一项中所设置的wait_timeout的值。
+			# 修改c3p0的配置文件，在spring的配置文件中设置:
+				<bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource">  	
+					<property name="maxIdleTime"value="1800"/>  
+					<!--other properties -->  
+				</bean>
+			
