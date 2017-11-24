@@ -13,6 +13,10 @@
 	(1)from package_name import *：只会导入包中__init__.py文件中__all__变量包含的模块
 	(2)from package_name.module_name import *:只会导入模块中__all__变量包含的模块.
 	
+4.模块的搜索路径：
+	import sys
+	sys.path # 即可打印模块的搜索路径，如果在路径下搜索不到，就会报模块找不到的错误。
+	
 	
 
 	

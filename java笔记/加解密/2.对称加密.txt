@@ -1,0 +1,39 @@
+DES算法:
+	算法的入口参数有三个：key、Data、Mode。
+	key为8个字节共64位，是DES算法的工作密钥。
+	data是8个字节64位，是要被加密或解密的数据
+	mode是des的工作方式，有加密和解密两种
+
+DES算法把64位的明文输入块变为64位密文输入块
+
+1.密钥的生成:
+	//1.实例化密钥生成器
+	KeyGenerator kg=KeyGenerator.getInstance("DES");
+	//初始化,密钥的长度，DES只能是56位。其他的对称算法也只是密钥的长度不一致.
+	kg.init(56);
+	SecretKey secretKey=kg.generateKey();
+	//key就是密钥的字节数组，可以使用Base64将其转换为字符串
+	byte[] key=secretKey.getEncoded();
+	
+2.字节数组转换为密钥材料对象：
+	DES:
+		DESKeySpec dks=new DESKeySpec(key);
+		SecretKeyFactory keyFactory=SecretKeyFactory,getInstance("DES");
+		//生成密钥对象
+		SecretKey secretKey=keyFactory.generateSecret(dks);
+		
+	其他算法:
+		//如AES，
+		SecretKey secretKey =new SecretKeySpec(key,"算法名称");
+		
+3.加解密:需要利用第二步的密钥对象
+	//实例化
+	Cipher cipher =Cipher.getInstance("DES");
+	//初始化,设置模式,模式的参数由ENCRYPT_MODE改为DECRYPT_MODE,可以做解密
+	cipher.init(Cipher.ENCRYPT_MODE,secretKey);
+	//传入需加密或需解密的数据
+	byte[] dealtData=cipher.doFinal(data);
+	
+	
+
+

@@ -1,0 +1,38 @@
+单向加密算法: MD5、SHA、HMAC这三种加密算法，可谓是非可逆算法，就是不可解密的加密算法。
+	base64:严格来说算是编码算法
+		BASE加密后产生的字节位数是8的倍数，如果不够位数以=号填充
+		java代码实现：
+			/*加密,输出可能末尾为=的字符串*/
+			public static String encryptBase64(byte[] key)throws Exception{
+				return (new BASE64Encoder()).encodeBuffer(key);
+			}
+			/*解密*/
+			public static byte[] decryptBase64(String key)throws Exception{
+				return (new BASE64Decoder()).decodeBuffer(key);
+			}
+		
+	MD5:信息摘要算法
+		常用语文件校验,使用md5加密后得到的是字节数组，通常再将字节数组交给Base64再加密得到字符串。
+		实现：
+			public static byte[] encryptMD5(byte[] data)throws Exception{
+				MessageDigest md5=new MessageDigest.getInstance("MD5");
+				md5.update(data);
+				return md5.digest();
+			}
+	SHA:安全散列算法
+		比md5更加安全，实际作用类似
+		实现：
+			public static byte[] encryptMD5(byte[] data)throws Exception{
+				MessageDigest sha=new MessageDigest.getInstance("SHA");
+				sha.update(data);
+				return sha.digest();
+			}	
+	HMAC:散列消息鉴别码
+
+复杂堆成加密、非对称加密算法：
+	DES:数据加密算法
+	PBE：基于密码验证
+	RSA：算法的名字以发明者的名字命名：经典非对称加密算法
+	DH：Diffie-Hellman算法，密钥一致协议
+	DSA：数字签名Digital Signature Algorithm
+	ECC:椭圆曲线密码编码学
