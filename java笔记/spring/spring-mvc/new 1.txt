@@ -1,0 +1,5 @@
+mvc拦截器：
+	总拦截器:
+		<mvc:interceptors>
+			<bean class="com.app.mvc.MyInteceptors" />
+		</mvc:interceptors>

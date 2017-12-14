@@ -1,0 +1,8 @@
+nio:
+1.selector作用：
+    能够检测一到多个nio渠道，并能够
+
+1.ServerSocketChannel:ServerSocket的替代类，支持阻塞通信与非阻塞通信。
+2.SocketChannel：Socket的替代类，支持阻塞和非阻塞通信。
+3.Selector:为ServerSocketChannel监控接收连接就绪时间，为SocketChannel监控连接就绪、读就绪与写就绪事件。
+4.SelectionKey:代表ServerSocketChannel及SocketChannel向Selector注册事件的句柄。

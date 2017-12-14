@@ -1,0 +1,43 @@
+依赖：
+	当一个库A依赖其他库B的情况下，另一个项目想用A，那么这个项目需要使用库中的B
+	
+依赖元素:
+<dependency>  
+    <groupId>org.springframework</groupId>  
+    <artifactId>spring-core</artifactId>  
+    <version>${springframework.version}</version>  
+    <type>jar</type>  
+    <scope>compile</scope>  
+</dependency> 
+groupId：必选，实际隶属项目
+artifactId:必选，其中的模块
+version:版本号
+type:依赖类型 默认jar
+	当我们需要引入很多jar包的时候会导致pom.xml过大，我们可以想到的一种解决方案是定义一个父项目.
+	但是父项目只有一个，也有可能导致父项目的pom.xml文件过大。
+	这个时候我们引进来一个type为pom，意味着我们可以将所有的jar包打包成一个pom
+	然后我们依赖了pom，即可以下载下来所有依赖的jar包
+optional：标记依赖是否可选,尽量少用，可选依赖不会被传递，需要显式声明。
+exclusion:排除传递依赖性
+	发现依赖包中有些包不稳定，可以排除依赖，显式的声明文档的包
+	<dependency>  
+		<groupId>javax.mail</groupId>  
+		<artifactId>mail</artifactId>  
+		<version>1.4.1</version>  
+		<exclusions>  
+			<exclusion>  
+				<groupId>javax.activation</groupId>  
+				<artifactId>activation</artifactId>  
+			</exclusion>  
+		</exclusions>  
+	</dependency>
+
+聚合：
+	1.我们在开发过程中,创建了2个以上的模块,每个模块都是一个独立的maven project,在开始的时候我们可以独立的编译和测试运行每个模块，但是随着项目的不断变大和复杂化，我们期望能够使用简单的操作来完成编译等工作，这时Maven给出了聚合的配置方式。
+	2.所谓聚合，顾名思义，就是把多个模块或项目聚合到一起，我们可以建立一个专门负责聚合工作的Maven project ---  aggregator。
+注意点:
+	1.被聚合项目、聚合项目aggregator都是maven项目，都必须有自己的pom。
+	2.aggregator打包方式必须是pom
+	3.引入新的元素<modules><module>...</module></modules>  该标签和dependencys同级
+	4.版本：聚合模块的版本和被聚合模块版本一致（pom文件的version）
+	5.

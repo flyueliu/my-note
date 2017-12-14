@@ -1,0 +1,18 @@
+mvc拦截器：
+	总拦截器:
+		<mvc:interceptors>
+			<bean class="com.app.mvc.MyInteceptors" />
+		</mvc:interceptors>
+
+		
+静态资源的处理:
+一:<mvc:default-servlet-handler />	
+	在springmvc上下文中定义一个DefaultServletHttpRequestHandler,会对DispatherServlet的url进行筛查，如果是静态资源的请求，就将请求转由Web应用服务器默认的Servlet处理类，如果不是，才由DispatcherServlet继续处理.
+	
+	一般Web应用服务器默认的Servlet名称是"default"，因此DefaultServletHttpRequestHandler可以找到它。如果你所有的Web应用服务器的默认Servlet名称不是"default"，则需要通过default-servlet-name属性显示指定：
+
+	<mvc:default-servlet-handler default-servlet-name="所使用的Web服务器默认使用的Servlet名称" />
+
+二:采用<mvc:resources />
+
+
