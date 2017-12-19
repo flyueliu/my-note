@@ -1,2 +1,11 @@
 mvn install:install-file -DgroupId=org.hibernate -DartifactId=c3p0 -Dversion=4.2.4.Final-Dpackaging=jar -Dfile=hibernate-c3p0-4.2.4.Final.jar
 									groupId			artifactId        version                                 本地jar包
+									
+maven引入项目下的jar包:
+   <dependency>
+		<groupId>com.zxlab</groupId>  <!--自定义-->
+		<artifactId>message</artifactId>    <!--自定义-->
+		<version>1.0</version> <!--自定义-->
+		<scope>system</scope> <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
+		<systemPath>${basedir}/src/main/resources/lib/message.jar</systemPath>  <!--项目根目录下的lib文件夹下-->
+	</dependency>
