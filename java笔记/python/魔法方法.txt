@@ -1,2 +1,15 @@
 1.__new__:
-	
+
+2.__getitem__(key)和__len__特殊方法:
+  obj[key]:调用的就是__getitem__(key)方法
+  len(obj):调用的是__len__()方法
+  __getitem__: __getitem__ 方法把 [] 操作交给了 self._cards 
+  
+ 3. __repr__():相当于java中的toString方法
+ 与__str__区别:
+    str只有在str()函数中使用，或者print方法打印时被调用。如果需要__str__时不存在，会用__repr__替代。所以__repr__更好
+    
+ 4.算术运算符:__add__:(+) __mul__:(*)
+ 
+ 5.自定义bool值：
+   默认情况下，我们自己定义的类的实例总被认为是真的，除非这个类对 __bool__ 或者 __len__ 函数有自己的实现。 bool(x) 的背后是调用 x.__bool__() 的结果；如果不存在 __bool__ 方法，那么 bool(x) 会尝试调用 x.__len__()。若返回 0，则 bool 会返回 False；否则返回 True。

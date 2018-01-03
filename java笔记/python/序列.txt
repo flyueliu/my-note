@@ -1,0 +1,29 @@
+1：容器序列
+    list、tuple、collections.deque这些序列能存放不同类型的数据
+
+2. 扁平序列
+    str、bytes、bytearray、memoryview和array.array只能容纳一种类型
+
+3.列表生成式：
+ [f(x) for x in iterable if bool(g(x))]
+ 
+4. 笛卡尔积
+
+列表推导：
+colors='black white'.split()
+sizes='S M L'.split()
+tshirts=[(color,size) for color in colors for size in sizes]
+print(tshirts)
+-->[('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]
+
+生成器表达式:中括号改为小括号(区别:只有在迭代时才会生成值)
+colors='black white'.split()
+sizes='S M L'.split()
+tshirts=((color,size) for color in colors for size in sizes)
+print(tshirts)
+-->[('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]
+
+5.
+1.排序list.sort()方法:对自身排序，自身改变
+2.内置函数sorted(list)：排序后返回一个新列表，自身不改变
+
