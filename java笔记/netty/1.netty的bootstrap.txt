@@ -1,0 +1,9 @@
+Bootstrap有两种类型：
+    客户端的Bootstrap:
+        (1)连接到远程主机端口
+        (2)EventLoopGroup数量为1个
+    服务端的Bootstrap:绑定本地端口
+        (1)绑定本地端口
+        (2)EventLoopGroup数量为2个
+        轮询客户端Bootstrap或DatagramChannel是否连接服务器
+    
