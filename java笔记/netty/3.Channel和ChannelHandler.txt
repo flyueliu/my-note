@@ -1,0 +1,29 @@
+Channel生命周期:
+    channelUnregisted:channel已创建，但未注册到一个EventLoop。
+    channelRegisted:channel注册到一个EventLoop.
+    channelActive:channel变为活跃状态(连接到了远程主机),现在可以接收和发送数据
+    channelInactive:channel处于非活跃状态,没有连接到远程主机
+
+channel状态模型:
+    channelRegistered --> channelActive --> channelInactive --> channelUnregisted
+    
+    
+ChannelHandler生命周期:
+    (1)当ChannelHandler添加到ChannelPipeline，或从ChannelPipeline移除后，对应的方法会被调用。
+    (2)每个方法都传入了一个ChannelHandlerContext参数
+
+    handlerAdded:当ChannelHandler添加到ChannelPipeline调用
+    handlerRemoved:当ChannelHandler从ChannelPipeline移除时调用
+    exceptionCaught:当ChannelPipeline执行抛出异常时调用
+
+ChannelHandler子接口:
+    ChannelInboundHandler:处理进站数据和所有状态更改事件
+    ChannelOutboundHandler:处理出站,允许拦截各种操作
+
+ChannelInboundHandler接口的方法:
+    channelRegisted:
+    
+ChannelPipeline:
+    ChannelPipeline是一系列ChannnelHandler实例,用于拦截流经一个Channel的入站和出站事件。
+    ChannelPipeline允许用户自己定义对入站/出站事件的处理逻辑，以及pipeline里的各个Handler之间的交互。
+    

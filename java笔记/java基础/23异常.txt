@@ -18,5 +18,5 @@
 		NosuchElementException：表明枚举中没有更多的元素
 		NullPointerException：空指针异常
 
-3.非运行时异常
+3.非运行时异常(受检异常)
 	对于这种异常，java编译器强制要求我们对这些异常进行处理，否则程序就不能编译成功。

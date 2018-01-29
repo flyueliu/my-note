@@ -137,7 +137,7 @@ JDK5的新特性
 	//System.out.println(new StringBuilder("ii:").append(ii).toString());
 
 	面试题：
-	Integer的数据直接赋值，如果在-123到127之间，就会之间在缓冲池中获取数据
+	Integer的数据直接赋值，如果在-128到127之间，就会之间在缓冲池中获取数据
 	
 	
 	Character类在对象中包装一个基本char的值

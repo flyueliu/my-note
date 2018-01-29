@@ -1,0 +1,33 @@
+netty中ByteBuf的类型:
+    (1)Heap Buffer 堆缓冲区
+        优点:数据存储在JVM的堆中，可以快速的创建和释放，并且提供数组的快速访问方法
+        缺点:每次读写数据要先将数据拷贝到直接缓冲区中再进行传递
+    (2)Direct Buffer 直接缓冲区
+        优点:使用性能好
+        缺点:申请和释放复杂
+    (3)Composite Buffer复合缓冲区
+        一条消息由Header和body组成，将header和body组装成一条消息发送出去。
+例:
+```java
+    //组合缓冲区
+    CompositeByteBuf compBuf=Unpooled.compositeBuffer();
+    //堆缓冲区
+    ByteBuf heapBuf=Unpooled.buffer(8);
+    //直接缓冲区
+    ByteBuf direct=Unpooled.directBuffer(16);
+    //添加ByteBuf到组合缓冲区
+    compBuf.addComponents(heapBuf,directBuffer);
+    //删除第一个ByteBuf
+    compBuf.removeComponent(0);
+    Iterator<ByteBuf> iter=compBuf.iterator();
+    while(iter.hasNext()){
+        System.out.println(iter.next().toString());
+    }
+    //使用数组访问
+    if(!compBuf.hasArray()){
+       int len=compBuf.readableBytes();
+       byte[] arr=new byte[len];
+       compBuf.getBytes(0,arr);
+    }
+    
+```

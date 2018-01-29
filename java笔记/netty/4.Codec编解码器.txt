@@ -1,0 +1,16 @@
+Codec:编解码器
+    分成：decoder(解码器)和encoder(编码器)
+
+Decoder:
+    解码字节到消息:ByteToMessageDeoder和ReplayingDecoder
+    解码消息到消息:MessageToMessageDecoder
+
+decoder负责将"入站"数据从一种格式转换到另一种格式，Netty的解码器是一种ChannelInboundHandler的抽象实现。
+
+ByteToMessageDecoder:用于将字节转换为消息
+
+decode方法:
+    ByteBuf对象进入，和
+        
+
+    

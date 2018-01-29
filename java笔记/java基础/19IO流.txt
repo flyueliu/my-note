@@ -72,5 +72,30 @@ IO流的类别：
 		
 使用ZipOutStream 进行打包:
 	
+    public static File zipDir(File dir, File zipFile) {
+		BufferedInputStream bis = null; // 定义文件输入流
+		ZipOutputStream zipOut = null; // 声明压缩流对象
 
+		// zipOut.setComment("liuxunTEST"); // 设置注释
+		try {
+			zipOut = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
+			if (dir.isDirectory()) { // 判断是否是文件夹
+				File lists[] = dir.listFiles(); // 列出全部文件
+				for (int i = 0; i < lists.length; i++) {
+					int len = 0;
+					bis = new BufferedInputStream(new FileInputStream(lists[i])); // 定义文件的输入流
+					zipOut.putNextEntry(new ZipEntry(lists[i].getName())); // 设置ZipEntry对象
+					byte[] buffered = new byte[1024];
+					while ((len = bis.read(buffered)) != -1) { // 读取内容
+						zipOut.write(buffered, 0, len); // 压缩输出
+					}
+					bis.close(); // 关闭输入流
+				}
+			}
+		} catch (IOException e) {
+		} finally {
+			close(zipOut, bis);
+		}
+		return zipFile;
+	}
 		
