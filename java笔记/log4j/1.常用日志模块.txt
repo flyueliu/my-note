@@ -1,0 +1,36 @@
+1.java常用日志:
+    1.Log4j: 
+    2.Log4j 2: 
+    3.Commons Logging:是一套日志接口
+    4.slf4j:类似于Commons Logging,是一套简易Java日志门面，本身并于日志实现
+    5.Logback：一套日志组件的实现(slf4j阵营)
+    
+2.java常用日志框架之间的关系:
+    1.Log4j2和Log4j1不兼容
+    2.
+        *. Commons Logging和slf4j是日志门面
+            (1)(门面模式是软件工程中常用的一种软件设计模式，也被称为正面模式、外观模式。
+            (2)它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用)
+        *. log4j和Logback则是具体的日志实现方案。
+        *. 可以简单的理解为接口与接口的实现，调用这只需要关注接口而无需关注具体的实现，做到解耦。
+    3.比较常用的组合使用方式是Slf4j与Logback组合使用，Commons Logging与Log4j组合使用。
+    4.Logback必须配合Slf4j使用。由于Logback和Slf4j是同一个作者，其兼容性不言而喻。
+
+3.Commons Logging与Slf4j实现机制
+    (1)Commons logging实现机制
+        在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。
+            可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件
+    (2)Slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后绑定工作都在这类里面进。
+    
+4.slf4j比commons-logging性能更好
+
+5.使用slf4j：
+    
+    slf4j-log4j12-1.7.13.jar	log4j1.2版本的桥接器，你需要将log4j.jar加入classpath。
+    slf4j-jdk14-1.7.13.jar	java.util.logging的桥接器，JDK原生日志框架。
+    slf4j-nop-1.7.13.jar	NOP桥接器，默默丢弃一切日志。
+    slf4j-simple-1.7.13.jar	一个简单实现的桥接器，该实现输出所有事件到System.err. 只有INFO以及高于该级别的消息被打印，在小型应用中它也许是有用的。
+    slf4j-jcl-1.7.13.jar	Jakarta Commons Logging 的桥接器. 这个桥接器将SLF4j所有日志委派给JCL。
+    logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)	slf4j的原生实现，logback直接实现了slf4j的接口，因此使用slf4j与 logback的结合使用也意味更小的内存与计算开销
+    
+    
