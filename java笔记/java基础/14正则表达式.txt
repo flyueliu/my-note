@@ -77,6 +77,11 @@
 		
 	替换功能
 
+    
+    
+    
+    
+    
 Pattern和Matcher 
 	1.单独使用Pattern只能使用Pattern.matcher(String regex,CharSequence input)一种最基础最简单的匹配。
     2.Pattern类用于创建一个正则表达式。也可以说创建一个匹配模式。

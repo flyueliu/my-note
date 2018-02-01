@@ -1,0 +1,24 @@
+1.从定位参数到仅限关键字参数
+    调用函数时使用 * 和 **“展开”可迭代对象，映射到单个参数。
+```python
+    def tag(name, *content, cls=None, **attrs):
+    if cls is not None:
+        attrs['class'] = cls
+    if attrs:
+        attrs_str = ' '.join(['{name}="{value}"'.format(name=name, value=value) for name, value in attrs.items()])
+        print(attrs_str)
+    else:
+        attrs_str = ''
+    if content:
+        return '\n'.join('<{tag_name} {attr_value}>{content}</{tag_name}>'.format(tag_name=name, attr_value=attrs_str,
+                                                                                  content=i) for i in content)
+    else:
+        return '<{tag_name} {attr}>'.format(tag_name=name, attr=attrs_str)
+```
+    ➊ 传入单个定位参数，生成一个指定名称的空标签。
+    ➋ 第一个参数后面的任意个参数会被 *content 捕获，存入一个元组。
+    ➌ tag 函数签名中没有明确指定名称的关键字参数会被 **attrs 捕获，存入一个字典。
+    ➍ cls 参数只能作为关键字参数传入。
+    ➎ 调用 tag 函数时，即便第一个定位参数也能作为关键字参数传入。
+    ➏ 在 my_tag 前面加上 **，字典中的所有元素作为单个参数传入，同名键会绑定到对应的
+    具名参数上，余下的则被 **attrs 捕获。
