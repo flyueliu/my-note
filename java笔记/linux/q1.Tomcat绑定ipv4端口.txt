@@ -1,0 +1,6 @@
+最近在弄云主机，安装了Tomcat，但是启动时，端口默认绑定的是IPV6的协议。
+使用下面的方法可以绑定到IPV4，
+    1.在<tomcat>/bin目录下新建setenv.sh，如果没有话，然后添加如下内容：
+        JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true "。
+
+添加到catalina.sh里也行。

@@ -1,0 +1,19 @@
+1.Channel类:为通讯的载体
+2.ChannelBuffer:用于装载消息的内容，包括读区，已读区和写区，通过类似指针去动态划分
+3.ChannelHandler:负责channel中的逻辑处理，相当于责任链中的一个链条
+4.ChannelPipeline:用于装ChannelHandler的容器，ChannelHandler会注册到此，多个ChannelHandler串联起来相当于一个链条
+5.ChannelEvent:
+    (1)是数据或者状态的载体，如MessageEvent：是消息的载体。
+    (2)当对Channel进行操作是会产生一个ChannelEvent，然后注册到ChannelPipeline，ChannelPipeline会分配一个ChannelHandler对其处理，处理完后交给下一个ChannelHandler
+    
+6.ChannelHandlerContext:可以认为是ChannelHandler的代理类,记录了ChannlerHandler的上下文，包括前一个ChannlerHandler和后一个ChannelHandler，在DefaultChannelPipeline中不是对
+
+
+NioEventLoopGroup:用来处理IO操作的多线程事件循环器，Netty提供了许多不同的EventLoopGroup的实现用于处理不同的传输.
+    Server经常有两个：一个被称为boss:用于接收进来的连接
+                      一个被称为work:用来处理已经被接收的连接
+    (1)一旦boss接收到连接，就把连接信息注册到work上
+    (2)如何知道多少个线程已经被使用，如何映射到已经创建的Channel上都需要依赖与EventLoopGroup的实现。并且可以通过构造函数来配置他们之间的关系
+    
+    
+           
