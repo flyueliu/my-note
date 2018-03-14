@@ -1,0 +1,53 @@
+1.原子操作:
+    (1)char、int等基本类型的赋值和引用操作都是原子的。
+    (2)对象等引用类型额赋值和引用操作也是原子的。
+    (3)java编程规范规定,long、double的赋值和引用操作并不是原子的(实际上，大部分java虚拟机也都将long和double操作实现为原子的)
+        举例:
+            存在long longField;
+                一个线程执行:longField=123L;
+                另一线程执行:longField=456L;
+            如果long类型不是原子操作，那么longField值不确定，可能123L,可能456L，还可以0L，甚至可能31415926L
+
+2.计数信号量:
+    java.util.concurrent包提供了表示计数信号量的Semaphore类。
+        资源的许可个数(permits)将通过Semaphore的构造函数指定.
+        acquire方法用于确保存在可用资源
+            (1)如果存在可用资源，那么线程会立即从acquire方法返回，同时可用资源数减1
+            (2)如果不存在可用资源，那么线程会阻塞直到出现可用资源 
+        release方法用于释放资源
+            (1)释放资源后，内部资源个数增加1(释放资源放在try-finally{}的finally中)
+            (2)如果acquire存在等待的线程，那么其中一个线程就会被唤醒，并从acquire方法中返回
+            
+            
+3.线程池
+    ThreadPoolExecutor：
+    1. ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+        TimeUnit unit, BlockingQueue workQueue) 
+    2. ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+        TimeUnit unit, BlockingQueue   workQueue, RejectedExecutionHandler handler) 
+
+
+    3. ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long 
+        keepAliveTime, TimeUnit unit, BlockingQueue workQueue, 
+        ThreadFactory threadFactory) 
+
+
+    4. ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long 
+        keepAliveTime, TimeUnit unit, BlockingQueue workQueue, 
+        ThreadFactory threadFactory, RejectedExecutionHandler handler) 
+
+一：核心和最大池大小
+    1.corePoolSize:核心线程数，默认情况下核心线程会一直存活，即使处于闲置状态也不会受存keepAliveTime限制。除非将allowCoreThreadTimeOut设置为true。
+    2.maximumPoolSize:线程池所能容纳的最大线程数。超过这个数的线程将被阻塞。当任务队列为没有设置大小的LinkedBlockingDeque时，这个值无效。
+    
+    3.keepAliveTime:非核心线程的闲置超时时间，超过这个时间就会被回收。
+
+    4.unit:指定keepAliveTime的单位，如TimeUnit.SECONDS。当将allowCoreThreadTimeOut设置为true时对corePoolSize生效。
+    
+    5.workQueue:线程池中的任务队列.
+        常用的有三种队列，SynchronousQueue,LinkedBlockingDeque,ArrayBlockingQueue。
+         (1)当LinkedBlockingDeque塞满时，新增的任务会直接创建新线程来执行，当创建的线程数量超过最大线程数量时会抛异常。
+         (2)SynchronousQueue没有数量限制。因为他根本不保持这些任务，而是直接交给线程池去执行。当任务数量超过最大线程数时会直接抛异常。
+         (3)
+  
+    

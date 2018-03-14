@@ -1,0 +1,11 @@
+第三方加密jar：
+    
+
+bouncyCastle： 
+
+    1.一种用于java平台的开发源代码的轻量级密码术包，支持大量密码算法，并提供JCE 1.2.1的实现
+    2.使用：
+        静态类:
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+    
+3.

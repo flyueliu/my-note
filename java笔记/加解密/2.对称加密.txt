@@ -18,7 +18,7 @@ DES算法把64位的明文输入块变为64位密文输入块
 2.字节数组转换为密钥材料对象：
 	DES:
 		DESKeySpec dks=new DESKeySpec(key);
-		SecretKeyFactory keyFactory=SecretKeyFactory,getInstance("DES");
+		SecretKeyFactory keyFactory=SecretKeyFactory.getInstance("DES");
 		//生成密钥对象
 		SecretKey secretKey=keyFactory.generateSecret(dks);
 		

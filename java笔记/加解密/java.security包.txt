@@ -1,0 +1,8 @@
+详解：
+    Provider(抽象类):实现了java安全性的一部分或全部，我们称它为提供者。
+        public String getName():获取提供者的名称，如SunRsaSign.
+        public double getVersion():返回提供者的版本号
+        public String getInfo()
+        
+    
+    

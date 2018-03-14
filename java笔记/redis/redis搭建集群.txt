@@ -1,0 +1,71 @@
+https://www.cnblogs.com/kangoroo/p/7657616.html：文章来源
+
+1.启动多个redis实例
+    (1)在Redis安装目录下创建目录cluster并编写7000.conf~7005.conf6个配置文件
+    (2)这6个配置文件用来启动6个实例，后面将使用这6个实例组成集群。
+    以7000.conf为例，配置文件需要填写如下几项。
+        port  7000          //端口7000,7002,7003        
+        bind 10.93.84.53    //需要改为其他节点机器可访问的ip 否则创建集群时无法访问对应的端口，无法创建集群
+        daemonize    yes    //redis后台运行
+        pidfile  ./redis_7000.pid          //pidfile文件对应7000,7001,7002
+        cluster-enabled  yes //开启集群  把注释#去掉
+        cluster-config-file  nodes_7000.conf   //集群的配置  配置文件首次启动自动生成 7000,7001,7002
+        cluster-node-timeout  15000      //请求超时  默认15秒，可自行设置
+        appendonly  yes   //aof日志开启  
+        
+2. 分别启动这6个实例
+    ./bin/redis-server cluster/conf/7000.conf
+    ./bin/redis-server cluster/conf/7001.conf 
+    ./bin/redis-server cluster/conf/7002.conf 
+    ./bin/redis-server cluster/conf/7003.conf 
+    ./bin/redis-server cluster/conf/7004.conf 
+    ./bin/redis-server cluster/conf/7005.conf 
+  
+  启动成功后，看一下进程
+    # ps -ef | grep redis | grep cluster
+    idata    15711 22329  0 18:40 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7000 [cluster]
+    idata    15740 22329  0 18:40 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7001 [cluster]
+    idata    15810 22329  0 18:40 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7002 [cluster]
+    idata    17023 22329  0 18:42 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7003 [cluster]
+    idata    17030 22329  0 18:42 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7004 [cluster]
+    idata    17035 22329  0 18:42 pts/10   00:00:00 ./bin/redis-server 10.93.84.53:7005 [cluster]
+    
+  至此，ip=10.93.84.53机器上创建了6个实例，端口号为port=7000~7005。
+
+3. 
+    (1)Redis3.0以上的集群方式是通过Redis安装目录下的bin/redis-trib.rb脚本搭建。
+    (2)运行 ruby redis-trib.rb 若报错，则需要安装ruby。
+    
+4.源码包安装ruby 
+
+
+5.安装gem redis接口.(安装ruby后的ruby/bin目录下会多出gem命令)
+    gem install redis
+
+6.Redis集群搭建
+    有了Ruby执行环境，可以开始将之前的6个实例组建成集群了。
+  
+    ruby ./bin/redis-trib.rb create --replicas 1 
+        10.93.84.53:7000 10.93.84.53:7001 10.93.84.53:7002
+        10.93.84.53:7003 10.93.84.53:7004 10.93.84.53:7005
+    
+    -replicas 1表示为集群的master节点创建1个副本。那么6个实例里，有三个master，有三个是slave。
+    后面跟上6个实例就好了，形式就是ip:port
+    
+masterauth rhyihm 
+requirepass rhyihm
+sudo /usr/local/ruby/bin/ruby  /usr/local/redis/bin/redis-trib.rb create --replicas 1 192.168.153.128:7000 192.168.153.128:7001 192.168.153.128:7002 192.168.153.128:7003 192.168.153.128:7004 192.168.153.128:7005
+
+
+sudo nohup /usr/bin/python /usr/local/ngrok/python-ngrok.py /usr/local/ngrok/ali.config 1>>/usr/local/ngrok/ali.log 2>>/usr/local/ngrok/ali.log &
+
+
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7000.conf
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7001.conf
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7002.conf
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7003.conf
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7004.conf
+/usr/local/redis-3.2.6/bin/redis-server /usr/local/redis-3.2.6/cluster/conf/7005.conf
+
+
+    

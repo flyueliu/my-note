@@ -1,0 +1,20 @@
+1.Shiro的组件:
+    1.Subject:主体，可以可能到主体可以是任何可以与应用交互的"用户".
+    2.SecurityManager:相当于SpringMVC中的DispatcherServlet或者Struts2中的FilterDispatcher；是Shiro的心脏；所有具体的交互都通过SecurityManager进行控制；它管理着所有Subject、且负责进行认证和授权、及会话、缓存的管理。
+    3.Authenticator:授权器，负责主体认证的，这是一个扩展点，如果觉得Shiro默认的不好，可以自定义实现。其需要认证策略，即什么情况下算用户认证通过了。
+    4.Realm：可以有1个或多个Realm，可以认为是安全实体数据源，即用于获取安全实体的；
+    Realm：域，Shiro从从Realm获取安全数据（如用户、角色、权限），就是说SecurityManager要验证用户身份，那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作；可以把Realm看成DataSource，即安全数据源。如我们之前的ini配置方式将使用org.apache.shiro.realm.text.IniRealm。
+    
+    org.apache.shiro.realm.Realm接口如下：
+        String getName(); //返回一个唯一的Realm名字  
+        boolean supports(AuthenticationToken token); //判断此Realm是否支持此Token  
+        AuthenticationInfo getAuthenticationInfo(AuthenticationToken token)  throws AuthenticationException;  //根据Token获取认证信息
+    
+2.身份验证
+    
+    1.即在应用中能证明他是本人的信息。如提供用户id，或(用户名/密码)
+        (1)在shiro中需要 提供principals(身份)和credentials(证明)给shiro，从而应用能验证用户身份
+        (2)principals:身份，主体的标识属性，可以是任何东西，如用户名，邮箱等，唯一即可。一个主体可以有多个principals，但只有一个Primary principals，一般是用户名/密码/手机号
+        (3)credentials:证明/凭证，只有主体知道了安全值，如密码/数字证书等。
+    
+    最常见的principals和credentials的组合就是用户名/密码了
