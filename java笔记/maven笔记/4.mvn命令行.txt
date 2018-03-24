@@ -1,0 +1,23 @@
+1.编译源代码
+	mvn compile
+2.编译测试代码
+	mvn test-compile
+3.测试运行
+	mvn test
+4.打包
+	mvn package
+5.在本地repsitory中安装jar：
+	mvn install
+6.清除产生的项目
+	mvn clean
+7.生成eclipse 项目
+	mvn eclipse:eclipse
+8.生成idea项目
+	mvn idea:idea
+9.只打jar包
+	mvn jar:jar
+10.查看当前项目已被解析的依赖
+	mvn dependency:list
+	
+11.使用maven生成可以java -jar **.jar能运行的jar包
+	查看http://blog.csdn.net/xiao__gui/article/details/47341385
