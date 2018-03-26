@@ -1,0 +1,13 @@
+Set集合：
+    (1)new Set:创建一个新的，空的set
+    (2)new Set(iterable):从任何一个可遍历数据中提取元素，构造一个新的集合
+    (3)set.size:获取集合的大小，元素的个数
+    (4)set.has(value):判定集合中是否含有指定的元素，返回一个布尔值。
+    (5)set.add(value):添加元素，如果已有重复，则不产生效果
+    (6)set.delete(value):删除元素，不存在不产生效果。add和delete都会返回自身，可以链式编程
+    (7)set.forEach(f):
+    (8)set.keys() 、 set.values() set.entries()
+
+Map:
+        
+    

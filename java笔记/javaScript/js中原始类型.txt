@@ -1,0 +1,22 @@
+es5中原始类型:
+    Unindefied 
+    Null
+    Boolean 
+    Number
+    String
+    Object
+    
+typeof操作符:是一个一元操作符，返回一个字符串.
+ Example:
+ ```java
+    console.log(typeof (123));
+    console.log(typeof ("123"));
+  ```  
+问题：
+    无论引用的是什么类型的对象，typeof 都会返回"object".
+    这时候就需要使用instanceof来检测某个对象是不是另一个对象的实例。
+
+*** instanceof用来测试一个对象在其原型链上是否存在一个构造函数的prototype属性。
+ 
+ Example:
+    alert (a instanceof Array); //返回true或者false。

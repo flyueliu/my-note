@@ -1,0 +1,21 @@
+1.Object.create(...):
+    (1)它会创建一个对象，并把这个对象的[[Prototype]]关联到指定对象。
+        [[Prototype]]默认为为对象的__proto__属性
+    (2)Object.create(null)创建的对线是一个空对象，在该对象上没有继承Object.prototype原型链上的属性或者方法,例如toString(),hasOwnProperty()等方法。
+    
+    (3)调用Object.create(..)会凭空创建一个"新"对象，并把新对象内部的[[Prototype]]关联到你指定的对象
+    
+
+2.Object.prototype:
+    (1)所有的[[Prototype]]链最终都会指向内置的Object.prototype.
+    (2)由于所有的"普通"(内置，不是特定主机的扩展)对象都"源于"(或者说
+    把[[Prototype]]链的顶端设置为)这个Object.prototype对象，所以它包含JavaScript中许多通用的功能。
+
+3.原型对象和原型链
+    https://www.cnblogs.com/shuiyi/p/5305435.html
+    (1)prototype 和 __proto__区别:
+        (1)函数才会有prototype
+        (2)每个对象都会有__proto__属性,但它不是一个规范属性，标准属性应该是[[Prototype]]
+        
+    (2)  
+    
