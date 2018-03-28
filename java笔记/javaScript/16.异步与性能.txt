@@ -1,0 +1,22 @@
+JavaScript的单线程特性：
+Example:
+    ```java
+        var a=1;
+        var b=2;
+        function foo(){
+            a++;
+            b=b*a;
+            a=b+3;
+        }
+        function bar(){
+            b--;
+            a=8+b;
+            b=a*2;
+        }
+        // ajax(..)是某个库中提供的某个Ajax函数
+        ajax('http://some.url/1',foo);
+        ajax('http://some.url/2',bar);
+    ```    
+    foo()不会被 bar()中断，bar()也不会被foo()终端 ,所以这个程序至于两种可能输入，取决于这两个函数哪个先运行。
+ 
+ 
