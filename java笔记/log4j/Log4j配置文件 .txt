@@ -4,6 +4,8 @@ properties格式:
 		log4j.appender.A1=org.apache.log4j.ConsoleAppender 
 		log4j.appender.A1.layout=org.apache.log4j.PatternLayout 
 		log4j.appender.A1.layout.ConversionPattern=%-4r %-5p [%t] %37c %3x - %m%n
+		
+		/* %d{yyyy-MM-dd HH:mm:ss} %l  %p - %m%n */
 	1.配置根Logger:
 		log4j.rootLogger=[level],appenderName,appenderName,...
 		
