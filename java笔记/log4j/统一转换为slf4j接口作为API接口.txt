@@ -1,0 +1,19 @@
+1.当有些库是使用Common logging API接口作为日志接口时：
+	使用 jcl-over-slf4j.jar替换掉库依赖的common-logging(例如spring就是使用common-logging)
+	
+2. log4j API:
+	使用log4j-over-slf4j.jar替换
+	
+* 注: log4j分为两个jar包
+	(1)一个是log4j-api：是一个接口	
+	(2)一个是log4j-core：是一个接口的实现
+	
+3.java.util.logging: 
+	使用jul-to-slf4j.jar
+
+4.jboss-logging API:
+	
+	
+	
+这些替换jar会将日志接口 重新接到sjf4j的接口上，然后使用slf4j api的统一实现类进行日志输出
+

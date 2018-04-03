@@ -32,5 +32,7 @@
     slf4j-simple-1.7.13.jar	一个简单实现的桥接器，该实现输出所有事件到System.err. 只有INFO以及高于该级别的消息被打印，在小型应用中它也许是有用的。
     slf4j-jcl-1.7.13.jar	Jakarta Commons Logging 的桥接器. 这个桥接器将SLF4j所有日志委派给JCL。
     logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)	slf4j的原生实现，logback直接实现了slf4j的接口，因此使用slf4j与 logback的结合使用也意味更小的内存与计算开销
+	
+6.如何统一	
     
     
