@@ -77,3 +77,20 @@
         </plugin>  
 	打包方式：
 		mvn package assembly:single
+
+		
+12:maven 的jetty插件：
+	 <plugin>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-maven-plugin</artifactId>
+		<version>9.4.5.v20170502</version>
+		<configuration>
+			<scanIntervalSeconds>10</scanIntervalSeconds>
+			<httpConnector>
+				<port>8080</port>
+			</httpConnector>
+			<webApp>
+				<contextPath>/</contextPath>
+			</webApp>
+		</configuration>
+	</plugin>
