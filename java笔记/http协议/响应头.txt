@@ -1,0 +1,6 @@
+
+跨域:
+(1)在服务器响应客户端的时候，带上Access-Control-Allow-Origin头信息。
+    如果设置 Access-Control-Allow-Origin:*，则允许所有域名的脚本访问该资源。
+    Access-Control-Allow-Origin:http://www.phpddt.com.com,允许特定的域名访问。
+    
