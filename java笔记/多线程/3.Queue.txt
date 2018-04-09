@@ -1,0 +1,17 @@
+BlockingQueue:接口
+     核心方法:
+     存数据:
+        offer(anObject):将anObject放入BlockingQueue中，如果可以容纳，返回true，反之返回false，不会阻塞
+        offer(E o,long timeout,TimeUnit unit):可以设定等待的时间,
+        put(E o):把anObject加到BlockingQueue里,阻塞
+     -----------------------------------------------
+     取数据:
+        poll(): 取出数据，没有数据返回null
+        poll(time):可以设置等待时间 
+        take():取数据，直到取到数据，阻塞
+        drainTo():一次性将数据全部取出
+        
+    具体实现:
+        ArrayBlockingQueue:必须有界，底层使用的是数组实现
+        LinkedBlockingQueue:可以无界，链表
+        

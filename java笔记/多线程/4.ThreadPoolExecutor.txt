@@ -1,0 +1,23 @@
+ThreadPoolExecutor构造方法说明:
+    coreSize:
+        (1)核心线程数，默认情况下核心线程会一直存活，即使处于闲置状态也不会受存keepAliveTime限制
+        (2)除非将allowCoreThreadTimeOut设置为true。
+    maximumPoolSize:
+        (1)线程池所能容纳的最大线程数。超过这个数的线程将被阻塞。
+        (2)当任务队列为没有设置大小的LinkedBlockingDeque时，这个值无效。
+    keepAliveTime:
+        非核心线程的闲置超时时间，超过这个时间就会被回收。
+    workQueue:线程池中的任务队列.
+        常用的有三种队列，SynchronousQueue,LinkedBlockingDeque,ArrayBlockingQueue
+    
+    RejectedExecutionHandler:往线程池中submit任务失败后的处理接口.
+        实现rejectedExecution(Runnable r, ThreadPoolExecutor executor)方法：
+            r:需要执行的任务
+            Executor：当前线程池
+            
+  *  默认线程池中的线程都是前台线程(主线程结束后，程序不会退出，会等待所有线程执行完毕后退出。)
+  *  线程池中的核心线程只要启动，就会一直存活。所以如果线程池不关闭，程序就会一致运行
+  *  线程池中shutdown方法会首先关闭空闲的线程，然后再等待运行中的线程结束运行。
+    
+    
+    
