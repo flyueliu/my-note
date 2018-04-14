@@ -3,4 +3,4 @@
         (1)在HKEY_CLASSES_ROOT\Directory\shell 中右键点击shell->新建->项 -> 添加一项,名字可以随意起,比如叫做GotoCygwin
         (2)在其下再新建一项,叫做command,表示要执行的命令,command下会有一个图标是ab字样的键值,
         (3)名称是(默认),类型是REG_SZ,双击其会弹出一个”修改字符串”的窗口,修改数据数值为:
-            C:\cygwin64\bin\bash -login -c "cd '%V'; exec bash -rcfile ~/.bashrc" (前面是cygwin所在目录)
+            D:\cygwin64\bin\bash -login -c "cd '%V'; exec bash -rcfile ~/.bashrc" (前面是cygwin所在目录)

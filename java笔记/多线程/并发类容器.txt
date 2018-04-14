@@ -1,0 +1,33 @@
+ConcurrentMap:接口(分段，减小锁的细粒度)
+	ConcurrentHashMap：实现
+	ConcurrentSkipMap:(TreeMap)支持排序
+
+CopyOnWrite容器:在读多写少的情况下使用
+	(1)往一个容器添加元素时，不直接往当前容器中添加，而是先将当前容器进行Copy
+	(2)往新的容器中添加元素，添加完成后，再将原容器引用指向新容器。
+	(3)可以对CopyOnWrite容器进行并发读，而不需要加锁
+	 
+	
+Queue:
+	1.ConcurrentLinkedQueue:
+		(1)适用于高并发场景下的队列，通过无锁的方式，实现高并发状态下高性能
+		(2)无界队列，先进先出，该队列不允许null元素
+		---API:
+			add()和offer()都是加入元素的方法(不阻塞)
+			poll()和peak()取出元素的方法，poll会删除元素，peak不会(不阻塞)
+		poll和peak都不会阻塞，如果没有元素，取出为null	
+	
+	2.BlockingQueue:接口
+		ArrayBlockingQueue：基于数组实现，维护定长数组（有界队列，必须指定大小） 
+			take()方法:无元素时会阻塞
+			offer():大小达到后，返回值为false，添加不进去
+			add():队列满后，抛异常
+			put():队列满后，阻塞
+		LinkedBlocingQueue：无界队列(可以不指定queue的大小)
+			take()方法:无元素时会阻塞
+			offer():大小达到后，返回值为false，添加不进去
+			add():队列满后，抛异常
+			put():队列满后，阻塞
+		PriorityBlockingQueue
+		DelayQueue
+		SynchronousQueue
