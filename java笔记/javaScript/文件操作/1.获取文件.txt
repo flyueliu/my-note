@@ -1,0 +1,57 @@
+1.浏览器中获取文件对象:
+   example:
+    ```html
+        <input type="file" id="upload" />
+    ````
+    ```javascript
+        let fileInput=document.getElementById('upload')
+        // 只包含第一个文件
+        let fileObj=fileInput.files[0]
+        console.log(fileObj)
+        
+    ```
+2.File对象:继承自Blob对象
+    (1)文件大小: fileObj.size
+    (2)文件名称:fileObj.name(只包含文件名称，不包含任何路径信息)
+    (3)文件类型:type
+
+
+3.Blob对象:
+    (1)表示一个不可变、原始数据的类文件对象。
+    (2)Blob表示的不一定是javascript原生对象
+    (3)File接口基于Blob，继承了blob的功能并将其扩展使其支持用户系统上的文件
+  方法:
+    slice():
+    (1)用于创建一个包含源Blob的指定字节范围内数据的新Blob对象
+        注: Firefox老版本使用mozSlice()方法、Safari老版本使用webitSlice()方法
+        
+4.读取文件:FileReader对象
+    (1)构造函数:FileReader fileReader=new FileReader()
+    (2)属性：
+        * fileReader.error:一个DomException，表示在读取文件 时发生的错误
+        * fileReader.readState:表示FileReader状态的数字。取值如下
+        
+        -------------------------------------
+            常量名 |值  |描述
+        -------------------------------------    
+            EMPTY	0	还没有加载任何数据.
+            LOADING	1	数据正在被加载.
+            DONE	2	已完成全部的读取请求.
+        -------------------------------------
+        
+        * fileReader.result:文件的内容
+            * 该属性只有在读取操作完成后才有效
+            * 数据的格式取决于使用的的哪种方法进行的读取操作
+    (3)事件处理：
+        FileReader.onabort:读取操作被中断时触发
+        FileReader.onerror: 处理error事件。读取发生错误时触发
+      * FileReader.onload:读取操作完成后触发
+      * FileReader.onloadstart:在读取操作开始时触发
+      * FileReader.onloadend:在读取结束(要么成功，要么失败)触发
+      * FileReader.onproccess:处理proccess事件。在读取Blob时触发
+      
+    (4)方法：
+        FileReader.abort():中止读取操作
+        FileReader.readAsArraryBuffer(Blob b):
+        FileReader.readAsBinaryString(Blob b):
+        FileReader.readAsText(Blob b,encoding):
