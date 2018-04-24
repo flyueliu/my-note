@@ -1,0 +1,33 @@
+1.mybatis中几个基本 组件:
+    1.SqlSessionFactroyBuilder:这是一个SqlSessionFactory的构造器。
+    2.SqlSessionFactory：类似JDBC中使用的Connection,需要根据SqlSessionFatory生成SqlSession
+    3.SqlSession:它可以用来发送一条SQL语句去执行，类似PrepareStatement.也可以利用SqlSession获取Mapper接口
+    4.Mapper:Mapper可以发送一条SQL语句去执行并返回结果。
+        Mapper由两部分组成：一个是Java接口，另一个是XML配置或者注解
+     
+
+2.mybatis中mappers标签：用来在mybatis初始化的时候，告诉mybatis需要引入哪些Mapper映射文件
+   (1)在mappers中有两个子元素，
+        <package>
+        <mapper>
+    1.第一种配置映射文件的方式:(扫描包名下所有接口，同时根据接口名找相同的mapper映射文件)
+        <package name="Mapper的Java接口所在包名" />
+        * 这种方式必须保证接口名(IUserDao.java)和xml名(IUserDao.xml)相同 ,还必须在同一个包中
+    
+    2.第二种:<mapper resource="" /> 
+        * 指定的是mapper的xml文件，通过xml文件中命名空间查找对应的接口
+        * 所以xml文件和接口不要求在同一个包下，但xml中的命名空间必须指定对应的接口
+        * 但xml文件名必须和接口名一致
+    
+    3.第三种:<mapper class="" />
+        * 指定的类名，通过类名查找对应的mapper映射xml文件
+        * 需要java接口和xml文件在同一个目录下，同时文件名必须保证一致
+  
+  综上：
+    * xml中namespace必须写接口名
+    * xml文件名必须和接口名称一致
+    * xml文件所在路径和接口所在路径（如果是接口找xml，那么需要路径一致，如果是xml找接口，那么不需要路径一致）
+   
+    
+        
+        
