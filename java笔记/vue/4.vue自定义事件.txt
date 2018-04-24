@@ -1,0 +1,5 @@
+1.每个Vue实例都实现了事件接口，即：
+    (1)使用$on(eventName)监听事件
+    (2)使用$emit(eventName,optionalPayload)触发事件
+    
+    

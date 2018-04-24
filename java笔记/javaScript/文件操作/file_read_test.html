@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div id="app">
+	<input type="file" multiple name="upload" id="photo">
+	<button id="btn" onclick="btnClick()">btn</button>
+</div>
+
+<script type="text/javascript">
+  
+  function btnClick (e, event) {
+    let fileInput = document.getElementById('photo')
+    let file = fileInput.files[0]
+    let bufferLength = 100
+    let totalTimes = Math.ceil(file.size / bufferLength)
+    let currentNumber = 0
+    let currentBlob = file.slice(currentNumber++ * bufferLength, currentNumber * bufferLength, file.type)
+    console.log(currentBlob)
+    let fileReader = new FileReader()
+    fileReader.onloadstart = function (e) {
+      console.log(e)
+      console.log(this)
+    }
+    
+    fileReader.onprogress = function (e) {
+      console.log('on proccess')
+      console.log(e.target)
+      console.log(e)
+    }
+    fileReader.onload = function (e) {
+      console.log('upload complete')
+      if (e.target.result) {
+        fileReader.abort()
+      }
+    }
+    fileReader.readAsText(currentBlob, 'utf-8')
+    
+  }
+</script>
+</body>
+</html>
