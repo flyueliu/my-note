@@ -1,0 +1,67 @@
+1. mapper标签中namespace属性:
+    必须和接口的全类名保持一致，使得mapper映射文件能够找到对应的接口，而给接口创建动态代理
+ 
+
+2. select 标签 ：
+    属性:
+        id:在命名空间中的唯一表示，可以被用来引用这条语句
+        paramterType:传入这条语句的参数类的完全限定名或别名(可选,mybatis可以通过TypeHandler推断)。
+        resultType:方法返回值的期望类的全类名或别名。如果返回集合，那么这个集合的泛型是全类名。
+            例： List<User> getUserList() -- > resultType="com.zxlab.model.User" 
+        resultMap： 外部resultMap的命名引用 --> 有专门的<resultMap>标签，引用resultMap的id。
+        flushCache:true/false . true时，任何语句被调用，都会导致本地缓存和二级缓存被清空。默认false
+        useCache：true时，会将本语句结果放到二级缓存。默认对select元素为true。
+        statementType:	STATEMENT，PREPARED 或 CALLABLE 的一个。这会让 MyBatis 分别使用 Statement，PreparedStatement 或 CallableStatement，默认值：PREPARED。
+        
+3.insert、update、delete
+    insert语句中有一些额外的属性和子元素用来处理主键的生成，而且有多种生成方式
+        (1)如果支持自动生成主键，可以设置useGeneratedKeys="true",然后把keyProperty设置到目标属性上
+        (2)如果不支持自增主键
+            1. selectKey首先会运行,Author的id会被设置，然后插入语句被调用
+            例:
+                <insert id="insertAuthor">
+                    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+                        select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
+                    </selectKey>
+                    insert into Author
+                        (id, username, password, email,bio, favourite_section)
+                    values
+                        (#{id}, #{username}, #{password}, #{email}, #{bio},#{favouriteSection,jdbcType=VARCHAR})
+                </insert>
+            2.selectKey属性解释:
+                keyProperty:selectKey语句结果被设置的目标属性(将selectKey的结果设置到目标对象的id属性中) 。如果希望得到多个生成的列，也可以是逗号分隔的属性名称列表
+                keyColumn：返回结果集中的列名称.如果希望得到多个生成的列，也可以是逗号分隔的属性名称列表。
+                resultType:结果的类型
+                order:before/after(插入语句前或者后)
+                statementType:callable、statement、prepareStatement
+                
+4.sql标签：定义可重用的 SQL 代码段，可以包含在其他语句中
+  example:
+  定义:
+    <sql id="userColumns"> ${alias}.id,${alias}.username,${alias}.password </sql>
+  使用:
+    <select id="selectUsers" resultType="map">
+      select
+        <include refid="userColumns"><property name="alias" value="t1"/></include>,
+        <include refid="userColumns"><property name="alias" value="t2"/></include>
+      from some_table t1
+        cross join some_table t2
+    </select>
+  ---------------
+    属性值也可以被用在 include 元素的 refid 属性里  
+       <include refid="${include_target}"/>
+    
+5. resultMap:映射结果集
+    * constructor:用于实例化类时，注入结果到构造方法中
+        * idArg:ID参数
+        * arg:将被注入到构造方法的普通结果
+    * id ：ID参数
+    * result :注入到字段或者javabean属性的普通结果
+    * association: 一个复杂类型的关联
+        关联元素处理"有一个"类型的关系。比如，一个博客有一个用户。需要告诉mybatis如何查询
+            * 嵌套查询:通过执行另一个SQL映射语句来返回预期的复杂类型
+            * 嵌套结果:使用嵌套结果映射来处理重复的联合结果的子集。
+            
+    * collection: 一个复杂类型的集合
+    
+    

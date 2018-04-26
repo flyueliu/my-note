@@ -1,0 +1,18 @@
+Cache 接口:
+   
+public interface Cache {
+
+  String getId(); // 返回Cache的标识符ID ，ID通过构造方法传入
+
+  void putObject(Object key, Object value); //放入缓存(key为对应的sql语句与传入的参数)
+
+  Object getObject(Object key); //从缓存中取值
+
+  Object removeObject(Object key); //从缓存中移除对应的key,
+
+  void clear(); //清空缓存
+  
+  int getSize(); //返回缓存对象的数量(mybatis没有调用这个方法)
+
+  ReadWriteLock getReadWriteLock(); //可选的，3.2.后，这个方法不再被mybatis调用，
+}

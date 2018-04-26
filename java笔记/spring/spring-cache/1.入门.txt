@@ -1,0 +1,27 @@
+1.缓存命中率：从缓存中读取数据次数与总读取次数的比率
+
+2.缓存策略：从缓存中移除数据的策略
+    FIFO:先进先出
+    LRU:最久未使用算法，
+    LFU:最近最少使用算法
+    
+3.TTL:存活期，缓存中创建时间点开始直到它到期的一个时间段
+
+4.TTI:空闲期，数据多久未被访问将从缓存中移除
+
+5.spring-cache
+    Cache接口:
+        public interface Cache {  
+            String getName();  //缓存的名字  
+            Object getNativeCache(); //得到底层使用的缓存，如Ehcache  
+            ValueWrapper get(Object key); //根据key得到一个ValueWrapper，然后调用其get方法获取值  
+            <T> T get(Object key, Class<T> type);//根据key，和value的类型直接获取value  
+            void put(Object key, Object value);//往缓存放数据  
+            void evict(Object key);//从缓存中移除key对应的缓存  
+            void clear(); //清空缓存  
+          
+            interface ValueWrapper { //缓存值的Wrapper  
+                Object get(); //得到真实的value  
+            }  
+        } 
+    
