@@ -1,0 +1,13 @@
+
+1. example:
+    页面地址为:http://localhost:63342/adminLightByVue/update.html?a=4
+    
+    
+    
+  console.log(window.location.host)    --> localhost:63342
+  console.log(window.location.hostname)  ---> localhost
+  console.log(window.location.port) -->  63342
+  console.log(window.location.href) --> http://localhost:63342/adminLightByVue/update.html?a=4
+  console.log(window.location.pathname) --> /adminLightByVue/update.html
+  console.log(window.location.protocol) --> http:
+  console.log(window.location.search) --> ?a=4
