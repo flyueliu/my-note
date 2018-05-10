@@ -1,0 +1,8 @@
+1.beforeCreate:在实例开始初始化时同步调用。此时数据观测、事件等都尚未初始化
+2.created:在实例创建之后调用。此时已完成数据绑定、事件方法，但尚未开始DOM编译，即未挂载到document中
+3.beforeMount：在mounted之前运行
+4.mounted：在编译结束时调用。此时所有指令都已生效，数据变化已能触发dom更新，但不保证$el已插入文档
+5.beforeDestory:在开始销毁实例时调用，此刻实例仍然有效
+6.beforeUpdate:在实例挂载之后，再次更新实例(例如更新data)时会调用该方法，此时尚未更新DOM结构。
+7.updated:在实例挂载之后，再次更新实例并更新完DOM结构后调用
+8.activated:需要配合动态组件keep-alive属性使用。在动态组件初始化渲染的过程中调用该方法.
