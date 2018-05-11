@@ -1,0 +1,15 @@
+mybatis整合spring后:
+    没有事务情况下,一级缓存失效:
+        原因:
+            (1)spring使用template控制mybatis的sqlSession
+            (2)sqlSession又被spring当作resource放在当前的线程上下文(ThreadLocal)中
+        sring通过mybatis调用数据库如下:
+            (1)--> 我们需要访问数据
+                --> spring从池去申请mybatis的SqlSession,并将sqlsession绑定到当前线程
+                 --> template从threadlocal中获取sqlSession，执行查询
+                  --> 查询结束，清空threadlocal中与当前线程绑定的sqlsession，释放资源
+                   --> 我们又需要访问数据
+            (3)同一线程里面两次查询同一数据所使用的sqlsession是不相同的，所以，给人的印象就是结合spring后，mybatis的一级缓存失效了       
+    
+    有了事务后:
+        http://www.jb51.net/article/105791.htm
