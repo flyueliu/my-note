@@ -12,4 +12,5 @@ mybatis整合spring后:
             (3)同一线程里面两次查询同一数据所使用的sqlsession是不相同的，所以，给人的印象就是结合spring后，mybatis的一级缓存失效了       
     
     有了事务后:
+    
         http://www.jb51.net/article/105791.htm
