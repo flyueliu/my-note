@@ -1,0 +1,78 @@
+1.日期处理
+    (1)java8新增了LocalDate和LocalTime
+    (2)java.util.Date和SimpleDateFormatter都是线程不安全的
+    (3)LocalDate和LocalTime和基本的String，是不可变类型，不但线程安全，而且不能修改
+    (4)LocalDate和LocalTime表示本地日期和时间,没有时区的信息
+    
+2.
+    (1)java.util.Date不但包含日期、时间，还有毫秒数 
+    (2)日期和时间被明确划分 为LocalDate和LocalTime，LocalDate无法包含时间，LocalTime无法包含日期
+    (3)LocalDateTime才能同时包含日期和时间
+3.Instant类：包含时间的毫秒数，秒数等(Instant是包含时区信息的,默认是"格林乔治时间")
+        long currentTime = Instant.now().toEpochMilli();  //当前时间 毫秒数
+        long epochSecond = Instant.now().getEpochSecond(); // 当前时间 秒数
+   1.和Date的相互转换:
+         静态方法:
+         (1)  Date.from(Instant instant) 会返回一个Date对象
+         (2)   Date now=new Date();
+               now.toInstant(); //会返回一个Instant对象
+    2.ZoneId:表示时区的
+        静态方法: ZoneId.systemDefault() 返回系统默认时区
+      ZoneDateTime.of(LocalDateTime datetime,ZoneId zoneId) // 将本地的时间 转换为带时区 的时间
+      
+      
+2.Stream常用方法:
+    流的初始化与转换:
+        1.初始化一个流:
+            Stream stream=Stream.of("a","b","c");
+            
+        2.数组转换为一个流
+            String[] strArr = new String[]{"a","b","c"};    
+            Stream stream = Stream.of(strArr);
+           或者:
+            Stream stream = Arrays.stream(strArr);
+        3.  集合对象
+            List<String> list = ...;
+            Stream stream = list.stream();
+    
+    流的操作:
+        1.遍历操作:
+            * 可以使用map操作，遍历集合中每一个对象，并对其进行操作
+            * map之后,用collect(Collectors.toList())会得到操作之后的集合
+          example:
+           遍历转换为大写
+               List<String> output = wordList.stream()
+                                .map(String::toUpperCase)
+                                .collect(Collectors.toList());
+                                
+        2.过滤操作(filter):
+           * 使用filter可以对Stream中的item进行过滤，通过测试的元素会想留下来生成一个新的Stream
+          example:
+          
+            List<String> filterLists = new ArrayList<>();
+            filterLists.add("");
+            filterLists.add("a");
+            filterLists.add("b");
+            List afterFilterLists = filterLists.stream()
+                   .filter(s -> !s.isEmpty())
+                   .collect(Collectors.toList());
+                   
+        3.循环操作:
+            * 如果只是想对流中每一个对象进行一些自定义的操作，可以使用forEach:
+           example:
+            
+            List<String> forEachLists = new ArrayList<>();
+            forEachLists.add("a");
+            forEachLists.add("b");
+            forEachLists.add("c");
+            forEachLists.stream().forEach(System.out::println);            
+        
+        4.返回特定的结果集合（limit/skip）
+            * limit会返回Stream的前面n个元素,skin则会扔掉前n个元素
+            * 俩者都是返回Stream对象
+        5. distinct 去除重复
+                
+    https://blog.csdn.net/abcwywht/article/details/77991868        
+                
+        
+                
