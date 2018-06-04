@@ -1,0 +1,34 @@
+./configure --prefix=/usr/local/nginx --http-proxy-temp-path=temp/proxy --http-fastcgi-temp-path=temp/fastcgi --http-uwsgi-temp-path=temp/uwsgi --http-scgi-temp-path=temp/scgi --with-http_ssl_module --with-stream --http-client-body-temp-path=temp/client_body
+
+
+
+1.虚拟服务器部分：任何由关键字server开始的部分都被称为"虚拟服务器"部分
+	* 它描述的是一组根据不同的server_name指令逻辑分割的资源，这些虚拟服务器响应http请求，因此他们都包含在http部分中。
+	* 由listen和server_name指令组合定义，listen指令定义了一个ip地址/端口组合或者unix域套接字路径
+	   listen address[:port];
+	   listen port;
+	   listen unix:path;
+	* 通常server指令会包含一条listen指令，用于监听的ip地址和端口。(都是本机的网卡),不写ip地址时监听所有。
+	example:
+	------------------------------------------------------
+			server {
+			  listen 127.0.0.1:80 default_server;
+			  server_name example.org www.example.org;
+			  
+			}
+	-------------------------------------------------------		
+	
+	server_name: 
+		如果有多个server配置了相同的ip地址和端口，nginx还会匹配server_name指令与请求头部的host字段。
+		* 可以是精确文本、通配符(在字符串的头、尾或两端包含*，*表示匹配任意字符)或正则表达式。
+		* 正则表达式采用Perl格式正则表达式，要以~开头。
+	 匹配流程:
+		* server_name 可以配置多个，nginx会以一下规则选择第一个匹配的server处理请求
+			(1)精确匹配
+			(2)以*开始的最长通配符，如*.example.org 
+			(3)以*结尾的最长通配符,如 mail.* 
+			(4)以第一个匹配的正则表达式(根据在配置文件中出现的先后顺序)
+			(5)如果都找不到任何与host字段(http请求头中的)匹配的server_name,nginx会将请求发送给默认的server。
+				* 默认的server可以通过default_server指定
+				* 未指定为配置文件中第一个出现的server
+			
