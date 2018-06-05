@@ -1,0 +1,40 @@
+1.全局配置指令:
+    (1)user 使用这个参数来配置worker进程的用户和组
+    -------------------------------------
+    (2)worker_processes 1;
+    -------------------------------------------
+    (3) error_log 所有错误写入的文件 。
+        example:
+            error_log logs/error.log;
+            error_log logs/notice.log notice;
+        不同级别的日志输出到不同文件中(包括debug.info、notice、warn、error).
+    ---------------------------------------------------------------------------
+    (4) pid 设置主进程ID的文件
+    --------------------------------
+    (5) events {
+          worker_connections 1024; #设置工作进程能够接受并发连接的最大数
+       }
+ 以上部分应该放置在nginx.conf配置文件的顶部
+
+2.使用include文件 
+    (1)include文件可以放置在任何地方，以便增加配置文件的可读性，并且能够使得部分配置文件重新使用。
+     example:
+        include /opt/local/etc/nginx/mime.types;
+    (2)在路径中出现通配符，表示可以配置多个文件
+        include /opt/local/etc/nginx/vhost/*.conf;
+    (3)如果没有给定全路径，那么相对于nginx主配置文件路径来查找
+        例如: 
+            nginx的主配置文件nginx.conf在/usr/local/nginx/conf/nginx.conf
+            include header/header.conf ; 就会查找/usr/local/nginx/conf/header/header.conf
+            
+3.http的server外面部分
+    http {
+        keepalive_timeout 65; #指定keep-alive连接持续多久
+        
+    }
+   
+   在nginx.conf中，以上部分内容跟随在全局配置指定之后。
+  
+        
+    
+    
