@@ -31,4 +31,58 @@
 			(5)如果都找不到任何与host字段(http请求头中的)匹配的server_name,nginx会将请求发送给默认的server。
 				* 默认的server可以通过default_server指定
 				* 未指定为配置文件中第一个出现的server
+   -------------------------------------------------------------
+    
+    location: location写在server中,和server_name平级。
+        * 根据URL将请求发送给不同的代理，或处理不同的文件请求
+       (1)该指令可以用在虚拟服务器server部分,并且意味着提供来自客户端的URI或者内部重定向访问。
+       (2)location定义：
+             *  location [modifier] uri { ....}
+             * 或者命名location:
+                location @name {...}
+                
+        example:
+           * 以下例子中location参数匹配/some/path开始的请求URL，如/some/path/document.html
+             但不匹配/my-site/some/path,因为/some/path不在起始位置。
+            `
+                location /some/path/ {
+                   ...
+                }
+            `
+           * ~用于匹配区分大小写的正则表达式, ~*用于匹配不区分大小写的正则表达式。
+             下面例子匹配任意包含.html或.htm的url
+                location ~ \.html? {
+                  ....
+                }             
+                
+    * location匹配语法:
+        主要包含三种匹配方式:精确匹配、前缀匹配、正则匹配
+     ------------------------------------------------------------   
+      (1)精确匹配：用 = 号指令
+         example:
+            location = /demo {
+                rewrite ^ http://www.baidu.com;
+            }
+          (1)rewirte指令，用于重定向。目前只需要理解命中了就重定向到rewrite后面的url
+          (2)上述表示只有访问 http://nginx网址/demo这样的url，才能跳转到baidu，除此之外任何地址都不行，哪怕是http://nginx网址/demo/也不行。
+     ------------------------------------------------------------
+     (2)前缀匹配：^~指令用于字符前缀匹配(只需要其开头前缀和url匹配模式一样即可)
+     (3)正则匹配： 
+      
+------------------------------------------------------------------------------------------------------
+
+      location里面的配置项：
+         root : 使用root指令指定了静态文件的文件 系统路径，将与请求URI一起构成静态文件的完全路径
+          例如：
+            location /images/ {
+              root /data;
+            }
+          这时候，指定了 http://nginx网址/ 在文件系统中的/data 下，
+          拼接上/images/ 之后为 http://nginx网址/images/1.jpg 那么在linux系统下查找 /data/images/1.jpg 文件并返回。
+    ----------------------------------------------------------------- 
+   
+   
+资料来源:            
+   server_name: https://www.jianshu.com/p/f81195da5a22
+   location:  https://www.jianshu.com/p/e154c2ef002f    
 			
