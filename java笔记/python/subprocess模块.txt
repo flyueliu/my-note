@@ -64,3 +64,4 @@ child1的stdout将文本输出到缓存区，随后child2的stdin从该PIPE中�
 child2的输出文本也被存放在PIPE中，直到communicate()方法从PIPE中读取出PIPE中的文本。
 注意：communicate()是Popen对象的一个方法，该方法会阻塞父进程，直到子进程完成
 
+https://www.cnblogs.com/yyds/p/7288916.html
