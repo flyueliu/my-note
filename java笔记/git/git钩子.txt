@@ -1,1 +1,30 @@
-aaaasdasaassadsad
+
+ 客户端钩子:
+
+    提交工作挂钩：
+        pre-commit:在输入提交信息前运行
+        prepare-commit-msg: 在提交信息编辑器显示自谦，默认信息被创建之后运行
+        post-commit:在整个提交完成后运行
+    
+    email工作流挂钩:
+    
+    其他客户端钩子 :
+        pre-rebase:
+        
+  服务端钩子：
+    推送到服务器前的钩子可以在任何时候以非零退出，拒绝推送,返回错误消息给客户端
+    
+    pre-receive:处理来自客户端push操作最先执行的脚本就是pre-receive。
+        它从标准输入(stdin)获取被推送引用的列表;如果它退出时的返回值不是0,所有的推送内容不会被接收
+    post-receive: 在整个过程完成虎云心，可以用来更新其他系统服务或者通知用户。
+        它接受与pre-receive相同的标准输入数据
+    
+    update:
+        和pre-receive脚本 类似，但是会为每个分支都运行一次。而pre-recive只运行一次。
+        
+    git钩子中使用git命令时必须在.git目录下使用，不然识别不到仓库地址
+    
+        
+    
+        
+        
