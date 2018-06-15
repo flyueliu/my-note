@@ -1,0 +1,12 @@
+1. 
+    apt-get -y install docker.io
+    执行docker，验证是否安装成功
+        docker -v 
+2.    
+
+
+
+
+docker 源码安装：
+    https://blog.csdn.net/wujianyongw4/article/details/70598722?locationNum=13&fps=1
+    
