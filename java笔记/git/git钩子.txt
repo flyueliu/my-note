@@ -24,7 +24,8 @@
         
     git钩子中使用git命令时必须在.git目录下使用，不然识别不到仓库地址
     
-        
+    原因和解决办法:
+        https://yq.aliyun.com/ziliao/73279    
     
         
         
