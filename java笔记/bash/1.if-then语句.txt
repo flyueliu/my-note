@@ -1,0 +1,20 @@
+if-then语句的格式如下:
+    if command
+    then 
+        commands
+    fi
+
+*if语句会运行if后面的命令,如果这个命令的退出状态码是0,位于then部分的命令就会被 执行
+
+* 另一种格式:
+    if command;then
+      commands
+    fi
+
+if-then-else
+   if command ;then
+     commands
+   else
+     commands
+   fi     
+    

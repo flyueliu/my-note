@@ -1,0 +1,20 @@
+on duplicate key update: 
+    如果插入失败则进行更新操作(唯一性约束):
+   
+
+语法:
+    insert into table_name(column_name1,column_name2,column_name3)
+       values ('column_value1','column_value2','column_value3') 
+     on duplicate key update 
+           column_name1='column_value1',
+           column_name2='column_value2',
+           column_name3='column_value3' ;
+    
+(1)如果insert into 中的数据违反唯一性约束,那么则进行更新操作
+
+复合唯一约束:
+    alter table table_name
+      add unique key(column_name1,column_name2);
+
+
+    
