@@ -1,0 +1,40 @@
+1.springboot使用一个全局的配置文件
+	application.properties
+	application.yml
+  用来修改springboot自动配置的默认值
+
+ application.properties 的配置：
+	server.port=8000
+	
+
+@ConfigurationProperties注解：
+	*	将配置文件中的数据映射到javabean中
+	*   perfix前缀：指定配置文件中对应的前缀
+
+@Value注解：
+	类的属性上可以使用@Value注解设置值：@Value("hello") / @Value("${peroson.name}") 从配置文件或环境变量获取值/ @Value("#{12*3}")
+	
+	
+springboot的单元测试: 可以在测试期间很方便的类似编码一样进行自动注入等容器的功能
+	需要依赖：
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>1.5.13.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+		
+	测试类加注解:
+		@RunWith(SpringRunner.class) :单元测试用spring的测试
+		@SpringBootTest :springboot的单元测试
+			classes属性:用来指定springboot的启动类
+			
+
+@PropertySource：可以用来加载指定配置文件
+	而 @ConfigurationProperties 默认从全局配置文件中获取值
+	
+@ImportResource: 用来加载spring的配置文件	  
+	
+	
+	
+			
