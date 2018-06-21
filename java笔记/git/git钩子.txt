@@ -26,6 +26,15 @@
     
     原因和解决办法:
         https://yq.aliyun.com/ziliao/73279    
+        原因:
+            git的狗子在运行时会调用GIT_DIR这个环境变量，而不是PWD这个。
+            
+        解决方案 :
+          在钩子的代码前加入:
+            unset $(git rev-parse --local-env-vars)
+            unset命令用于删除已定义的shell变量和shell函数。
+            
+        
     
         
         

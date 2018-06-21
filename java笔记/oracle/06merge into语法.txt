@@ -1,0 +1,23 @@
+merge into功能：
+    如果条件满足，更新表中特定记录的值，否则在表中插入一条记录
+    
+语法：
+        merge into table_name alias1
+        using (table|view|sub_query)
+        on (join condition)
+        when matched then
+           update set 
+                <!--  需要set的值 -->
+           when not matched then
+              insert (a,b) values(T2.a,T2.b)
+              
+    example:
+        merge into t t1
+        using (select '1001' as a,2 as b from dual) t2
+        on (t1.a=t2.a)
+        when matched then 
+           update set t1.b=t2.b
+        when not matched then
+           insert (a,b) values(t2.a,t2.b)
+
+           
