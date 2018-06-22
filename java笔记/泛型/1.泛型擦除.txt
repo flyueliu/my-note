@@ -1,0 +1,17 @@
+泛型擦除：
+    
+运行泛型信息的获取:
+    example:
+    ```java
+        Map<String, Integer> map = new HashMap<String, Integer>() {};    
+        Type type = map.getClass().getGenericSuperclass();  
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);  
+        for (Type typeArgument : parameterizedType.getActualTypeArguments()) {  
+            System.out.println(typeArgument.getTypeName());  
+        }  
+    ```
+
+
+
+参考资料：
+    http://www.iteye.com/news/32333
