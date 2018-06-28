@@ -1,0 +1,8 @@
+@ComponentScan:
+
+@Configuration:
+    * 指定这个类为配置类，配置类下可以使用@Bean注解将方法注入到spring容器中
+    * 需要将被@Configuration修饰的类放入到容器中(可以在主配置类上配合@Import,或者使用@ComponentScan注解)
+    
+    
+    
