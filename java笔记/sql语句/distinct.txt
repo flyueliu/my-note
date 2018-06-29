@@ -1,0 +1,6 @@
+distinct 可以去除重复列
+    之前将distinct 当作函数，其实看作是 一个关键字更合适点
+    
+    select distinct column1,column2 from tb_name;
+        查询出来的结果 ：column1和column2 肯定是组合唯一
+        
