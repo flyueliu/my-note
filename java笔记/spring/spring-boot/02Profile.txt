@@ -1,0 +1,8 @@
+多Profile:
+	在主配置文件编写的时候，文件名可以是 application-{profile}.properties / yml
+	默认使用application.properties
+	
+	
+激活指定profile
+	1， 在配置文件中指定 spring.profiles.active=dev
+	

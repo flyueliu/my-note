@@ -1,0 +1,25 @@
+1. 日志
+
+
+  logging.level.com.flyue=trace
+	  指定包com.flyue下的日志级别
+  logging.path=/spring/log 指定日志文件存放的路径
+  logging.file=   指定完整路径名  
+	
+
+ 日志配置文件:
+	可以在classpath目录下放置logback.xml 即可 或者放入logback-spring.xml
+		logback-spring.xml有增强功能，可以指定profile，使得配置在指定的profile生效
+		
+		
+2.静态资源：
+	默认的静态资源放置到classpath的resouces或者static目录下。
+	{ "classpath:/META-INF/resources/", "classpath:/resources/",
+			"classpath:/static/", "classpath:/public/" }
+	
+	如果访问资源是/static/js/hello.js   那么放置的目录应该是 classpath:/static/static/js/hello.js 
+	                                                    或者是: classpath:/resouces/static/js/hello.js
+														还可以是: classpath:/
+	
+	
+	

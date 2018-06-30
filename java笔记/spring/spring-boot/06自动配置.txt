@@ -1,0 +1,6 @@
+自动配置原理：
+    springboot启动时，加载主配置类，开启了自动配置功能
+	@EnableAutoConfigration：
+		利用EnableAutoConfigurationImportSelector给容器中导入一些组件
+		可以查看selectImports()内容
+			
