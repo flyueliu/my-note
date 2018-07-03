@@ -1,0 +1,25 @@
+@Configuration修饰类:
+	* 告诉Spring这个是一个配置类：相当于之前的applicationContext.xml中的beans标签
+	* 修饰类中的方法可以被@Bean修饰,相当于bean标签
+	
+	
+@ComponentScanner:
+	
+		value:指定要扫描的包
+		excludeFilters:
+		useDefaultFilters:false 禁用掉默认的扫描规则
+		
+	example:
+		@ComponentScanner(value="com.flyue",excludeFilters={@Filter(type=FilterType.ANNOTATION,classes={Contoller.classes})}
+		
+
+@Conditional:
+	按照一定的条件进行判断，满是条件就给容器注册bean
+	Condition接口：
+		ConditionContext context: 判断条件能使用的上下文
+			context.getEnvironment().getProperty(): 获取配置的属性(例如"spring.profiles.active")
+		AnntatedTypeMetadata：注释信息
+	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        return false;
+    }
+	

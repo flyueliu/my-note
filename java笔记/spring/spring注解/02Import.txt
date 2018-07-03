@@ -1,0 +1,4 @@
+ImportSelector接口：
+	selectImports(AnnotationMetadata annotationmetadata)方法：
+		返回String[],需要导入类的全类名
+	    annotationmetadata:当前标注@import注解的类的所有注解信息	
