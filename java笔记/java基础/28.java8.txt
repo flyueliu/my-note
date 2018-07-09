@@ -74,5 +74,53 @@
                 
     https://blog.csdn.net/abcwywht/article/details/77991868        
                 
-        
-                
+3.函数式接口与lambda表达式
+	* 在java中，lambda表达式是对象，它们必须依附于一类特别的对象类型 ： 函数式接口
+	* 如果一个接口中，有且只有一个抽线方法，那么这个接口就可以看做是函数式接口
+	* @FunctionalInterface修饰接口，但接口中有且只有一个抽象方法时，编译器也会把这个接口当成函数式接口
+	
+函数式接口实例对象的使用：
+		```java
+			@FunctionalInterface
+			public interface Consumer<T>{
+			
+				void accept(T t)
+			}
+			
+		```
+		这个接口只有一个抽象方法，还被@FunctionalInterface修饰。是典型的函数式接口
+	1. lambda表达式创建函数式接口的对象
+		```java
+			public class Test1{
+				public static void main(String[] args){
+					List<Integer> list=Arrays.asList(1,2,3,4,5,6,7);
+					list.forEach(item->System.out.println(item))
+				}
+			}
+		```
+		如果使用lambda表达式来创建一个函数式接口的实例，那这个lambda表达式的入参和返回值必须符合这个函数式接口的唯一抽象方法的定义。
+		
+	2.使用方法引用来创建函数式接口的对象
+		```java
+			Consumer<Integer> consumer=System.out::println
+			list.forEach(System.out::println);
+		```
+		
+		使用 `对象::方法名`
+		
+		```java
+			public void println(Object x){
+				String s=String.valueOf(x);
+				synchronized(this){
+					print(s);
+					newLine();
+				}
+			}
+		```
+	3.构造方法创建函数式接口的对象
+		```java
+			list.forEach(Test1::new);
+		```
+	
+	但无论是哪种方式创建，都必须符合抽象方法的定义，也就是入参和返回值
+		

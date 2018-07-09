@@ -22,7 +22,7 @@ Linux网络配置命令:
 		第三行：UP(代表网卡开启状态)Runing(代表网卡的网线被接上)MUTICAST(支持组播)MTU：1500（最大传输单元）:1500字节
 	3.配置网卡的信息
 		3.1配置eth0的IP地址，同时激活该设备
-			#ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+			#ifconfig eth0 192.168.1.110 netmask 255.255.255.0 up
 		3.2激活设备
 			ifconfig eth0 up
 	
