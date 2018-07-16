@@ -1,0 +1,9 @@
+* 注解代理web.xml配置文件，可以不使用web.xml文件。
+
+javaweb的三大组件注解方式：
+	Servlet: 在Servlet类上添加@WebServlet(urlPatterns="servlet路径")即可
+	Filter：使用@WebFilter注解，其中也有一个urlpatterns属性表示 需要过滤的资源。
+	Listener: 监听器使用@WebListener，监听器的注解不需要属性值
+	
+		
+	
