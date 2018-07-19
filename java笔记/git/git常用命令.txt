@@ -178,3 +178,10 @@ git reflog : git 操作命令的历史 记录 ：
 		# *.tar
 		# *.tar.gz
 	```
+	
+	4. gitignore修改不起作用：这是因为git存在缓存问题：
+		git rm -r --cached .
+		git add .
+		git  commit -m "update gitignore" 
+	 即可	
+		
