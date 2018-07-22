@@ -1,0 +1,7 @@
+1.基本枚举特性：
+	1. 调用enum的静态方法:values()，可以遍历enum实例。values()方法返回enum实例的数组
+	2. 调用enum的静态方法:valueOf(String name): 根据给定的名字返回相应的enum实例。如果不存在则报异常。
+	3. 枚举对象实例的ordinal()返回一个int值，是这个enum实例在声明时的次序。同时自动生成equals和hashcode方法，还实现了Comparable接口
+	4.枚举对象实例的name()返回enum实例声明时的名字，
+	
+	
