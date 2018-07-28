@@ -12,7 +12,7 @@ git remote add :添加远程仓库（链接）
 
 	如果远程仓库修改了ssh协议的端口号：有两种办法:
 		1.直接修改URL为SSH://开头:	
-			git remote set-url origin ssh://git@ali.liuyuefei.top:3322/~/.git
+			git remote set-url origin ssh://git@1571v2d893.imwork.net:11662/~/annotation-test01.git
 			
 		2.修改本地配置文件：修改.ssh/config中配置
 			第（1）步: cat>~/.ssh/config
