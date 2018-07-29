@@ -1,0 +1,17 @@
+元注解：定义注解时，会需要一些元注解
+	@Target:定义注解应用在什么地方(例如是一个方法或者类) ElementType.Method / ElementType.TYPE
+	@Retention: 定义注解在哪一个级别可用，在源代码中(SOURCE)、类文件(CLASS)或者运行时(RUNTIME)
+	@Inherited ：允许子类继承父类中的注解
+	  * 控制标记在类上的注解能被子类继承。例如：
+		```java
+			@UseCase(id=2,description="parent")
+			public class Super {
+			}
+			
+			public class Suber extends Super {
+			}
+		```
+	  * 标记在方法上的注解，如果子类重写了该方法，注解是不会被继承的。加@Inherited也没用
+	  * 如果子类没有重写父类的方法，那么子类对象还是可以获取该注解的
+	  
+ 	
