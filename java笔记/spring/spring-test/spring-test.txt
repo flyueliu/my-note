@@ -1,0 +1,5 @@
+1.RunWith注解: 
+	@RunWith(SpringRunner.class): 会加载spring容器
+	@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"}) :指定配置文件所在路径(不需要加载springmvc的配置文件)
+	@WebAppConfiguration：指定spring环境为 web环境，这时候可以加载springmvc的配置文件。但不支持websocket.
+	
