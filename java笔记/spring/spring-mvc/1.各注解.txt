@@ -1,2 +1,44 @@
 1.@RequestMapping:
+
+2.@SessionAttribute注解： 加在控制器类@Controller 上面,表示对应的属性或者类型不仅会放到request域中，还会放到session域中
+	example：
+		@Controller
+		@SessionAttribute(value={"user"},type=String.class) // value可以指定请求域中键的名字，type还可以指定类型。value和type属于"或的关系".
+		public class SpringMVCTest{		
+			public String testSessionAttribute(Map<String,Object> map){
+				User user=new User("Tom","123456");
+				// map中put的名字和sessionAttribute注解标注一致，那么该"user"不仅会放在request域中，同时还存在session域中。
+				map.put("user",user);
+				return SUCCESS;
+			}
+		}
+
+		
+3. @ModelAttribute注解： 由该注解标记的方法，会在每个目标方法执行之前被SpringMVC调用。
+	    @Controller
+		public class SpringMvcController {
+
+
+			@ModelAttribute
+			public void getUser(@RequestParam("id") Integer id, Map<String, Object> map) {
+				User u = new User(1, "lyf", "password");
+				map.put("user", u);  //
+			}
+
+
+			@ResponseBody
+			@RequestMapping(value = "/user")
+			public User requestUpdate(User user) {
+				System.out.println(user);
+				return user;
+			}
+		}
+		
+	运行流程：
+		1.执行@ModelAttribute注解修饰的方法，从数据库中取出对象，把对象放入Map中。键名为"user"
+		2. 从Map中取出User对象，并把表单的请求参数赋值给User对象的对应属性。
+		3. SpringMVC把上述对象传入目标方法的参数。
+		注意： 在ModelAttribute修饰的方法中，放入map中的键必须和类名第一个字符小写一致。
+	
+	
 	
