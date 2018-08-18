@@ -1,0 +1,30 @@
+
+docker镜像( docker images)
+	是docker容器运行是的只读模版，每一个镜像由一系列的层(layers)组成。docker使用UnionFS(联合文件系统)来将这些层联合到单独的镜像中。
+
+docker容器(docker container)
+	一个docker容器包含了所有的某一个应用运行所需要的环境。docker容器是由docker镜像创建而成。docker容器可以运行、开始、停止、移动和删除
+
+docker仓库：用来保存镜像
+
+docker基本用法:
+	1) Search images:
+		docker search ubuntu 
+	2) Pull images:
+		docker pull ubuntu 
+	3) 运行交互式shell 
+		docker run -it ubuntu /bin/bash
+			-t  :分配一个tty 
+			-i  : 使用交互模式
+		退出容器: ctrl+D 或者 输入exit
+		detach ： ctrl+p 再输入 ctrl+Q
+		attch ： docker attach 容器ID
+	
+	4) docker info :查看docker信息 
+	5) docker images :列出当前系统镜像
+		-a选项: 包含过渡层 
+	6) docker rmi 删除镜像 
+		-f选项: 强制移除镜像，不管是否有容器使用该镜像
+	7) docker run 
+	8) docker exec -it 容器ID /bin/bash 进入容器
+	
