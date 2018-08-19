@@ -1,0 +1,38 @@
+1.SpringMVC 通过HandlerExceptionResolver处理程序的异常，包括Handler映射，数据绑定以及目标方法执行时发生的异常。
+2.SpringMVC 提供的HandlerExceptionResolver的实现类。
+
+3.SpringMVC默认装配的HandlerExceptionResolver：
+	(1)没有使用<mvc:annotation-driven />
+		AnnotationMethodHandlerException 
+		ResponseStatusExceptionResolver
+		DefaultHandlerExceptionResolver
+		
+		
+	(2)使用了<mvc:annotation-driven />  (该配置一般都会加入)
+		ExceptionHandlerExceptionResolver:
+		
+			* 主要处理controller中用@ExceptionHandler注解定义的方法：controller中发生异常时，首先会调用该controller中被@ExceptionHandler标记的方法。
+				@ExceptionHandler({ArithmeticException.class})
+				public String handlerException(ArithmeticException e){
+					return "error";
+				}
+			* @ExceptionHandler注解定义优先级时会找继承深度最近的那个方法
+			* @ExceptionHandler方法入参中可以加入exception类型的参数，该参数既对用发生的异常对应，但方法入参中不能传入Map，若希望将异常返回出去，需要返回ModelAndView类型。
+			* 如果该Controller中找不到ExceptionHandler处理当前方法出现的异常，则会去@ControllerAdvice中查找@ExceptionHandler标记的方法来处理异常。
+			
+			* 全局ExceptionHander： 处理全局发生的异常。(所有Controller中发生的异常)
+				@ControllerAdvice
+				public GlobalExceptionHandler{
+					@ExceptionHandler({ArithmeticException.class})
+					public String handlerException(ArithmeticException e){
+						return "error";
+					}
+				}
+
+		ResponseStatusExceptionResolver
+			实现了HandlerExceptionResolver，使用@ResponseStatus将异常映射为HTTP状态码
+				
+		DefaultHandlerExceptionResolver
+		
+		
+		

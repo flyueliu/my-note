@@ -1,0 +1,10 @@
+1. 请求request --> springMVC配置的DispatcherServlet
+2. DispatcherServlet判断是否存在对应映射(requestMapping中是否包含该url)
+	
+	2.1 --> 没有： 查看是否标注了<mvc:default-servlet-handler /> --> 没有的话就返回404页面
+																--> 有，去找目标资源
+																
+	2.2 --> DispatcherServlet如果存在对应映射，那么就由HandlerMapping获取HandlerExecutionChain对象
+	2		--> 获取HandlerAdapter对象 --> 调用拦截器 --> 目标方法-->返回ModelAndView -->拦截器PostHandle方法
+	       --> 是否存在异常 --> 有异常重新封装ModelAndView --> 由视图解析器渲染视图 --> 返回页面
+		

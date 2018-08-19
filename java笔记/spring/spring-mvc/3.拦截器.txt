@@ -1,0 +1,20 @@
+1.步骤
+	(1). 实现HandlerInterceptor接口:
+		preHandle方法：
+			* 目标方法执行之前调用。若返回false，则不会调用后续的拦截器和目标方法。
+			* 可以考虑做权限，日志，事务等
+		postHandle方法：
+			* 在目标方法之后，渲染视图之前被调用。
+			* 可以修改请求域中的属性，或者修改视图。
+		afterCompletion方法：在渲染视图之后被调用
+			* 释放资源用。
+	(2)在springmvc配置文件中配置<mvc:interceptors>中添加：
+		添加 <mvc:intercetor>
+				<mvc:mapping path="/emps" /> <!-- 配置拦截器作用的路径 -->
+				<mvc:exclude-mapping path="/aa"> <!-- 配置拦截器不作用的路径 -->
+				<bean class="com.flyue.intercetor.FirstInterceptor"> <!-- 配置拦截器 -->
+			</mvc:intercetor>
+			
+			
+	
+	

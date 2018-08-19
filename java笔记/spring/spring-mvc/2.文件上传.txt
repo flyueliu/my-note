@@ -1,7 +1,7 @@
 1. SpringMVC为文件上传提供直接支持，这种支持是通过即插即用的MuiltipartResolver实现的。
 2. Spring用Jakarka Commons FileUpload实现了一个MultipartResolver实现类CommonMultipartResovler
 3. SpringMVC上下文默认没有装配MultipartResolver，因此需要上传功能，必须先配置MultipartResolver。
-	配置方式:
+	配置方式: id必须配置为multipartResolver
 		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 			<property name="defaultEncoding" value="UTF-8" />
 			<property name="maxUploadSize" value="5242880" />
