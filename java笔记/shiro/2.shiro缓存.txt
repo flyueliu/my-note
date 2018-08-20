@@ -1,0 +1,21 @@
+1. CacheManager是Shiro架构中主要组件之一,Shiro正是通过CacheManager组件实现 权限数据 缓存.
+
+使用原因:
+	当权限信息存放在数据库中时，对于每次前端的访问请求都需要进行一次数据库的查询。	特别是在大量使用shiro的jsp标签的场景下。对应前端一个页面访问请求会同时出现很多次的权限查询操作。这对于权限信息变化不是很频繁的场景下，每次前端页面访问都进行大量的权限数据库查询是很不经济的。因此，非常有必要对权限数据使用缓存。
+
+分类:
+	关于shiro权限数据的缓存方式，可以分为两类
+		其一，将权限数据缓存到集中式存储中间件，如redis或者memcached。
+			这种方式页面每次访问都会向缓存发起一次网络请求，如果使用了大量的shiro的jsp标签，那么对应一个页面将会出现N个到集中缓存的网络请求，造成瞬时压力(如果项目中没有使用shiro的jsp标签，那使用集中式缓存也可以)
+			
+		其二，将权限数据缓存到本地。
+			如果使用了大量的shiro 的jsp标签 ，最好使用本地缓存。
+			
+shiro只提供了一个可以支持具体缓存实现的抽象API接口(CacheManager)，这样就允许shiro用户根据自己的需求灵活选择具体的CacheManager。
+
+使用方式 :
+	(1)SecurityManager是Shiro的核心控制器，而CachingSecurityManager是Shiro中SecurityManager接口的基础抽象类
+	(2)CachingSecurityManager中有一个CacheManager的成员变量。
+	(3)另外，CachingRealm是Shiro中Realm接口的基础实现类，其中也有一个CacheManager的成员变量。
+所以，shiro支持在两个地方定义缓存管理器，既可以在SecurityManager，也可以在Realm中定义。
+	其实在SecurityManager中设置的CacheManager组中都会给Realm使用，即：真正使用CacheManager的组件是Realm。
