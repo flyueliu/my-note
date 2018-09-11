@@ -1,0 +1,41 @@
+spring aop代理：
+	注解:@EnableAspectJAutoProxy :启动自动代理功能 ,其中属性:proxyTargetClass=true,采用代理目标类的方式 进行动态代理(cglib)
+
+
+
+1. Aspectj提供了两套对切面的描述方法：
+	(1)基于java注解
+	(2)基于aspect文件:这种语法并不是java语法，因此在写的时候需要IDE的插件才能支持进行语法检测
+	
+	
+jar包介绍:
+	aspectjrt.jar: 主要提供运行时的一些注解，静态方法等，使用asjectJ时都需要使用该包
+	aspecttools.jar： 在idea开发工具中,Settings --> Build,Execution,Deployment --> Compiler --> Java Compiler 中Use compiler可以选择 编译器ajc。
+		(1)提供ajc编译器 ，可以在编译期将java文件或者class文件 或者aspect文件 定义的切面织入到 业务代码中。
+		(2)通常这个东西会被封装进各种IDE插件或者自动化插件中。
+	aspectweaver.jar:
+		(1)主要提供了一个java agent用于在 类加载期间 织入切面
+ 		(2)提供了对切面语法的相关处理等基础方法，供ajc使用或者供第三方开发使用
+		(3)这个包一般 我们不需要显式引入，除非需要使用LTW(即加载期切面织入，是ApsectJ切面织入的一种方式，它通过JVM代理在类加载期替换字节码到达织入切面的目的)
+
+编译时织入：
+	利用ajc编译器代替javac编译器，直接将源文件(java或者aspect文件)编译 成class文件并将切面织入进代码
+
+编译后织入：
+	利用ajc编译器向javac编译期编译后的class文件或者jar文件织入切面代码
+	在javac编译完成后，用ajc再去处理class文件得到新的、织入过切面的class文件。
+	
+加载时织入：LTW
+	不使用ajc编译器，利用aspectweaver.jar工具，使用java agent代理在类的加载期间将切面织入进代码
+	通过java agent机制在内存中操作类文件，可以不需要ajc的支持做到动态织入。
+	
+	
+如何判断是织入还是代理：
+	spring里有很多基于动态代理的设计，而且动态代理也可用作面向切面编程
+	但是spring aop本身却支持aspectj的切面语法，而且spring-aop也引入了aspectj。
+	但aspectj是通过织入的方式来实现aop的。但spring只是利用了aspectj的注解和语法实现 了自己的一套aop，算是用一半，造一半。
+	
+使用aspectj静态织入时的问题：
+	@Around 方法 日志输出时，由于编译后的代码被修改，所以无法显示在正确的代码行数
+	
+	

@@ -1,0 +1,43 @@
+1. gradle 中 build.gradle 相当于maven中的pom.xml文件。
+ 示例：
+
+ # 项目的组名
+group 'com.zxlab.gradle'
+# 项目的版本号
+version '1.0-SNAPSHOT'
+
+# 引入jdk
+apply plugin: 'java'
+# 达成war包
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+# 依赖jar包的仓库地址
+repositories {
+   # maven本地仓库
+    mavenLocal()
+	# 自定义配置仓库
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+	# maven中央仓库
+    mavenCentral()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+	
+	# compile 依赖，可以使用groudId:artifacd:version 这种方式
+    // The production code uses the SLF4J logging API at compile time
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.4.RELEASE'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    // Declare the dependency for your favourite test framework you want to use in your tests.
+    // TestNG is also supported by the Gradle Test task. Just change the
+    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
+    // 'test.useTestNG()' to your build script.
+	# 测试依赖
+    testCompile 'junit:junit:4.12'
+	# provided依赖
+	providedCompile "javax.servlet:javax.servlet-api:3.1.0" 
+}
