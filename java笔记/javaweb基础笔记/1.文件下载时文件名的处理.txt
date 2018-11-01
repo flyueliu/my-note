@@ -1,0 +1,15 @@
+1. 不同浏览器在下载文件时对文件名处理不相同.
+
+使用以下代码解决中文文件名乱码问题:
+	try {
+		fileName = URLEncoder.encode(fileName, "UTF-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	response.setContentType("application/octet-stream;charset=UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+	response.addHeader("Pargam", "no-cache");
+	response.addHeader("Cache-Control", "no-cache");
+	

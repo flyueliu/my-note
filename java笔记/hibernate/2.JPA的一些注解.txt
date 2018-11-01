@@ -25,4 +25,7 @@
 		}
 	}
 
+2. @Table(name="指定表名",uniqueConstraints={
+	@UniqueConstraint=(name="约束名称",columnNames={"表中的列名1","表中的列名2"})
+})
 	

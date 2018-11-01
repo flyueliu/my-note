@@ -1,0 +1,2 @@
+
+select * from TS_USER_INFO start with id=135 connect by prior id=PARENT_ID
