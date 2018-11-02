@@ -1,2 +1,15 @@
 
 select * from TS_USER_INFO start with id=135 connect by prior id=PARENT_ID
+
+基本语法:
+	select ... from tableName
+	  where condition3
+	  start with condition1
+	  connect by condition2
+*     简单来说是将一个树状结构存储在一张表中，比如一张表存在两个字段(emp表中的emp_no和mgr字段)，mgr那么通过表示每一条记录的"管理者"是谁，就可以形成一个树形结构。
+* 其中condition1是根节点的限定语句，当然可以放宽限定条件，以取得多个根节点
+* condition2是连接条件，其中用 prior 表示上一条记录，比如connect by prior id=parent_id. 
+* 意思就是上一条记录的id是本记录的parent_id,即本记录的父亲是上一条记录。
+* condition3是过滤条件，用于对返回的所有记录进行过滤。（where后的条件是对生成整个树后的结构 在进行过滤，并不是先过滤在生成树）
+
+	  
