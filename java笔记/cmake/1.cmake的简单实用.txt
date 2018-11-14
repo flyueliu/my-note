@@ -1,0 +1,13 @@
+1. cmake的使用过程
+	(1)需要编写CMakeLists.txt 
+		* 这个是cmake的构建定义文件，文件名是大小写相关的，如果过程存在多个目录，需要确保每个要管理的目录都存在一个CMakeLists.txt
+	(2)输入命令cmake . (.号代表本目录)
+	(3)系统会自动生成CMakeFiles文件夹,CMakeCache.txt 、cmake_install.cmake等文件，并且生成了Makefile.
+	(4)在这个目录输入make命令。
+
+2. CMakeLists.txt内容解释:
+		project(hello) # project指令的语法是: project(projectname [CXX] [C] [Java])
+		set(src_list main.cpp)
+		message(status "This is binary dir " ${hello_binary_dir})
+		message(status "This is source dir " ${hello_source_dir})
+		add_executable(hello src_list)
