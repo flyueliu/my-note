@@ -1,0 +1,49 @@
+1. 总共11种状态:
+	客户端(主动关闭端)独有的:
+		1. SYN_SENT : 客户端三次握手发送完SYN包后 ，客户端改为这个状态
+		2. FIN_WAIT1：
+			* 主动关闭连接的一方等待对方返回ACK包。
+			* 若Socket在ESTABLISHED状态下主动关闭连接并向对方发送FIN包(表示己方不再需要发送数据)，则进入该状态
+			* 此状态还能读取数据，但不能发送数据
+		3. FIN_WAIT2
+			* 当主动断开一端的FIN发送成功，且接收到相应的ACK请求后，就进入该状态
+			* FIN_WAIT1和FIN_WAIT2都是在等待对方发送FIN数据报文。
+			* tcp_fin_timeout: 默认60秒，不属于任何应用的孤儿连接保持FIN_WAIT2状态的最长时间
+				* 一旦超过这个时间，就会被本地直接关闭，不会进入TIME_WAIT状态
+		4. TIME_WAIT
+			* 当接收到"被动关闭端"发送的FIN数据包后，系统会做出ACK应答后，该连接就进入TIME_WAIT状态
+			* 内核设定一个时间长度到达2MSL的定时器后，内核就关闭该连接
+			* 反之，当连接尚未关闭的时候，又收到了对方发送的FIN请求，或者ICMP请求，该连接就会重新发送ACK请求，并重置定时器
+			* 2MSL(Maximum Segment Lifetime报文最大生存时间):
+				(1)为什么需要TIME_WAIT？TIME_WAIT是TCP协议用以保证被重新分配的socket不会受到之前残留的延迟重发报文影响的机制,是必要的逻辑保证。
+				(2)
+		5. CLOSING 
+		
+		
+	服务端(被动关闭端)独有的：
+		1. LISTEN
+		2. SYN_RCVD ：服务端接收到
+		3. CLOSE_WAIT
+		4. LAST_ACK
+	公有的:
+		1. CLOSED : 
+		2. ESTABLISHED
+		
+TCP三次握手:
+	客户端：
+		1. 首先为CLOSE状态，发送SYN包
+		2. 客户端发送完SYN包后，状态为SYN-SEND
+		3. 客户端接收到服务端的ACK+SYN包后，再发送ACK包，完毕后状态修改为ESTABLISHED，表示连接已经建立
+	服务端:
+		1. 服务端首先为LISTEN状态，监听端口
+		2. 服务端接收到客户端的SYN包后，同时发送SYN+ACK，完毕后状态修改为SYN-RCVD
+		3. 服务端接收到客户端的ACK包，完毕后状态修改ESTABLISHED,表示连接已经建立
+		
+		
+TCP4次挥手：
+	1. 客户端A发送一个FIN，用于关闭客户A到服务端B的数据传送
+	2. 服务端B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1.和SYN一样，一个FIN将占用一个序号
+	3. 服务端B关闭和客户端A的连接，发送一个FIN给客户端A
+	4.客户端A发回ACK确认
+	
+	
