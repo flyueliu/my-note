@@ -18,3 +18,143 @@ Map集合的功能:
 		Collection<V> values():获取集合中所有的值的集合
 	5.长度功能
 		int size():返回集合中的键值对个数
+		
+		
+HashMap:
+	几个概念：
+		* 初始桶大小：底层使用的是Entry<K,V>[]，指定这个数组的默认大小（1<<4 : 16）
+		* 桶最大值（1<<30）：
+		* 默认的负载因子(0.75):
+			当数量达到 默认容量*负载因子时，就会发生扩容
+		* Entry中有key，value 和next(下一个Entry，链表结构)，hash(key的哈希值)
+	```java
+		transient Entry<K,V>[] table = (Entry<K,V>[]) EMPTY_TABLE;
+	```
+	* put方法:
+		1. 判断当前数组是否需要初始化
+			if (table == EMPTY_TABLE) {
+				inflateTable(threshold);
+			}
+		2. 如果key为空，则put一个空值进去
+			if (key == null)
+				return putForNullKey(value);
+		3. 计算key的hash值，根据hashcode定位所在桶
+			 int hash = hash(key);
+			 int i = indexFor(hash, table.length);
+		4. 如果桶是一个链表，则需要遍历判断里面的hashcode、key和传入是否相等
+			如果相等，则进行覆盖，并返回原来的值
+			for (Entry<K,V> e = table[i]; e != null; e = e.next) {
+				Object k;
+				if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
+					V oldValue = e.value;
+					e.value = value;
+					e.recordAccess(this);
+					return oldValue;
+				}
+			}
+		5. 如果桶是空的，说明当前位置没有存入诗句，新增一个Entry对象写入当前位置
+			
+	* get方法：
+		public V get(Object key) {
+			if (key == null)
+				return getForNullKey();
+			Entry<K,V> entry = getEntry(key);
+			return null == entry ? null : entry.getValue();
+		}
+
+		final Entry<K,V> getEntry(Object key) {
+			if (size == 0) {
+				return null;
+			}
+			// 1. 根据key计算出hashcode
+			int hash = (key == null) ? 0 : hash(key);
+			// 2. 然后定位到具体桶中
+			// 3. 判断该位置是否是链表
+			for (Entry<K,V> e = table[indexFor(hash, table.length)];e != null;e = e.next) {
+				Object k;
+				// 遍历直到key及hashcode相等就返回
+				// 当 Hash冲突严重时，在桶上形成的链表会变的越来越长
+				// 这样在查询时的效率就会越来越低；时间复杂度为 O(N)	
+				// 因此 1.8 中重点优化了这个查询效率。		
+				if (e.hash == hash &&
+				((k = e.key) == key || (key != null && key.equals(k))))
+				return e;
+			}
+			return null;
+		}
+
+1.8 中的修改:
+	1. TREEIFY_THRESHOLD 用于判断是否需要将链表转换为红黑树的阈值,默认值8，即当树的 深度超过8时，会将链表转换为红黑树。
+	2. HashEntry 修改为 Node。
+
+  * put方法：
+	  final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+                   boolean evict) {
+        Node<K,V>[] tab; Node<K,V> p; int n, i;
+        if ((tab = table) == null || (n = tab.length) == 0) // 1 
+            n = (tab = resize()).length;
+        if ((p = tab[i = (n - 1) & hash]) == null) // 2 没有hash冲突
+            tab[i] = newNode(hash, key, value, null);
+        else {
+		
+            Node<K,V> e; K k;
+            if (p.hash == hash &&
+                ((k = p.key) == key || (key != null && key.equals(k)))) // 3 存在hash冲突
+				// 比较当前桶中的key、key的hashcode与写入的key是否相等
+				// 如果相等，在第8步统一进行赋值
+                e = p;
+            else if (p instanceof TreeNode)  
+			 // 4 如果当前桶为红黑树，
+			 //那就要按照红黑树的方式写入数据。
+                e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+            else {
+			   // 5. 如果是个链表，就需要将当前的 key、value      
+                for (int binCount = 0; ; ++binCount) { // 5
+				//6. 封装成一个新节点写入到当前桶的后面（形成链表）
+                    if ((e = p.next) == null) {
+                        p.next = newNode(hash, key, value, null);
+                        if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st 6
+                            treeifyBin(tab, hash);
+                        break;
+                    }
+					// 7.如果在遍历的过程中找到key相同时直接退出遍历
+                    if (e.hash == hash &&
+                        ((k = e.key) == key || (key != null && key.equals(k))))
+                        break;
+                    p = e;
+                }
+            }
+			// e!=null相当于存在相同key,直接将值覆盖
+            if (e != null) { // existing mapping for key
+                V oldValue = e.value;
+                if (!onlyIfAbsent || oldValue == null)
+                    e.value = value;
+                afterNodeAccess(e);
+                return oldValue;
+            }
+        }
+        ++modCount;
+		// 9. 最后判断是否需要扩容
+        if (++size > threshold)
+            resize();
+        afterNodeInsertion(evict);
+        return null;
+    }
+	
+	1. 判断当前桶是否为空，空就需要初始化(resize中会判断是否进行初始化)
+	2. 根据当前key的hashcode定位到具体的桶中并判断是否为空
+		为空表明没有hash冲突，就直接在当前位置创建一个新桶即可
+	3. 如果当前桶有值(hash冲突)，那么就比较当前中key、key的hashcode与写入的key是否相等
+		相等就就赋值给e，在第8步的时候会统一进行赋值及返回。
+	4. 
+		
+	* get方法：	
+		1. 首先将key hash之后取得所定位的桶
+		2. 如果桶为空，直接返回null
+		3. 如果第一个不匹配，则判断它的下一个是红黑树还是链表
+		4. 红黑树就按照树的查找方法返回值
+		5. 不然就按照链表方式返回值
+		
+
+ConcurrentHashMap：
+	
