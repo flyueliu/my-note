@@ -16,15 +16,22 @@
 			* 反之，当连接尚未关闭的时候，又收到了对方发送的FIN请求，或者ICMP请求，该连接就会重新发送ACK请求，并重置定时器
 			* 2MSL(Maximum Segment Lifetime报文最大生存时间):
 				(1)为什么需要TIME_WAIT？TIME_WAIT是TCP协议用以保证被重新分配的socket不会受到之前残留的延迟重发报文影响的机制,是必要的逻辑保证。
-				(2)
+				(2)考虑到丢失ACK包的可能和迷路重复数据包的影响
 		5. CLOSING 
-		
+			* 正常状况是发送FIN包后，先收到对方的ACK包再收到FIN包
+			* 而CLOSING表示发送FIN包后并没有收到ACK包，却收到对方的FIN包
+			
 		
 	服务端(被动关闭端)独有的：
 		1. LISTEN
 		2. SYN_RCVD ：服务端接收到
-		3. CLOSE_WAIT
+		3. CLOSE_WAIT ： 
+			* 表示被动关闭连接的一方在等待关闭连接。当收到对方发送的FIN包后，相应的返回ACK包，然后进入Close_wait状态
+			* 在这种状态下，只能发数据，不能读数据。
+			
 		4. LAST_ACK
+			* 被动关闭端完成数据发送后，便向对方发送FIN包，然后等待对方返回的ACK包，这种状态就是LAST_ACK.
+			* 收到ACK包后便回到CLOSED状态，释放网络资源 。
 	公有的:
 		1. CLOSED : 
 		2. ESTABLISHED
@@ -44,6 +51,6 @@ TCP4次挥手：
 	1. 客户端A发送一个FIN，用于关闭客户A到服务端B的数据传送
 	2. 服务端B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1.和SYN一样，一个FIN将占用一个序号
 	3. 服务端B关闭和客户端A的连接，发送一个FIN给客户端A
-	4.客户端A发回ACK确认
+	4. 客户端A发回ACK确认
 	
 	
