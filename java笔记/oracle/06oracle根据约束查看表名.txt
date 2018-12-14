@@ -12,3 +12,31 @@ select constraint_name,constraint_type,table_name from all_constraints where CON
 
 2.主键约束“PK_ID”必须大写("")
 select constraint_name,constraint_type,table_name from all_constraints where CONSTRAINT_NAME='PK_ID';
+
+
+3. select * from user_constraints;
+
+user_constraints表介绍：
+	constraint_type: 约束类型:
+		C CHECK约束
+		P 主键约束
+		R 外键约束
+		U 唯一约束
+		V WITH CHECK OPTION 约束(用于视图)
+		O WITH READ ONLY 约束(用于视图)
+
+4.
+SELECT
+	t1.constraint_name 约束名称,
+	t1.constraint_type 约束类型,
+	t1.table_name 当前表,
+	T2.column_name 当前表引用字段,
+	t3.table_name 被引用表,
+	t3.column_name 被引用字段
+FROM
+	user_constraints t1
+  INNER JOIN user_cons_columns t2 on  t1.constraint_name=t2.constraint_name
+  INNER JOIN user_cons_columns t3 on t1.R_constraint_name=t3.constraint_name
+WHERE
+	t1.table_name = 'BIZ_ADVISE_INFO' AND T1.constraint_type='R';
+	
