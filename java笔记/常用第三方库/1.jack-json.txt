@@ -27,3 +27,14 @@
 	
 	
 # 4. Jackson流式API
+
+
+# 5. jackson注解:
+	1. 属性重命名注解：
+		@JsonProperty: 改变 成员属性所使用的JSON名称
+	2. 忽略属性时使用的注解:
+		@JsonIgnore：pojo包括了一些不需要输出的属性 pojo -> json 
+	3. 	@JsonIgnoreProperties：标注在类上 忽略 json -> pojo 中json数据中得到的属性
+		或者： @JsonIgnoreProperties(ignoreUnknown=true): 忽略json中多余的属性
+	4. 选择更多/更少指定类型时使用的注解:
+		
