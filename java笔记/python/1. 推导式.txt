@@ -1,0 +1,34 @@
+1. 推导式是从一个或者多个迭代器快速简洁地创建数据结构的一种方法、
+	* 列表推导式
+		(1) 语法: [expression for item in iterable ]
+			example:
+				[a*a for a in range(1,5)]
+		(2) 加上条件表达式:
+			  语法: [expression for item in iterable if condition ]
+			example:
+				a_list=[number for numbmer in range(1,6) if number %2==1 ]
+		(3) 嵌套循环:
+			>>>	rows = range(1,4)
+			>>> cols = range(1,3)
+			>>> cells = [(row, col) for row in rows for col in cols]
+			>>> for cell in cells:
+				S... print(cell)
+				
+	* 字典推导式
+		(1) 语法: {key_expression:value_expression for expression in iterable}
+			example:
+				word = 'letters'
+				word_count = {word_item: word.count(word_item) for word_item in word}
+				print(word_count)
+		(2) 由于 word中会有重复的数据，所以迭代时，字典的key可能被多次赋值，使用下面的方式可以避免
+				word = 'letters'
+				word_count = {word_item: word.count(word_item) for word_item in set(word)}
+				print(word_count)
+			set(word)会消除重复数据，字典中的key只会被赋值一次
+	
+	* 集合推导式
+		(1)语法: {expression for expression in iterable}
+	
+	* 生成器推导式
+		
+		
