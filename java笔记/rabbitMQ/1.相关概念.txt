@@ -23,7 +23,17 @@
 		* 在交换器类型和绑定键固定的情况下，生产者可以在发送消息给交换器时，通过指定RoutingKey来决定消息流向哪里
 		
 	Binding:绑定 
-		* 通过绑定将交换器和队列关联起来。在绑定时一般会指定一个绑定键，
+		* 通过绑定将交换器和队列关联起来。在绑定时一般会指定一个绑定键，这样RabbitMQ就知道如何将消息路由到队列了。
+	
+		* 生产者将消息发送到交换器时,需要一个RoutingKey,当BindingKey和RoutingKey相匹配时,消息会被路由到对应的队列中。
+		* 在绑定多个队列到同一个交换器的时候,这些绑定允许使用相同的BindingKey。
+		* BindingKey并不是在所有的情况下都生效,它依赖于交换器类型
+		* fanout类型的交换器就会无视BindingKey,而是将消息路由到所有绑定到该交换器的队列中
+		* RoutingKey相当于填写在包裹上的地址,BindingKey相当于包裹的目的地
+		* 队列绑定是需要的是BindingKey,涉及到的方法有exchangeBind、queueBind
+		* 而发送消息时,需要指定RoutingKey,涉及的方法有channel.basicPublish.
+		
+	
 		
 	交换器类型：fanout、direct、topic、headers
 		fanout:把所有发送到该交换器的消息路由到所有与该交换器绑定的队列中
