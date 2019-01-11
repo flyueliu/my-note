@@ -1,0 +1,19 @@
+@OneToMany级联: 
+	必须设置mapperBy属性 后级联才能生效
+	
+example:
+
+有实体类: CourseOrder  一对多  GroupToCourse
+	
+	public class GroupToCourse {
+	
+		@ManyToOne
+		private CourseOrder course;
+	}
+	public class CourseOrder{
+		
+		// 必须设置
+		@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "course")
+		private List<GroupToCourse> groupList;
+		
+	}
