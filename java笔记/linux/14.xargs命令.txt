@@ -1,0 +1,47 @@
+* linux命令可以从两个地方读取要处理的内容。
+	1. 命令行参数
+	2. 标准输入
+  例如: echo 'main' |cat test.cpp 
+	* 这种情况下cat会输出test.cpp的内容,而不是'main'字符串,如果test.cpp不存在则cat命令报告文件不存在,并不会尝试从标准输入中读取
+	* echo 'main' | 会通过管道将echo的标准输出(也就是字符串'main')导入到cat的标准输入,也就是说此时cat的标准输入中是有内容
+		- 其内容就是字符串'main',但是上面的内容中cat不会从它的标准输入中读入要处理的内容。
+		- 命令行参数是通过main函数int main(int argc,char* argv[])的函数参数获得的。
+		- 而标准输入则是通过标准输入函数例如C语言中的scanf读取到的。
+	* echo 'main' |cat 这条命令会从标准输入中读取内容并处理。也就是会输出'main'字符串。
+		- cat命令对待标准输入的内容: 会直接输出标准输入的内容
+		- ` cat - ` 和直接使用 `cat  `一样。如果直接在命令的最后指定 ' - ' ,则表示从标准输入中读取。
+	* echo 命令将其标准输出的内容'main'通过管道定向到 cat的标准输入中。
+	* 如果仅仅输入cat并回车,则程序会等待输入,我们需要从键盘输入要处理的内容给cat,此时cat也就是从标准输入中得到要处理的内容。
+	* echo 'main' |cat test.cpp -  :
+		- 先cat test.cpp 再执行 cat 从标准输入中读取'main'
+		
+	* 但有一个程序的策略不一样。它是grep 。
+		-  `echo 'main'|grep 'main' test.cpp - `
+		-  grep会同时处理标准输入和文件test.cpp中的内容。也就是说会从标准输入中搜索'main',也会搜索文件test.cpp中搜索'main'
+		-  还有很多程序不处理标准输入,例如kill , rm 这些程序。
+		-  但有时候我们需要有 echo '516' | kill 这样的效果。有几个解决办法:
+			1. 通过 kill `ps -ef|grep 'ddd'|awk '{print $2}'`
+				这种形式,相当于使用kill $pid
+			2. for procid in $(ps -aux|grep "some search"|awk '${print $2}'); do kill -9 $procid; done
+				这种循环处理
+			3. ps -ef|grep 'ddd'|xargs kill 
+				1. 使用xargs命令。xargs命令可以通过管道接受字符串,并将接收到的字符串通过空格分割成许多参数
+				2. 然后将参数传递给其后面的命令,作为后面命令的命令行参数。
+					* 命令行参数和标准输入是有区别的,在上文中已经表述过多次。
+				
+2. xargs 有用的一些选项:
+	-d : 指定分割符(默认的分隔符包括空格、Tab、回车换行)
+		example: 
+			* echo '11@22@33' |xargs echo 
+			* echo '11@22@33' |xargs -d '@' echo 
+				相当于 echo '11' '22' '33'
+	-p :询问是否执行命令 , 会显示执行的命令, 输入回车执行。
+	-n : 一次传递给xargs后面的命令参数个数。
+		例如 : ehco '11@22@33' |xargs -d '@' -n 1 echo 
+			分割成11,22,33 后, 每次只给echo 一个参数。
+			即 echo 11 然后在echo 22 ,最后echo 33
+		
+				
+		
+	    
+	
