@@ -1,0 +1,67 @@
+### 1. 数组API
+	(1) 连接: arr.join("连接符")
+		用连接符把数组里面的元素连接成字符串
+		arr.join("|");
+	(2) 拼接： arr.contact("a","b",arr1) 
+		将"a","b",arr1 组成一个新的数组。不会改变原数组arr1
+		例如arr1 =["1","2","3"] .则会返回新数组 ["a","b","1","2","3"] ，而原数组arr1仍旧为["1","2","3"]
+	(3) 截取： arr.slice(start[,end])
+		* 不会修改原数组，返回新的子数组
+		* 含头不含尾
+		* 省略第二个参数表示从start位置开始到末尾
+		* end可以是负数，表示倒数第几个
+	(4) 删除、插入、替换： arr.splice(start,n[,value1,value2...]) ：start表示开始位置，n表示删除元素的个数，value1，value2表示添加的元素
+	    * 直接修改原数组
+		* 返回所有被删除元素组成的子数组
+		* 如果是插入，删除了0个数，那么从start位置开始以及之后的元素被顺移
+		
+	(5) 翻转数组： arr.reverse()
+		* 直接修改原数组
+	(6) 数组排序： arr.sort()
+		* 直接修改原数组
+		* 默认按数组元素ascii码从小到大
+		* 可以指定比较器函数:
+			arr.sort(function(a,b){
+				return a-b;
+			})
+	(7) 查找： arr.indexOf(value[,from]) 或者arr.lastIndexOf(value[,from])
+		* 返回value在数组中得到位置，没有找到返回-1.
+	
+	(8) 判断是否有符合的： 
+		arr.some(function(value,index,arr){
+			return value>7;
+		})
+		返回boolean值
+	(9) 是否都符合
+		arr.every(function(value,index,arr){
+			return value>7
+		})
+	
+	(10)过滤数组： arr.filter(function(value,index,arr){return value>7;})
+		* 返回符合条件的新数组
+	(11) 循环数组，无返回值: arr.forEach(function(value,index,arr){})
+	
+	(12) 循环数组，有返回值: arr.map(function(value,index,arr){return value})
+		* 返回新数组，源数组不改变
+	(13)汇总：
+		arr.reduce(function(prev,value,index,arr){
+			return prev+value;
+		})
+		返回数组总所有元素相加之和
+	(14)数组转字符串:
+		* String(arr) : 用的是逗号
+		* arr.toString() :和上面一样
+		* arr.join(",") :这个可以指定分隔符
+		
+	(15)在数组开头插入元素: arr.unshift(value): 和arr.splice(0,0,value) 一样，但返回值不同
+		* arr.unshift(value)返回数组的长度
+		* arr.unshift(value)会改变原数组
+	
+	(16) 移除开头元素(开头出栈)： arr.shift() :修改原数组，返回被弹出的元素
+	
+	(17) arr.push(value): 在数组末尾追加元素 ，返回数组长度，(修改原数组)
+	(18) arr.pop() :数组末尾元素弹出 ，修改原数组
+
+### 字符串API：
+	(1)截取：str.slice(from[,end]) 或str.substring(start[,end]) 或str.substr(start[,length])
+		* slice和substring用户类似，只是slice支持负数，而substring的负数会被转换为0

@@ -1,0 +1,50 @@
+# 1. Stream 简介
+* java8中的Stream是对集合对象功能的增强
+* Stream API借助于同意新出现的Lambda表达式，极大的提高了编程效率和程序的可读性。
+* 提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势。
+* 使用fork/join并行方式拆分任务和加速处理过程 
+
+# 2. 流的构成
+ * 当我们使用一个流的时候，通常包括三个基本步骤：
+	1. 获取一个数据源
+	2. 数据转换
+	3. 执行操作获取想要的结果
+ * 每次转换原有的Stream对象不改变，返回一个新的Stream对象，这就允许对其操作可以像链条一样排列
+ * 生成Stream Source的方式:
+	1. 从Collection和数组
+		(1) Collection.stream()
+		(2) Collection.parallelStream()
+		(3) Arrays.stream(T array) 或者 Stream.of()
+	2. 从BufferReader
+		(1)java.io.BufferedReader.lines()
+	3. 静态工厂
+		(1) java.util.stream.IntStream.range()
+		(2) java.nio.Files.walk()
+	4. ...
+	
+# 3. 流的操作类型
+	Intermediate: 
+		* 一个流可以后面跟随零个或多个intermediate操作。
+		* 主要是用来打开流，做出某种程度的数据映射/过滤，然后返回新的流，交给下一个操作使用
+		* 这类操作都是惰性化的，就是说，仅仅调用到这类方法，并没有真正开始流的遍历
+		(1) 主要有:
+			map(mapToInt,flatMap等)、fliter、distinct、sorted、peek、limit、skip、parallel、sequential、unordered
+	Terminal: 
+		* 一个流只能有一个terminal操作。当这个操作执行后，流就被使用"光"了。无法再被操作。
+		* 所以这个操作一定是流的最后一个操作。
+		* Terminal操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个side effect.
+	    (1)主要有：
+			forEach、forEachOrdered、toArray、reduce、collect、min、max、count、anyMatch、allMatch、noneMatch、findFirst、findAny、iterator
+	short-circuiting:
+		* 对于一个intermediate操作，如果它接受一个无限大的Stream，但返回一个有限的新Stream
+		* 对于一个terminal操作，如果他接受的是一个无限大的Steam，但能在有限时间内计算出结果
+		
+# 4. 流的使用
+	map/flatMap:
+		* 把input Stream的每一个元素映射成output Stream的另外一个元素。
+		* 示例:
+			List<String> output=wordList.stream().map(String::toUpperCase).collect(Collectors.toList());
+	filter: 对原始 Stream 进行某项测试，通过测试的元素被留下来生成一个新 Stream。
+	
+		
+ 

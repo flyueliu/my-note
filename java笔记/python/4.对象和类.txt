@@ -1,0 +1,102 @@
+1. 使用class定义类：
+class Person():
+    def __init__(self,name):
+	    self.name=name
+
+	(1)__init__()是Python中一个特殊的函数名，用于根据类的定义创建实例对象。self参数指向了这个正在创建的对象本身
+
+2. 继承：
+class Car:
+    def exclaim(self):
+        print("This is a car!")
+
+
+class Yugo(Car):
+    def exclaim(self):
+        super().exclaim()
+        print("This is Yugo!")
+
+* 使用super().父类函数名()调用父类中该方法
+
+3. self：
+	car=Car()
+	car.exclaim()
+# python在背后做了以下两件事情：
+	(1) 查找car对象所属的类(Car)
+	(2) 把car对象作为self参数传给Car类所包含的exclaim方法
+	(3) 于是可以使用这种方法:` Car.exclaim(car) ` 效果完全一致
+
+4. 使用属性对特性(字段)进行访问和设置
+example：
+
+class Duck():
+    def __init__(self,input_name):
+	    self.hidden_name=input_name
+		
+	def get_name(self):
+	    return self.hidden_name
+	
+	def set_name(self,input_name):
+	    self.hidden_name=input_name
+	
+	name=property(get_name,set_name)
+	
+* property第一个参数是getter方法，第二个参数是setter方法。
+* 当访问对线name字段时，get_name()方法会被自动调用
+* 当对name赋值时，set_name方法会被调用
+* 还可以使用修饰符进行改造代码：
+
+class Duck():
+    def __init__(self,input_name):
+	    self.hidden_name=input_name
+	
+	@property
+	def name(self):
+	    return self.hidden_name
+		
+	@name.setter
+	def name(self,input_name):
+	    self.hidden_name=input_name
+
+(1) @property用于指示getter方法
+(2) @name.setter用于指示setter方法（必须在@property方法后面）
+
+5. 使用名称重整保护私有字段
+	使用两个下划线开头的字段(__)用来保护私有字段
+	
+6. 方法的类型：
+	以self问第一个参数的方法都是实例方法。
+	类方法:
+		* 使用@classmethod修饰
+		* 类方法的第一个参数是类本身。这个参数常被写作cls
+	
+	静态方法:
+		* 使用@staticmethod修饰
+		* 不需要self参数也不需要cls参数
+	
+example:
+class A():
+    count =0 
+	def __init__(self):
+	    A.count+=1
+	
+	def exclaim(self):
+	    print("I'm an A!")
+	
+	@classmethod
+	def kids(cls):
+	    print("A has",cls.count,"little objects")
+		
+7. 特殊方法(魔术方法)：
+	__init__: 根据类的定义以及传入的参数进行对象的创建和初始化
+	__eq__(self,word2):
+		self == other
+	
+	__str__(self): str(self)
+	__len__(self): len(self)
+		
+		    
+
+
+	
+    

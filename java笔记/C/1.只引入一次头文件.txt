@@ -1,0 +1,7 @@
+使用 :
+#ifndef X // X为标识符,保持唯一. 比如 #ifndef _INCLUDE_XXXXX_H_
+#define X
+
+// 这里是你的头文件
+
+#endif 

@@ -6,6 +6,77 @@ Class文件是一组以8位字节为基础单位的二进制流，各个数据�
 	
 2. 第5和第6个字节是次版本号，第7和第八是主版本号	
 
+3. access_flags：访问标志，用于表示某个类或者接口的访问权限及基础属性。
+	ACC_PUBLIC: 可以被包的类外访问
+	ACC_FINAL: 不允许有子类
+	ACC_SUPER：当用到invokespecial指令时，需要特殊处理的父类方法
+				目前java虚拟机的编译器都应当设置该标志。
+	ACC_INTERFACE: 标识定义的是接口而不是类
+	ACC_ABSTRACT: 不能被实例化
+	ACC_SYNTHETIC:标识并非JAVA源代码生成的代码
+	ACC_ANNOTATION: 注解类型
+	ACC_ENUM:枚举类型
+	
+
+4. 常量池(constant_pool):是一种表结构,它包含Class文件机构及其子结构中引用的所有字符串常量、类和接口名、字段名和其他常量。
+  Methodref: 类中方法的符号引用
+  Fieldref: 字段的符号引用
+  Class: 类或接口的符号引用
+  Utf8: utf-8编码的字符串
+  NameAndType: 字段或方法的部分符号引用
+ 
+示例(选取了其中部分):
+   #1 = Methodref          #11.#54        // java/lang/Object."<init>":()V
+   
+   #2 = Fieldref           #10.#55        // com/photovoltaic/model/test/TabTest.id:I
+  #10 = Class              #63            // com/photovoltaic/model/test/TabTest
+  #11 = Class              #64            // java/lang/Object
+  #12 = Utf8               id
+  #13 = Utf8               I
+  #23 = Utf8               <init>
+  #24 = Utf8               ()V
+  #54 = NameAndType        #23:#24        // "<init>":()V
+  #55 = NameAndType        #12:#13        // id:I
+  #63 = Utf8               com/photovoltaic/model/test/TabTest
+  #64 = Utf8               java/lang/Object
+   
+* Methodref引用了#11和#54：自身为方法
+	(1)查看#11为Class常量表，其中内容为#63,为字符串"com/photovoltaic/model/test/TabTest"
+	(2)查看#54，它引用的是#23和#24字符串，"<init>"为构造方法，()V表示无参数传入，返回值为Void.
+   由此可知#1 表示的就是父类Object的构造方法
+		类中定义的方法如果不被当前类引用(也就是在当前类中不被调用)，那么常量池中是不会有相应的CONSTANCT_NameAndType与之对应的（而父类Object的构造方法会在本类的构造方法中执行，所以有了这个符号引用）
+		
+* Fieldref:  该数据项表示对一个字段的符号引用，可以是对本类中字段的符合引用，也可以是对其他类中字段的符号引用。
+	(1)引用#10 表示类型为TabTest,??
+	(2)引用#55，NameAndType类型
+		
+* NameAndType：
+	#55 :表示字段的名称为id，类型为I，I代表的字段的描述符
+		和方法相同，只定义一个字段而不引用它，那么在常量池中也不会存在和该字段相对应的NameAndType项
+
+* Class : 是对类或者接口的符号引用，它描述的可以是当前类型的信息，也可以描述对当前类的引用，还可以描述对其他类的引用
+	也就是说:如果访问了一个类字段，或者调用了一个类的方法，对这些字段或方法的符号引用，必须包含他们所在类型的信息。
+	Class_info就是对字段或者方法符号引用中类型信息的描述.
+	Object对应的Class_info是:java/lang/Object
+	Object[]: [Ljava/lang/Object
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 2.类加载的时机
 	类从被加载到虚拟机内存中开始，到卸载出内存为止。

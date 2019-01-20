@@ -1,0 +1,14 @@
+(1)channel非线程安全
+(2)不推荐生产环境使用channel的isOpen()方法,因为它依赖于shutdownCause的存在,有可能会产生竞争。
+	* 在调用createXXX或者newXXX方法后,可以认为Connection或者channel已经处于开启状态。
+	* 如果处于关闭状态,那么程序会抛出一个ShutdownSignalException,只需要捕获该异常即可。
+```java
+	ConnectionFactory factory = new ConnectionFactory();
+	factory.setUsername(USERNAME);
+	factory.setPassword(PASSWORD);
+	factory.setVirtualHost(virtualHost) ;
+	factory.setHost(IP ADDRESS);
+	factory . setPort(PORT) ;
+	Connection conn = factory.newConnection();
+	
+```

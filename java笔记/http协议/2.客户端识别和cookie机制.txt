@@ -1,0 +1,10 @@
+承载用户相关信息的http头部:
+  首部名称     首部类型 				描述
+	From         请求				用户e-mail地址 
+  User-Agent     					用户浏览器软件
+  Referer							跳转页面
+  Authorization						用户名和密码
+  Client-IP							客户端IP
+  X-Forwarded-For 					客户端IP
+  Cookie							服务端产生的ID标签
+  

@@ -1,4 +1,4 @@
-﻿1.http://blog.csdn.net/henulwj/article/details/47061527
+1.http://blog.csdn.net/henulwj/article/details/47061527
 
 一、centos更新系统源
 	1.首先备份/etc/yum.repos.d/CentOS-Base.repo

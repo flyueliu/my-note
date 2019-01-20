@@ -14,4 +14,27 @@
 	  * 标记在方法上的注解，如果子类重写了该方法，注解是不会被继承的。加@Inherited也没用
 	  * 如果子类没有重写父类的方法，那么子类对象还是可以获取该注解的
 	  
- 	
+2. 获取注解的注解
+ 例如：	
+	```java
+	
+		@Target(ElementType.TYPE)
+		@Retention(RetentionPolicy.RUNTIME)
+		@Documented
+		@Inherited
+		@SpringBootConfiguration
+		@EnableAutoConfiguration
+		@ComponentScan(excludeFilters = {
+				@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+				@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+		public @interface SpringBootApplication {
+		}
+	```
+   ```java 
+		SpringBootApplication application = ActivemqUseApplication.class.getAnnotation(SpringBootApplication.class);
+		 // 获取注解对象的注解类型
+		 System.out.println(Arrays.toString(application.annotationType().getAnnotations()));
+		 // 而使用下面这种方法获取的是注解对象的代理，所以无法获取到被修饰的信息
+		 Annotation[] annotation= application.getClass().getAnnotations(); // 由于application为代理对象，所以getClass()获取不到接口的信息
+		  
+   ```   

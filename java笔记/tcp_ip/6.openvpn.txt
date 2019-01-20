@@ -1,0 +1,17 @@
+
+
+1. openvpn有dev tun和dev tap模式的区别:
+		cookbook的解释是：A TUN device is used mostly for VPN tunnels where only IP-traffic is used. A TAP device allows full Ethernet frames to be passed over the OpenVPN tunnel. hence providing support for non-ip based protocols such as IPX and AppleTalk.
+		简单的翻译一下：一个TUN设备大多时候，被用于基于IP协议的通讯。一个TAP设备允许完整的以太网帧通过Openvpn隧道，因此提供非ip协议的支持，比如IPX协议和AppleTalk协议。
+		再简单的说一下，如果在互联网上使用，那肯定是基于ip协议的，用tun没错，如果是在一个以太网内使用，那么tap可能是一个更好的选择。
+		
+2. 使用Udp还是tcp :		
+UDP OpenVPN Protocol
+	- Faster speeds - UDP is significantly faster than TCP. (更快的传输速度，udp明显快于tcp)
+	- Preferred connection for media streaming, VoIP and playing games online. (传输视频流，VoIP，在线游戏首选udp)
+	- Lower reliability – On rare occasions UDP can drop packets.(可靠性低,udp在少数场合下可能会丢包)
+
+TCP OpenVPN Protocol
+- Better reliability – TCP offers more stable connections as it guarantees delivery of packets(可靠性更好，tcp提供稳定的连接,因为tcp会保证传输的数据包)
+- Bypass Firewalls – TCP is rarely blocked since it runs on common ports. TCP VPNs can bypass even the strictest corporate/country firewalls.(通过防火墙，tcp运行在普通端口上时，很少被防火墙拦截，tcp的VPN甚至能通过公司/国家的防火墙)
+- Slower speeds – TCP features higher encryption methods that tend to slow transfer rates compared to UDP(更慢的传输速度，tcp需要更强的加密算法，以至于它的传输速度会比udp的慢)		

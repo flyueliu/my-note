@@ -1,0 +1,33 @@
+1. 模块和import语句
+	* 引用其他模块的代码时使用import语句，被引用模块中的代码和变量对该程序可见
+	* 模块是不带.py扩展的另一个Python文件的文件名
+	* import语句最简单的用法就是import模块。
+		# import report
+		# 这种我们导入了整个report模块，但是调用其中函数时，需要将report.作为函数的前缀
+	* from 模块 import 函数
+		# from report import choice
+		# 我们直接冲report中导入了函数choice.
+	* 如果被导入的代码被使用多次，可以考虑在函数外部导入，如果被导入的代码使用有限，那么在函数内部导入
+	* 使用别名导入模块: 
+		# import report as wr
+		# from report import choice as ch
+	* 模块的搜索路径：
+		import sys
+		for place in sys.path:
+		    print(place)
+		(1)如果空字符串是在 sys.path 的开始位置， Python 会先搜索当前目录： import report 会寻找文件 report.py。
+		(2)第一个匹配到的模块会先被使用。这就意味着如果当前目录有random模块，那么就不会导入标准库中的random模块了
+
+2. 包：
+	可以将多个模块组织成文件层次，称之为包
+	* __init__.py文件的作用：
+		(1) __init__.py文件第一个作用就是package的标识，如果没有这个文件，该目录不会被认为是package。
+		(2)模糊导入：
+			Python中的包和模块有两种导入方式：精确导入和模糊导入：
+			 精确导入：
+				from Root.Pack1 import Pack1Class
+				import Root.Pack1.Pack1Class
+			 模糊导入：
+				from Root.Pack1 impot * 
+			模糊导入中的*中的模块是由__all__来定义的，__init__.py的另外一个作用就是定义package中的__all__，用来模糊导入，如__init__.py：
+	

@@ -1,0 +1,39 @@
+1. 区分None 和False：
+	使用is操作符： if thing is None: 
+	
+2. 函数参数:
+	* 位置参数：传入的参数的值是按照顺序依次复制过去的。
+	* 关键字参数： 调用参数时可以指定对应参数的名字，设置可以采用与函数定义不同的顺序调用
+	* 指定默认值参数: 当调用方法没有提供对应的参数值时，可以指定默认的参数值。
+		def menu(wine,entree,dessert='pudding')s
+		注意：
+			* 默认参数值在函数被定义时已经计算出来，而不是在程序运行时。
+			* 所以把可变的数据类型(例如列表和字典)当作默认值时,每次操作的是同一个对象
+			example:
+				def buggy(arg, result=[]):
+					result.append(arg)
+					print(result)
+				buggy('a') ## ['a']
+				buggy('b') ## ['a','b']
+	
+	* 使用*收集位置参数:(可变参数) 收集剩下的未知参数
+		def print_args(*args):
+		    print("Prositional argsment tuple:",args)
+		print_args(3,2,1,'wait!','uh...') #Positional argument tuple: (3, 2, 1, 'wait!', 'uh...')
+	
+	* 使用**收集关键字参数:
+		def func(a, b, *args, **kwargs):
+			print(args)
+			print(kwargs)
+		func('a', 'b', 'c', 'd', e='e', f='f')	
+		# args收集剩下的位置参数，而具有关键字的参数被kwargs收集
+		# func('a', 'b', 'c', 'd', e='e', f='f',a='aa') #错误，不能重复复制
+		# func(a='a',  'b', 'c', 'd',f='f' ) #错误，所有位置参数必须在关键字参数之前
+		
+		
+
+		
+		
+				
+			
+ 
