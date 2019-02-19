@@ -20,3 +20,6 @@ redis hash 命令：
 	hdel myhash field1; //删除
 	hexists myhash field1; //查看hash表中指定字段是否存在
 	
+	
+	
+	

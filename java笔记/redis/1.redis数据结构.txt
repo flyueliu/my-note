@@ -1,0 +1,29 @@
+redis共有5种数据结构
+
+1. String
+  * 可以是字符串、整数或者浮点数
+  * 对整个字符串或者字符串中一部分执行操作
+	- append 操作: append key value : 如果key存在,将value追加至key末尾,不存在则set
+	- getrange key start end: 返回key中字符串的子字符串:截取返回由start和end决定(-1表示最后一个,-2倒数第二个)
+	- getset key value : 将给定key的值设置为value,并返回原来的旧值,无旧值返回null,key不是字符串返回错误
+	- setex key seconds value : 设置key的生存时间seconds(类似两个命令:set key value + expire key seconds, 但这个是原子性操作)
+	
+  * 对整个整数或者浮点执行自增或者自减操作
+	- incr key: 将key中存储的数字增一
+	- incr key increment : 将key存储的值加增量increment
+	
+  - 字符串命令:
+    - get
+	- set 
+	- del 删除指定key中的值(这个命令可以用于所有类型)
+	
+	
+2. list : 一个链表,链表上每个节点都保存一个字符串
+	- 从链表两端推入或者弹出元素
+	   -  rpush :列表右侧推入
+	   - 
+	- 根据偏移量对链表进行修剪
+	- 读取单个或者多个元素
+	- 根据值查找或者移除元素
+	
+ 
