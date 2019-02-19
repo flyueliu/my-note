@@ -1,0 +1,9 @@
+1. 使用方括号
+```
+  number1=5
+  number2=6
+  sum=$[$number1+ $number2 ]
+  
+```
+
+2. 
